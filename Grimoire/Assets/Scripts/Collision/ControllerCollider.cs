@@ -59,7 +59,6 @@ public class CollisionState
 	public bool IsColliding() 		{ return _collisionRight || _collisionLeft || _collisionUp || _collisionDown; }
 }
 
-[RequireComponent(typeof(BoxCollider2D),typeof(Rigidbody2D))]
 public class ControllerCollider : MonoBehaviour
 {
 	#region Internal Types
@@ -77,7 +76,7 @@ public class ControllerCollider : MonoBehaviour
 	private float m_skinWidth = 0.02f;
 	
 	public LayerMask m_platformMask 		= 0; //The mask of the platforms that we're going to collide with, used by our Rays.
-	public LayerMask m_oneWayPlatformMask   	= 0; //The mask of the platforms that we're going to collide with other than the bottom.
+	public LayerMask m_oneWayPlatformMask   = 0; //The mask of the platforms that we're going to collide with other than the bottom.
 		
 	public int _horizontalRayCount 			= 6;
 	public int _verticalRayCount 			= 4;
@@ -85,7 +84,7 @@ public class ControllerCollider : MonoBehaviour
 	
 	private CollisionState 		m_ColliderState;  	//Instance of our CollisionState defined above
 	private BoxCollider2D 		m_Collider;      		//Use the Box Collider to find the corner of our body and cast rays.
-	private Vector3     		m_Velocity;		//Internal Velocity variable that gets altered based on collisions and eventually returned
+	private Vector2 			m_Velocity;
 	
 	#endregion
 	
@@ -97,14 +96,13 @@ public class ControllerCollider : MonoBehaviour
 	#endregion
 
 		//Public Accessors
-	public CollisionState CState() 	{ return m_ColliderState; 		}
-	public Vector3        Velocity() 	{ return m_Velocity; 	   		}
-	public bool 	isGrounded() 	{ return m_ColliderState.Down; 		}
+	public CollisionState CState() 		{ return m_ColliderState; 		}
+	public bool 	isGrounded() 		{ return m_ColliderState.DownLast; 	}
 	
 	void Awake()
 	{
-		m_platformMask           |= m_oneWayPlatformMask;
-		m_Collider 		= GetComponent<BoxCollider2D>();
+		m_platformMask     |= m_oneWayPlatformMask;
+		m_Collider 			= GetComponent<BoxCollider2D>();
 		m_ColliderState 	= new CollisionState();
 		CalculateDistanceBetweenRays();
 	}
@@ -112,37 +110,37 @@ public class ControllerCollider : MonoBehaviour
 	/// <summary>
 	/// Checks and changes the future velocity in accordance to whether or not it has collided with anything.
 	/// <param name="_nextFrameDelta">The velocity of the object for the next frame</param>
-	/// </summary>
-	public void Move(Vector2 _nextFrameDelta)
+	/// </summary>	
+	public Vector2 Move(Vector2 _nextFrameDelta)
 	{
 		m_ColliderState.SetLastFrameValues();
 		m_ColliderState.ResetValues();
-
+		
 		Vector2 _desiredPosition = (Vector2)transform.position + _nextFrameDelta;
-
+		Vector2 _temp = _nextFrameDelta;
 		SetRayOrigins(_desiredPosition);
 		
 		if(_nextFrameDelta.y != 0)
 		{
-			VerticalMovement(ref _nextFrameDelta);
+			VerticalMovement(ref _temp);
 		}
-
+		
 		if(_nextFrameDelta.x != 0)
 		{
-			HorizontalMovement(ref _nextFrameDelta);
+			HorizontalMovement(ref _temp);
 		}
-
-
-		//After the alterations to the velocity in the two methods above, translate the object
-		transform.Translate(_nextFrameDelta, Space.World);
-
+		
+		
 		//Alter the velocity in accordance to time
 		if(Time.deltaTime > 0)
-			m_Velocity = _nextFrameDelta / Time.deltaTime;
-
+			m_Velocity = _temp;
+			
+		
 		//Check if you touched the ground on this frame
 		if(!m_ColliderState.GroundedLastFrame && m_ColliderState.Down)
 			m_ColliderState.GroundedThisFrame = true;
+			
+		return m_Velocity;
 	}
 	
 	/// <summary>
@@ -178,7 +176,6 @@ public class ControllerCollider : MonoBehaviour
 				{
 					_nextFrameDelta.x -= m_skinWidth;
 					m_ColliderState.Right = true;
-					Debug.Log("Right");
 				}
 				else
 				{
@@ -204,18 +201,18 @@ public class ControllerCollider : MonoBehaviour
 		Vector2 _rayDirection 	= _goingUp ? Vector2.up : -Vector2.up;
 		Vector2 _rayOrigin 		= _goingUp ? _raycastOrigins._topLeft : _raycastOrigins._bottomLeft;
 		Vector2 _ray;
-
 		//Offset the origin by the velocity on the X axis to ensure that the rays do not fall behind.
 		_rayOrigin.x += _nextFrameDelta.x;
 
 		LayerMask mask = m_platformMask;
+		
 		if(_goingUp && !m_ColliderState.GroundedLastFrame)
 			mask &= ~m_oneWayPlatformMask;
 
 		for(int i = 0; i < _verticalRayCount; i++)
 		{
 			_ray 		= new Vector2(_rayOrigin.x + i * _vertDistanceBetweenRays, _rayOrigin.y);
-			_raycastHit = Physics2D.Raycast(_ray, _rayDirection, _rayDistance, mask);
+			_raycastHit = Physics2D.Raycast(_ray, _rayDirection, _rayDistance * 3.0f, mask);
 
 			Debug.DrawRay(_ray, _rayDirection * _rayDistance, Color.red);
 

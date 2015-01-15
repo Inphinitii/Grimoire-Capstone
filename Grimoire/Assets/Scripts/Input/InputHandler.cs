@@ -36,7 +36,6 @@ public class InputHandler : MonoBehaviour {
 			m_playerNumber 	= s_playerNumber;
 			m_active 		= true;
 			s_playerNumber += 1; 
-			Debug.Log (s_playerNumber);
 			
 			m_freezeMovement 	= false;
 			m_freezeKeypress	= false;

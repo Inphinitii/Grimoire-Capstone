@@ -18,7 +18,6 @@ using System.Collections.Generic;
  * We're going to need a separate controller per character.
  =========================================================*/
 
-[RequireComponent(typeof(ComponentCollection))]
 public class AnimationController : MonoBehaviour
 {
 	

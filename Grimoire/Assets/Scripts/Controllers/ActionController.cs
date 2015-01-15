@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using ComponentLocation = ComponentCollection.ComponentLocation; //C# Hack of a TypeDef
 
 /*=================================================================================================
  * Author: Tyler Remazki
@@ -13,17 +12,17 @@ using ComponentLocation = ComponentCollection.ComponentLocation; //C# Hack of a 
  =================================================================================================*/
 
 [RequireComponent(typeof(InputHandler))]
-[RequireComponent(typeof(ComponentCollection))]
 public class ActionController : MonoBehaviour
 {
 	InputHandler 			m_inputHandler;
-	ComponentCollection 	m_componentCollection;
 	float 					m_actorCooldown;
-
+	
+	//TODO 
+	//Associate the player-equipped Grimoire with the ActionController
+	
 	void Start()
 	{
-		m_inputHandler 				= GetComponent<InputHandler>();
-		m_componentCollection		= GetComponent<ComponentCollection>();
+		m_inputHandler 				= GetComponent<InputHandler>();;
 		m_actorCooldown 			= 0.0f;
 	}
 
@@ -43,29 +42,24 @@ public class ActionController : MonoBehaviour
 			if(m_inputHandler.FreezeMovement)
 				m_inputHandler.FreezeMovement = false;
 				
+			//TODO 
+			//Use the Grimoire pages under these buttons.
 			if(m_inputHandler.Attack())
 			{
-				GetActionProperties(m_componentCollection.GetComponent(ComponentLocation.HANDS).Action); // Cooldown
-				m_componentCollection.GetComponent(ComponentLocation.HANDS).OnUse(); // Use Move
 			}
 			else if(m_inputHandler.Defend())
 			{
-				GetActionProperties(m_componentCollection.GetComponent(ComponentLocation.BODY).Action); // Cooldown
-				m_componentCollection.GetComponent(ComponentLocation.BODY).OnUse();
 			}
 			else if(m_inputHandler.Utility())
 			{
-				GetActionProperties(m_componentCollection.GetComponent(ComponentLocation.HEAD).Action); // Cooldown
-				m_componentCollection.GetComponent(ComponentLocation.HEAD).OnUse();
 			}
 			else if(m_inputHandler.Movement())
 			{
-				GetActionProperties(m_componentCollection.GetComponent(ComponentLocation.LEGS).Action); // Cooldown
-				m_componentCollection.GetComponent(ComponentLocation.LEGS).OnUse();
 			}
 		}
 	}
 	
+	/*
 	void GetActionProperties(AbstractAction _action)
 	{
 		bool _keys, _movement;
@@ -75,5 +69,6 @@ public class ActionController : MonoBehaviour
 		m_inputHandler.FreezeMovement 	= _movement;
 		m_actorCooldown 		= _action.ActorCooldown();
 	}	
+	*/
 
 }

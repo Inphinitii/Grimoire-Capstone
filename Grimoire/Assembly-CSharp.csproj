@@ -51,7 +51,10 @@
      <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
+     <Compile Include="Assets\Scripts\Player\Actor.cs" />
+     <Compile Include="Assets\Scripts\Player\Properties.cs" />
      <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
      <None Include="Assets\Resources\Fonts\Runic Font\MDRS\INFO.txt" />
      <None Include="Assets\Resources\Fonts\Runic Font\AngloSaxon\Runes_ReadMe.txt" />
