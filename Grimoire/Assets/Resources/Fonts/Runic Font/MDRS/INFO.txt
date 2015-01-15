@@ -1,0 +1,8 @@
+MDRS-FD01 [TRUE TYPE FONT]
+v1.0
+
+Extract / Drag this font ( mdrsfd01.ttf ) to your WINDOWS > FONTS folder 
+
+Autor:
+mailbox@zhimetcardozo.com
+http://www.zhimetcardozo.com
