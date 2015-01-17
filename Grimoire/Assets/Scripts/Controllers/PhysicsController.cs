@@ -15,6 +15,7 @@ public class PhysicsController : MonoBehaviour {
 	
 	//Private Variables
 	private Vector2 m_velocity;
+    private Vector2 m_finalVelocity;
 	private Vector2 m_acceleration;
 	private Vector2 m_force;
 	
@@ -30,19 +31,18 @@ public class PhysicsController : MonoBehaviour {
 	
 	public void Step()
 	{
-		//Reset the acceleration to zero.
-		m_force = Vector2.zero;	
-		
 		if(p_applyGravity)
-			m_acceleration.y -= p_gravitationalForce;
+            m_force.y -= p_gravitationalForce;
 		else
-			m_acceleration.y = 0.0f;
+            m_acceleration.y = 0.0f;
 		
-		m_force = p_mass * m_acceleration;
-		m_velocity += m_force * Time.deltaTime * Time.deltaTime;
-		
-		//transform.position += (Vector3)(m_velocity * Time.deltaTime + (0.5f * m_acceleration) * Time.deltaTime * Time.deltaTime);
-		transform.Translate(m_velocity, Space.World);
+		m_acceleration += m_force / p_mass;
+        m_velocity = m_acceleration * Time.deltaTime;
+        transform.position = transform.position + (Vector3)m_velocity * Time.deltaTime;
+
+        m_force = Vector2.zero;
+
+        
 		
 		//TODO
 		//Take into account the properties of the actor

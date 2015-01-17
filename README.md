@@ -1,8 +1,8 @@
 Grimoire
 =================
 
-Grimoire is a game currently in development by Tyler Remazki and Greg Vincze as 
-their capstone for their final year at Humber College under the Game Programming program. 
+Grimoire is a game currently in development by Tyler Remazki as 
+the capstone for his final year at Humber College under the Game Programming program. 
 
 
 ##Description

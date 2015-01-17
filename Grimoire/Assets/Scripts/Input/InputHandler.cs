@@ -18,7 +18,7 @@ public class InputHandler : MonoBehaviour {
 	
 	//Controller Information
 	private byte 	m_playerNumber = 1;
-	private bool	m_freezeMovement, m_freezeKeypress, m_active;
+    private bool    m_freezeMovement, m_freezeKeypress, m_active, m_dash;
 	
 	#region Controller Inputs	
 	private bool		m_attackButton,
@@ -65,6 +65,7 @@ public class InputHandler : MonoBehaviour {
 	public bool FreezeKeypress { get { return m_freezeKeypress; } set { m_freezeKeypress = value; }}
 	public bool FreezeMovement { get { return m_freezeMovement; } set { m_freezeMovement = value; }}
 	public bool FreezeAll 	   { get { return m_active;         } set { m_active = value;         }}
+    public bool DashDown       { get { return m_dash; }           set { m_dash = value;           }}
 
 	private void ProcessKeyboardInput()
 	{
@@ -80,8 +81,7 @@ public class InputHandler : MonoBehaviour {
 			if(Input.GetKey(KeyCode.UpArrow))
 				m_leftStick.y = 1;
 			if(Input.GetKey(KeyCode.DownArrow))
-				m_leftStick.y = -1;
-				
+				m_leftStick.y = -1;			
 		}
 		else
 			m_leftStick = Vector2.zero;
@@ -89,7 +89,7 @@ public class InputHandler : MonoBehaviour {
 		//-----------KEYBOARD ACTION KEYS ---------------//
 		if(!m_freezeKeypress)
 		{
-			m_attackButton 		= Input.GetKeyDown(KeyCode.X);
+			m_dash 		        = Input.GetKey(KeyCode.X);
 			m_utilityButton		= Input.GetKeyDown(KeyCode.A);
 			m_defendButton 		= Input.GetKeyDown(KeyCode.S);
 			m_movementButton 	= Input.GetKeyDown(KeyCode.Z);
