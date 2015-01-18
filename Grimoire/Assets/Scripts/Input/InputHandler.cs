@@ -14,11 +14,21 @@ using GamepadInput;
  =================================================================================*/
 
 public class InputHandler : MonoBehaviour {
+
+    public struct Button
+    {
+        public string ButtonName;
+        public bool Down,
+                    Up,
+                    Held;
+    }
 	static byte s_playerNumber;
 	
 	//Controller Information
 	private byte 	m_playerNumber = 1;
-    private bool    m_freezeMovement, m_freezeKeypress, m_active, m_dash;
+    private bool    m_freezeMovement, m_freezeKeypress, m_active, m_dashHeld, m_dashPressed;
+
+    private Button JumpButton;
 	
 	#region Controller Inputs	
 	private bool		m_attackButton,
@@ -65,7 +75,8 @@ public class InputHandler : MonoBehaviour {
 	public bool FreezeKeypress { get { return m_freezeKeypress; } set { m_freezeKeypress = value; }}
 	public bool FreezeMovement { get { return m_freezeMovement; } set { m_freezeMovement = value; }}
 	public bool FreezeAll 	   { get { return m_active;         } set { m_active = value;         }}
-    public bool DashDown       { get { return m_dash; }           set { m_dash = value;           }}
+    public Button Jump() { return JumpButton; }
+
 
 	private void ProcessKeyboardInput()
 	{
@@ -89,7 +100,14 @@ public class InputHandler : MonoBehaviour {
 		//-----------KEYBOARD ACTION KEYS ---------------//
 		if(!m_freezeKeypress)
 		{
-			m_dash 		        = Input.GetKey(KeyCode.X);
+            //Jumping
+            JumpButton.Held = Input.GetKey(KeyCode.X);
+            JumpButton.Down = Input.GetKeyDown(KeyCode.X);
+            JumpButton.Up = Input.GetKeyUp(KeyCode.X);
+
+
+
+
 			m_utilityButton		= Input.GetKeyDown(KeyCode.A);
 			m_defendButton 		= Input.GetKeyDown(KeyCode.S);
 			m_movementButton 	= Input.GetKeyDown(KeyCode.Z);
