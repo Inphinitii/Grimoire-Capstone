@@ -41,6 +41,8 @@ public class MovementController : MonoBehaviour
     private float skinWidth = 0.001f;
     private float jumpTimer = 0.0f;
 
+    private LayerMask mCurrentMask;
+
     //TODO DOUBLE JUMPING
     //TODO WALL JUMPING
     //TODO WALL SLIDING
@@ -73,7 +75,7 @@ public class MovementController : MonoBehaviour
             ApplyTurningSpeed(ref turningMultiplier);
         
             // -- Jumping -- //
-            if(jumpCount <= p_totalJumps && jumpTimer < p_jumpCooldown)
+            //if(jumpCount <= p_totalJumps && jumpTimer < p_jumpCooldown)
             ApplyJump(p_jumpAccel);
 
             if (jumpTimer > 0.0f)
@@ -92,14 +94,14 @@ public class MovementController : MonoBehaviour
 
 	void ApplyJump(float _forceModifier)
 	{
-        if(m_inputHandler.Jump().Down )
-        {
-            jumpCount++;
-            jumpTimer = p_jumpCooldown;
-            Debug.Log("Pressed");
-        }
+        //if(m_inputHandler.Jump().Down )
+        //{
+        //    jumpCount++;
+        //    jumpTimer = p_jumpCooldown;
+        //    Debug.Log("Pressed");
+        //}
 
-        if (m_inputHandler.Jump().Held)
+        if (GroundCheck() && m_inputHandler.Jump().Held)
         {
             m_tempVel.y -= _forceModifier * -m_physicsController.p_gravitationalForce;
         }
@@ -115,31 +117,56 @@ public class MovementController : MonoBehaviour
         if (signLastFrame != sign && sign != 0)
         {
             _turningSpeed = turningSpeedType * sign;
+           // m_physicsController.Acceleration = new Vector2(m_physicsController.Velocity.x * _turningSpeed, m_physicsController.Velocity.y);
             m_tempVel.x *= _turningSpeed;
         }
     }
     
     bool GroundCheck()
     {
+        //Determine whether we're moving down or up.
+        bool goingUp = m_physicsController.Velocity.y > 0;
+        Vector2 rayDirection = goingUp ? Vector2.up : -Vector2.up;
+
+        //Ray starting position
         Vector2 start = transform.position;
         start.y = (transform.position.y - transform.localScale.y / 2f + skinWidth);
 
         float rayDistance = Mathf.Abs(m_physicsController.Velocity.y * Time.deltaTime);
         Debug.DrawRay(start, rayDistance * -Vector2.up, Color.red);
 
-        if (Physics2D.Raycast(start, -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
-            Physics2D.Raycast(new Vector2(start.x + transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
-            Physics2D.Raycast(new Vector2(start.x - transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null)
+        if (goingUp)
+            mCurrentMask &= ~PlatformLayerMask;
+        else
         {
-           jumpCount = 0;
-           jumpTimer = 0.0f;
-           return true;
-           
+            mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform"));
+        }
+
+        if(Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask).collider != null)
+        {
+            return true;
         }
         else
         {
-           return false;
+            return false;
         }
+
+       
+
+        //if (Physics2D.Raycast(start, -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
+        //    Physics2D.Raycast(new Vector2(start.x + transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
+        //    Physics2D.Raycast(new Vector2(start.x - transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null)
+        //{
+        //   jumpCount = 0;
+        //   jumpTimer = 0.0f;
+        //   return true;
+           
+        //}
+        //else
+        //{
+
+        //   return false;
+        //}
     }
 
     void OrientationCheck()
