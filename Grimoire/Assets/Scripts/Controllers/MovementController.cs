@@ -47,6 +47,9 @@ public class MovementController : MonoBehaviour
     //TODO WALL JUMPING
     //TODO WALL SLIDING
 
+    //ISSUE SOMETIMES FALL THROUGH THIN PLATFORM.
+    //ISSUE X POSITION DOES NOT HALT 
+
 	void Start()
 	{
 		m_actor 		 			= GetComponent<Actor>();
@@ -136,11 +139,9 @@ public class MovementController : MonoBehaviour
         Debug.DrawRay(start, rayDistance * -Vector2.up, Color.red);
 
         if (goingUp)
-            mCurrentMask &= ~PlatformLayerMask;
+            mCurrentMask &= ~PlatformLayerMask; //Ignore the Platform Layer with the ray cast
         else
-        {
-            mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform"));
-        }
+            mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform")); //Include both the floor and platform layer
 
         if(Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask).collider != null)
         {
@@ -150,23 +151,6 @@ public class MovementController : MonoBehaviour
         {
             return false;
         }
-
-       
-
-        //if (Physics2D.Raycast(start, -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
-        //    Physics2D.Raycast(new Vector2(start.x + transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null ||
-        //    Physics2D.Raycast(new Vector2(start.x - transform.localScale.x / 2, start.y), -Vector2.up, rayDistance, GroundLayerMask).collider != null)
-        //{
-        //   jumpCount = 0;
-        //   jumpTimer = 0.0f;
-        //   return true;
-           
-        //}
-        //else
-        //{
-
-        //   return false;
-        //}
     }
 
     void OrientationCheck()
