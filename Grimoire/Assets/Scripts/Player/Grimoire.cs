@@ -4,12 +4,14 @@ using System.Collections;
 public class Grimoire : MonoBehaviour {
 
     Page[] mGrimoirePages;
+    Page   mSelectedPage;
     int    mPageAmount;
 
 	void Start () 
     {
         mGrimoirePages = new Page[3];
         mPageAmount = 0;
+        mSelectedPage = null;
 	}
 
     public void AddPage(Page _page)

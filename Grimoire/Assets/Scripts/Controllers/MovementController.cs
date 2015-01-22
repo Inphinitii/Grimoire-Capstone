@@ -42,19 +42,21 @@ public class MovementController : MonoBehaviour
     private float jumpTimer = 0.0f;
 
     private LayerMask mCurrentMask;
+    private LayerMask mCurrentlyHitting;
 
     //TODO DOUBLE JUMPING
     //TODO WALL JUMPING
     //TODO WALL SLIDING
+    //TODO FALLING THROUGH PLATFORMS
 
     //ISSUE SOMETIMES FALL THROUGH THIN PLATFORM.
     //ISSUE X POSITION DOES NOT HALT 
 
 	void Start()
 	{
-		m_actor 		 			= GetComponent<Actor>();
+		m_actor 		 			        = GetComponent<Actor>();
 		m_inputHandler 	 			= GetComponent<InputHandler>();
-		m_physicsController			= GetComponent<PhysicsController>();
+		m_physicsController		= GetComponent<PhysicsController>();
 	}
 
 	void Update()
@@ -64,9 +66,9 @@ public class MovementController : MonoBehaviour
             turningMultiplier   = 1.0f;
 		    
             // -- Ground Check Determinants -- //
-            m_physicsController.p_applyGravity  = !GroundCheck();
-            turningSpeedType                    = GroundCheck() ? p_groundTurningConstant : p_airTurningConstant;
-            float _movementSpeedType            = GroundCheck() ? p_groundAccel : p_airAccel;
+            m_physicsController.p_applyGravity    = !GroundCheck();
+            turningSpeedType                                = GroundCheck() ? p_groundTurningConstant : p_airTurningConstant;
+            float _movementSpeedType                = GroundCheck() ? p_groundAccel : p_airAccel;
 
 			// -- Scale Flipping -- //
             OrientationCheck();
@@ -88,40 +90,28 @@ public class MovementController : MonoBehaviour
             m_tempVel.x += (m_leftStickInput.x * _movementSpeedType);
             m_tempVel.y -= m_leftStickInput.y < 0 && !GroundCheck() ?  p_fastFallRate : 0.0f; // Fast Falling
 
-            // -- Update Forces and Step through Phyics -- //
-            m_physicsController.Forces = m_tempVel;
+            // -- Update Forces and Step through Physics -- //
+            m_physicsController.AddToVelocity(m_tempVel);
 			m_physicsController.Step();
 
             signLastFrame = sign;
 	}
 
-	void ApplyJump(float _forceModifier)
-	{
-        //if(m_inputHandler.Jump().Down )
-        //{
-        //    jumpCount++;
-        //    jumpTimer = p_jumpCooldown;
-        //    Debug.Log("Pressed");
-        //}
-
+    void ApplyJump(float _forceModifier)
+    {
         if (GroundCheck() && m_inputHandler.Jump().Held)
         {
-            m_tempVel.y -= _forceModifier * -m_physicsController.p_gravitationalForce;
+            m_physicsController.p_applyGravity = true;
+            m_tempVel.y += _forceModifier * 2.0f;
         }
-
-
-        if (m_physicsController.Velocity.y > 0 && m_inputHandler.Jump().Up)
-            m_tempVel.y += 2.0f * -m_physicsController.p_gravitationalForce;
-	}
+    }
 
     void ApplyTurningSpeed(ref float _turningSpeed)
     {
-        //Not working correctly. Acceleration is being capped and preventing the turn from happening and X rate
         if (signLastFrame != sign && sign != 0)
         {
             _turningSpeed = turningSpeedType * sign;
-           // m_physicsController.Acceleration = new Vector2(m_physicsController.Velocity.x * _turningSpeed, m_physicsController.Velocity.y);
-            m_tempVel.x *= _turningSpeed;
+            m_physicsController.AddToVelocity(new Vector2(m_physicsController.Velocity.x * _turningSpeed, 0.0f));
         }
     }
     
@@ -133,10 +123,10 @@ public class MovementController : MonoBehaviour
 
         //Ray starting position
         Vector2 start = transform.position;
-        start.y = (transform.position.y - transform.localScale.y / 2f + skinWidth);
+        start.y = (transform.position.y+ skinWidth);
 
         float rayDistance = Mathf.Abs(m_physicsController.Velocity.y * Time.deltaTime);
-        Debug.DrawRay(start, rayDistance * -Vector2.up, Color.red);
+        Debug.DrawRay(start, rayDistance * rayDirection, Color.red);
 
         if (goingUp)
             mCurrentMask &= ~PlatformLayerMask; //Ignore the Platform Layer with the ray cast
@@ -145,6 +135,7 @@ public class MovementController : MonoBehaviour
 
         if(Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask).collider != null)
         {
+            //Find what object we're on. If it's a platform, let our character move through it if they wish. 
             return true;
         }
         else
@@ -158,24 +149,34 @@ public class MovementController : MonoBehaviour
         if (m_leftStickInput.x > 0.0f) 
 		{
             sign = 1;
-			if (transform.localScale.x < 0.0f)
-					transform.localScale = new Vector3 (-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+			if (transform.localScale.z < 0.0f)
+					transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
 		} 
 		else if (m_leftStickInput.x < 0.0f) 
 		{
             sign = -1;
-			if (transform.localScale.x > 0.0f)
-					transform.localScale = new Vector3 (-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+			if (transform.localScale.z > 0.0f)
+					transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
 		}
+        else
+        {
+            sign = signLastFrame;
+            m_physicsController.Velocity = new Vector2(0.0f, m_physicsController.Velocity.y);
+        }
     }
 
     void CapAcceleration()
     {
         float value = GroundCheck() ? p_maxGroundAccel : p_maxAirAccel;
-        if (m_physicsController.Acceleration.x > value)
-            m_physicsController.Acceleration = new Vector2(value, m_physicsController.Acceleration.y);
-        if (m_physicsController.Acceleration.x < -value)
-            m_physicsController.Acceleration = new Vector2(-value, m_physicsController.Acceleration.y);
+        if (m_physicsController.Velocity.x > value)
+            m_physicsController.Velocity = new Vector2(value, m_physicsController.Velocity.y);
+        if (m_physicsController.Velocity.x < -value)
+            m_physicsController.Velocity = new Vector2(-value, m_physicsController.Velocity.y);
+    }
+    
+    void OnTriggerEnter2D(Collider2D _collision)
+    {
+        Debug.Log("Collision");
     }
 	
 }

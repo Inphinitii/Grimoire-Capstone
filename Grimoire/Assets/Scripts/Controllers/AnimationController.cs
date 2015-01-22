@@ -20,5 +20,41 @@ using System.Collections.Generic;
 
 public class AnimationController : MonoBehaviour
 {
-	
+    Animator m_Animator;
+    PhysicsController m_physicsController;
+
+    void Start()
+    {
+        m_Animator = GetComponent<Animator>();
+        m_physicsController = GetComponent<PhysicsController>();
+    }
+
+    void Update()
+    {
+        WalkingAnimations();
+        JumpingAnimations();
+    }
+
+    void WalkingAnimations()
+    {
+        m_Animator.SetFloat("MovementSpeed", Mathf.Abs(m_physicsController.Velocity.x));
+    }
+
+    void JumpingAnimations()
+    {
+        if (m_physicsController.Velocity.y > 0)
+        {
+            m_Animator.SetBool("Jumping", true);
+        }
+        else if (m_physicsController.Velocity.y < 0)
+        {
+            m_Animator.SetBool("Jumping", false);
+            m_Animator.SetBool("Falling", true);
+        }
+        else if (m_physicsController.Velocity.y == 0)
+            m_Animator.SetBool("Falling", false);
+
+
+    }
+
 }

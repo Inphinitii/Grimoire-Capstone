@@ -1,0 +1,870 @@
+fileFormatVersion: 2
+guid: 9265063d5e778d04da87253cec0745f6
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BottomRightLeg.r
+    100004: BottomRightLeg.r.001
+    100006: BottomRightLeg.r.002
+    100008: BottomRightLeg.r.003
+    100010: Chest
+    100012: Cylinder
+    100014: foot.r
+    100016: foot.r.001
+    100018: Hand.L
+    100020: Hand.L.001.R
+    100022: Head
+    100024: LeftArmPole
+    100026: LeftLegPole
+    100028: LowerArm.L
+    100030: LowerArm.L.001
+    100032: LowerArm.L.001.R
+    100034: LowerArm.L.001.R.001
+    100036: Neck
+    100038: Plane
+    100040: //RootNode
+    100042: RightArmPole
+    100044: RightLeg.r
+    100046: RightLeg.r.001
+    100048: RightLegPole
+    100050: Stomach
+    100052: UpperArm.L
+    100054: UpperArm.L.001.R
+    400000: Armature
+    400002: BottomRightLeg.r
+    400004: BottomRightLeg.r.001
+    400006: BottomRightLeg.r.002
+    400008: BottomRightLeg.r.003
+    400010: Chest
+    400012: Cylinder
+    400014: foot.r
+    400016: foot.r.001
+    400018: Hand.L
+    400020: Hand.L.001.R
+    400022: Head
+    400024: LeftArmPole
+    400026: LeftLegPole
+    400028: LowerArm.L
+    400030: LowerArm.L.001
+    400032: LowerArm.L.001.R
+    400034: LowerArm.L.001.R.001
+    400036: Neck
+    400038: Plane
+    400040: //RootNode
+    400042: RightArmPole
+    400044: RightLeg.r
+    400046: RightLeg.r.001
+    400048: RightLegPole
+    400050: Stomach
+    400052: UpperArm.L
+    400054: UpperArm.L.001.R
+    2300000: Plane
+    3300000: Plane
+    4300000: Cylinder
+    4300002: Plane
+    6400000: Plane
+    7400000: Armature|ArmatureAction
+    7400002: Armature|CameraAction
+    7400004: Armature|Idle
+    7400006: Armature|IdleAnimation
+    7400008: Armature|PoseLib
+    7400010: Cylinder|CameraAction
+    7400012: Cylinder|Idle
+    7400014: Plane|CameraAction
+    7400016: Plane|Idle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Cylinder
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|ArmatureAction
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|CameraAction
+      takeName: Armature|CameraAction
+      firstFrame: 0
+      lastFrame: 18
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|Idle
+      takeName: Armature|Idle
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|IdleAnimation
+      takeName: Armature|IdleAnimation
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|PoseLib
+      takeName: Armature|PoseLib
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Cylinder|CameraAction
+      takeName: Cylinder|CameraAction
+      firstFrame: 0
+      lastFrame: 18
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Cylinder|Idle
+      takeName: Cylinder|Idle
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Plane|CameraAction
+      takeName: Plane|CameraAction
+      firstFrame: 0
+      lastFrame: 18
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Plane|Idle
+      takeName: Plane|Idle
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LeftArmPole
+        weight: 1
+      - path: Armature/LeftLegPole
+        weight: 1
+      - path: Armature/RightArmPole
+        weight: 1
+      - path: Armature/RightLegPole
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck
+        weight: 1
+      - path: Armature/Stomach/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/BottomRightLeg.r.003
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r/BottomRightLeg.r/foot.r
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/BottomRightLeg.r.002
+        weight: 1
+      - path: Armature/Stomach/RightLeg.r.001/BottomRightLeg.r.001/foot.r.001
+        weight: 1
+      - path: Armature/UpperArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: Armature/UpperArm.L/LowerArm.L/LowerArm.L.001
+        weight: 1
+      - path: Armature/UpperArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/Hand.L.001.R
+        weight: 1
+      - path: Armature/UpperArm.L.001.R/LowerArm.L.001.R/LowerArm.L.001.R.001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 0
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

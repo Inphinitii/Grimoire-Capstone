@@ -44,18 +44,31 @@ public class ActionController : MonoBehaviour
 				
 			//TODO 
 			//Use the Grimoire pages under these buttons.
-			if(m_inputHandler.Attack())
+			if(m_inputHandler.Y())
 			{
+                //Kick
 			}
-			else if(m_inputHandler.Defend())
+			else if(m_inputHandler.A())
 			{
+                //Jump
 			}
-			else if(m_inputHandler.Utility())
+			else if(m_inputHandler.X())
 			{
+                //Punch
 			}
-			else if(m_inputHandler.Movement())
+			else if(m_inputHandler.B())
 			{
+                //Use Currently Selected Page
 			}
+            else if(m_inputHandler.RB())
+            {
+                //Switch Page -> Right
+            }
+            else if (m_inputHandler.LB())
+            {
+                //Switch Page <- Left
+            }
+
 		}
 	}
 	

@@ -46,7 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CharacterController.cs" />
+     <Compile Include="Assets\Outpost\Scripts\PlayGUI.cs" />
+     <Compile Include="Assets\Resources\Prefabs\Characters\DEBUG\Test.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
      <Compile Include="Assets\Scripts\Collision\HitCircle.cs" />
      <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />
@@ -55,7 +56,7 @@
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\AOEIncantation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\BaseIncantation.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantations\AbstractIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\RangedIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Page.cs" />
      <Compile Include="Assets\Scripts\Player\Actor.cs" />

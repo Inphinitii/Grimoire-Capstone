@@ -11,6 +11,22 @@
 	<Speed>
 		int
 	</Speed>
+	
+	<Cooldown>
+		int
+	</Cooldown>
+	
+	<StartUpTime>
+		int
+	</StartUpTime>
+	
+	<VulnerabilityTime>
+		int
+	</VulnerabilityTime>
+	
+	<HitDirection>
+		vector2
+	</HitDirection>
 
 	//Parsing Option: If Type==Ranged
 	<Direction x="1" y="1">

@@ -19,8 +19,8 @@ public class InputHandler : MonoBehaviour {
     {
         public string ButtonName;
         public bool Down,
-                    Up,
-                    Held;
+                          Up,
+                          Held;
     }
 	static byte s_playerNumber;
 	
@@ -31,10 +31,16 @@ public class InputHandler : MonoBehaviour {
     private Button JumpButton;
 	
 	#region Controller Inputs	
-	private bool		m_attackButton,
-						m_defendButton,
-						m_utilityButton,
-						m_movementButton;
+	private bool		m_XButton,
+						    m_YButton,
+						    m_BButton,
+						    m_AButton,
+
+                            m_leftTrigger,
+                            m_rightTrigger,
+                            m_leftButton,
+                            m_rightButton;
+
 	private Vector2 	m_leftStick;
 						   
 	#endregion
@@ -66,10 +72,15 @@ public class InputHandler : MonoBehaviour {
 		}
 	}
 
-	public bool 	Attack() 	{ return m_attackButton; 	}
-	public bool 	Utility() 	{ return m_utilityButton; 	}
-	public bool 	Defend() 	{ return m_defendButton; 	}
-	public bool 	Movement() 	{ return m_movementButton; 	}
+	public bool 	X() 	{ return m_XButton; 	}
+	public bool 	A() 	{ return m_AButton; 	}
+	public bool 	Y() 	{ return m_YButton; 	}
+	public bool 	B() 	{ return m_BButton; 	}
+    public bool LT()    { return m_leftTrigger; }
+    public bool RT()    { return m_rightTrigger; }
+    public bool LB()   { return m_leftButton; }
+    public bool RB()   { return m_rightButton; }
+
 	public Vector2 	LeftStick() { return m_leftStick; 	 	}
 
 	public bool FreezeKeypress { get { return m_freezeKeypress; } set { m_freezeKeypress = value; }}
@@ -101,23 +112,23 @@ public class InputHandler : MonoBehaviour {
 		if(!m_freezeKeypress)
 		{
             //Jumping
-            JumpButton.Held = Input.GetKey(KeyCode.X);
-            JumpButton.Down = Input.GetKeyDown(KeyCode.X);
-            JumpButton.Up = Input.GetKeyUp(KeyCode.X);
+            JumpButton.Held    = Input.GetKey(KeyCode.X);
+            JumpButton.Down  = Input.GetKeyDown(KeyCode.X);
+            JumpButton.Up      = Input.GetKeyUp(KeyCode.X);
 
 
 
 
-			m_utilityButton		= Input.GetKeyDown(KeyCode.A);
-			m_defendButton 		= Input.GetKeyDown(KeyCode.S);
-			m_movementButton 	= Input.GetKeyDown(KeyCode.Z);
+			m_AButton		= Input.GetKeyDown(KeyCode.A);
+			m_BButton 		= Input.GetKeyDown(KeyCode.S);
+			m_YButton 	    = Input.GetKeyDown(KeyCode.Z);
 		}
 		else
 		{
-			m_attackButton 		= false;
-			m_utilityButton 	= false;
-			m_defendButton 		= false;
-			m_movementButton 	= false;
+            m_AButton   = false;
+			m_BButton 	 = false;
+			m_YButton    = false;
+			m_XButton 	 = false;
 		}
 	}
 
@@ -134,17 +145,19 @@ public class InputHandler : MonoBehaviour {
 		//------------GAMEPAD FACE BUTTON INPUT ------------//
 		if(!m_freezeKeypress)
 		{
-			m_attackButton 		= GamePad.GetButton(GamePad.Button.A, (GamePad.Index)m_playerNumber);
-			m_utilityButton	 	= GamePad.GetButton(GamePad.Button.Y, (GamePad.Index)m_playerNumber);
-			m_defendButton 		= GamePad.GetButton(GamePad.Button.B, (GamePad.Index)m_playerNumber);
-			m_movementButton 	= GamePad.GetButton(GamePad.Button.X, (GamePad.Index)m_playerNumber);
+			m_AButton 		= GamePad.GetButton(GamePad.Button.A, (GamePad.Index)m_playerNumber);
+			m_YButton	 	= GamePad.GetButton(GamePad.Button.Y, (GamePad.Index)m_playerNumber);
+			m_BButton 		= GamePad.GetButton(GamePad.Button.B, (GamePad.Index)m_playerNumber);
+			m_XButton 	    = GamePad.GetButton(GamePad.Button.X, (GamePad.Index)m_playerNumber);
+            m_rightButton = GamePad.GetButton(GamePad.Button.RightShoulder, (GamePad.Index)m_playerNumber);
+            m_leftButton   = GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)m_playerNumber);
 		}
 		else
 		{
-			m_attackButton 		= false;
-			m_utilityButton 	= false;
-			m_defendButton 		= false;
-			m_movementButton 	= false;
+            m_AButton = false;
+            m_YButton = false;
+            m_BButton = false;
+            m_XButton = false;
 		}
 	}
 

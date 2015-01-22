@@ -18,6 +18,9 @@ public class PhysicsController : MonoBehaviour {
     private Vector2 m_finalVelocity;
 	private Vector2 m_acceleration;
 	private Vector2 m_force;
+    private Vector2 m_position;
+
+    private float gravity;
 	
 	// Use this for initialization
 	void Start () {
@@ -31,18 +34,20 @@ public class PhysicsController : MonoBehaviour {
 	
 	public void Step()
 	{
-		if(p_applyGravity)
-            m_force.y -= p_gravitationalForce;
-		else
-            m_acceleration.y = 0.0f;
-		
-		m_acceleration += m_force / p_mass;
-        m_velocity = m_acceleration * Time.deltaTime;
-        transform.position = transform.position + (Vector3)m_velocity * Time.deltaTime;
-
+        m_position = (Vector2)transform.position;
         m_force = Vector2.zero;
 
-        
+        if (p_applyGravity)
+            m_force.y += -p_gravitationalForce;
+        else
+            m_velocity.y = 0.0f;
+		
+	//	m_acceleration += new Vector2 / p_mass;
+        m_velocity  += m_force * Time.deltaTime; //Gravity
+        m_position += m_velocity * Time.deltaTime;
+
+        transform.position = (Vector3)m_position;
+
 		
 		//TODO
 		//Take into account the properties of the actor
@@ -52,6 +57,11 @@ public class PhysicsController : MonoBehaviour {
 	public Vector2 Acceleration { get{ return m_acceleration;} 	set{m_acceleration = value;	} }
 	public Vector2 Forces   	{ get{return m_force;   } 		set{m_force = value; 		} }
     public Vector3 Position     { get { return transform.position; } set { transform.position = value; } }
+    
+    public void AddToVelocity(Vector2 _vel)
+    {
+        m_velocity += _vel;
+    }
 	
 	
 	

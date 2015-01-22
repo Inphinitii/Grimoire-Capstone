@@ -3,7 +3,7 @@
 public class Page
 {
 
-    BaseIncantation mIncantation;
+    AbstractIncantation mIncantation;
 
     public virtual void OnPageUse()
     {
