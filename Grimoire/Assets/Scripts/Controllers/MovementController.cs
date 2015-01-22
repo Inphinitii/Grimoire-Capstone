@@ -146,17 +146,28 @@ public class MovementController : MonoBehaviour
 
     void OrientationCheck()
     {
+        //CURRENTLY BROKEN 
+        //TODO CHANGE THE MODEL ORIENTATION WITH THE BOOK STAYING IN THE PROPER HAND. SCALING THE X BY -1 DOESNT WORK
         if (m_leftStickInput.x > 0.0f) 
 		{
             sign = 1;
-			if (transform.localScale.z < 0.0f)
-					transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
+            if(transform.localRotation.y != 0.0f)
+            {
+
+                transform.Rotate(0, 180, 0, Space.Self);
+            }
+            //if (transform.localScale.z < 0.0f)
+            //        transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
 		} 
 		else if (m_leftStickInput.x < 0.0f) 
 		{
             sign = -1;
-			if (transform.localScale.z > 0.0f)
-					transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
+            if (transform.localRotation.y == 0.0f)
+            {
+                transform.Rotate(0, -180, 0, Space.Self);
+            }
+            //if (transform.localScale.z > 0.0f)
+            //        transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, -transform.localScale.z);
 		}
         else
         {

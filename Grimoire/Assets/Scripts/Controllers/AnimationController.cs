@@ -26,7 +26,7 @@ public class AnimationController : MonoBehaviour
     void Start()
     {
         m_Animator = GetComponent<Animator>();
-        m_physicsController = GetComponent<PhysicsController>();
+        m_physicsController = transform.gameObject.GetComponentInParent<PhysicsController>();
     }
 
     void Update()
