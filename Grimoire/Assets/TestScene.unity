@@ -1138,7 +1138,7 @@ GameObject:
   - 114: {fileID: 1160207933}
   - 114: {fileID: 1160207932}
   m_Layer: 0
-  m_Name: PlayerEmpty
+  m_Name: TestPlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1169,18 +1169,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82e86d0a81a34445b5fa54d6866c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_groundAccel: 4
-  p_airAccel: 4
-  p_jumpAccel: 6.5
+  p_groundAccel: 100
+  p_airAccel: 100
+  p_jumpAccel: 400
   p_dashAccel: 1000
-  p_maxGroundAccel: 4
-  p_maxAirAccel: 4
-  p_groundTurningConstant: 2
-  p_airTurningConstant: 2
+  p_maxGroundAccel: 12
+  p_maxAirAccel: 9
+  p_groundTurningConstant: 1.20000005
+  p_airTurningConstant: .5
+  p_groundDampeningConstant: .899999976
+  p_airDampeningConstant: .5
   p_fastFallRate: .5
   p_multiJump: 1
   p_totalJumps: 2
-  p_jumpCooldown: .25
+  p_jumpCooldown: .400000006
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1198,12 +1200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025322ac0ba5d494ebfd553fa645152f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_gravitationalForce: 21
+  p_gravitationalForce: 30
   p_groundFriction: 20
   p_airFriction: 5
   p_mass: 2
   p_applyGravity: 0
-  p_dragResistance: -.150000006
+  p_dragResistance: .129999995
 --- !u!114 &1160207934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,6 +1217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d77bb76c281a44286a19856058bfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AssignNumber: 1
+  UID: 1
 --- !u!1 &1212966612
 GameObject:
   m_ObjectHideFlags: 0
