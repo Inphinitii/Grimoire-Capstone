@@ -132,13 +132,10 @@ public class InputHandler : MonoBehaviour {
 		if(!m_freezeKeypress)
 		{
             //Jumping
-            JumpButton.Held    = Input.GetKey(KeyCode.X);
-            JumpButton.Down    = Input.GetKeyDown(KeyCode.X);
-            JumpButton.Up      = Input.GetKeyUp(KeyCode.X);
-
-			m_AButton		= Input.GetKeyDown(KeyCode.A);
+            m_XButton       = Input.GetKeyDown(KeyCode.Z);
+			m_AButton		= Input.GetKeyDown(KeyCode.X);
 			m_BButton 		= Input.GetKeyDown(KeyCode.S);
-			m_YButton 	    = Input.GetKeyDown(KeyCode.Z);
+			m_YButton 	    = Input.GetKeyDown(KeyCode.A);
 		}
 		else
 		{

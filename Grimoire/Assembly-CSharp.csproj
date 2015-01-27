@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
+     <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\AOEIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\AbstractIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\RangedIncantation.cs" />

@@ -12,9 +12,11 @@ using System.Collections.Generic;
  =================================================================================================*/
 
 [RequireComponent(typeof(InputHandler))]
+[RequireComponent(typeof(MovementController))]
 public class ActionController : MonoBehaviour
 {
 	InputHandler 			m_inputHandler;
+    MovementController m_movementController;
 	float 					m_actorCooldown;
 	
 	//TODO 
@@ -22,7 +24,8 @@ public class ActionController : MonoBehaviour
 	
 	void Start()
 	{
-		m_inputHandler 				= GetComponent<InputHandler>();;
+		m_inputHandler 				= GetComponent<InputHandler>();
+        m_movementController        = GetComponent<MovementController>();
 		m_actorCooldown 			= 0.0f;
 	}
 
@@ -46,15 +49,14 @@ public class ActionController : MonoBehaviour
 			//Use the Grimoire pages under these buttons.
 			if(m_inputHandler.Y())
 			{
-                //Kick
 			}
 			else if(m_inputHandler.A())
 			{
-                //Jump
+                m_movementController.ApplyJump();
 			}
 			else if(m_inputHandler.X())
 			{
-                //Punch
+                m_movementController.ApplyDash();
 			}
 			else if(m_inputHandler.B())
 			{
@@ -71,17 +73,4 @@ public class ActionController : MonoBehaviour
 
 		}
 	}
-	
-	/*
-	void GetActionProperties(AbstractAction _action)
-	{
-		bool _keys, _movement;
-		_action.GetFreezeValues(out _keys, out _movement);
-		
-		m_inputHandler.FreezeKeypress 	= _keys;
-		m_inputHandler.FreezeMovement 	= _movement;
-		m_actorCooldown 		= _action.ActorCooldown();
-	}	
-	*/
-
 }
