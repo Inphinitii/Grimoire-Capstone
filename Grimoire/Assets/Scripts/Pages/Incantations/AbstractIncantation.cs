@@ -1,25 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AbstractIncantation
-{
-    int mDamage;                      //Damage Inflicted
-    int mSpeed;                       //Spells movement speed
-    int mSpellOwner;                  //Indicate what player ID owns this spell.
+[RequireComponent(typeof(Force))]
+public abstract class AbstractIncantation : MonoBehaviour {
 
-    float mStartupTime;               //Determines how long before the spell goes off.
-    float mVulnerabilityTime;         //Determines the amount of time after the spell that the player is left in a vulnerable state
-    float mCooldown;                  //Cooldown before you can use this incantation again
+    public Force force;
+    private Force.ForceType forceType;
+	// Use this for initialization
+	public void Start () {
+        if (force == null)
+            forceType = Force.ForceType.NONE;
+        else
+            forceType = force.ItemForce;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 
-
-    Vector2 mHitDirection;            //The direction that the hit player will travel in 
-
-    GameObject mIncantationPrefab;
-    GameObject mIncantationOnHitEffect;
-    GameObject mIncantationOnUseEffect;
-
-
-    public abstract void OnUse();     //Called when the button is pressed
-    public abstract void OnRelease(); //Called when the button is released
-    public abstract void OnHit();     //Called when the spell hits the enemy player.
+    public virtual void HandleUse()
+    {
+        SendMessage("UseIncantation", forceType);
+    }
+    public virtual void HandleRelease()
+    {
+        SendMessage("ReleaseIncantation", forceType);
+    }
 }

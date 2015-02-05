@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_1;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_1;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,7 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Outpost\Scripts\PlayGUI.cs" />
+     <Compile Include="Assets\Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\Resources\Prefabs\Characters\DEBUG\Test.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
      <Compile Include="Assets\Scripts\Collision\HitCircle.cs" />
@@ -56,27 +56,32 @@
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\ColliderController.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\DestroyOverTime.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\IncreaseSpeed.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\AbstractHit.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\ReplaceOnHit.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\ReplaceOnRelease.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\AbstractSpawn.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnDistance.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnLocation.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnVelocity.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantations\AbstractIncantation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Casting\CastTime.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Hitting\HitDirection.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Hitting\SpawnAfterTimer.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Hitting\SpawnOnCollision.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Spawning\SpawnFollowLStick.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Spawning\SpawnSetDistance.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Properties\Spawning\SpawnWithVelocity.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantations\CastingIncantation.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantations\Force.cs" />
+     <Compile Include="Assets\Scripts\Pages\Incantations\HoldingIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Page.cs" />
      <Compile Include="Assets\Scripts\Player\Actor.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
      <Compile Include="Assets\Scripts\Player\Properties.cs" />
-     <Compile Include="Assets\Scripts\TEST\Fireball.cs" />
-     <Compile Include="Assets\Scripts\TEST\ISpell.cs" />
      <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
-     <None Include="Assets\00_KY_FX pack2\prefab\01_shot\00_ReadMe.txt" />
+     <None Include="Assets\Resources\Particles\00_KY_FX pack2\prefab\01_shot\00_ReadMe.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ScreenSpaceAmbientObscurance.shader" />
@@ -87,7 +92,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MobileBloom.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />
-     <None Include="Assets\00_KY_FX pack2\ReadMe.txt" />
+     <None Include="Assets\Resources\Particles\00_KY_FX pack2\ReadMe.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\MinMaxReduction.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\RadialBlur.shader" />
@@ -147,7 +152,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Tyler/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Tyler Remazki/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
