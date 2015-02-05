@@ -10,8 +10,15 @@ using System.Collections;
  * and actors
  =========================================================*/
 
-public class Properties
+public class Properties : MonoBehaviour
 {
+    public enum PlayerState {
+        NONE,
+        INVULNERABLE,
+        STUNNED,
+        CASTING,
+    }
+
 	private int 	p_entityHealth,
 					p_entityDurability;
 	
@@ -19,11 +26,15 @@ public class Properties
 					p_entityMovementSpeed,
 					p_entityAirMovementSpeed,
 					p_entityAttackSpeed,
-					p_entityStunTime;  //Stun timer will be used for different purposes between Actors and Components	
+					p_entityStunTime,  //Stun timer will be used for different purposes between Actors and Components
+                    p_entityCastTime;
+
+    private PlayerState m_currentState;
 
     public Properties()
     {
     	Default();
+        m_currentState = PlayerState.NONE;
     }
 
 	public void Clear()
@@ -35,6 +46,7 @@ public class Properties
 		p_entityMovementSpeed 		= 0.0f;
 		p_entityAirMovementSpeed	= 0.0f;
 		p_entityStunTime 			= 0.0f;
+        p_entityCastTime            = 0.0f;
 	}	
 	
 	public void Default()
@@ -46,6 +58,7 @@ public class Properties
 		p_entityMovementSpeed 		= 10.0f;
 		p_entityAirMovementSpeed	= 6.0f;
 		p_entityStunTime 			= 0.0f;
+        p_entityCastTime            = 0.0f;
 	}	
 	
 	public static Properties operator+(Properties _prop1, Properties _prop2)
@@ -81,11 +94,24 @@ public class Properties
 	public float AirMovementSpeed 	{get{return p_entityAirMovementSpeed;} 	set{p_entityAirMovementSpeed	= value;}}
 	public float AttackSpeed 		{get{return p_entityAttackSpeed;} 		set{p_entityAttackSpeed 		= value;}}
 	public float StunTime 			{get{return p_entityStunTime;} 			set{p_entityStunTime 			= value;}}
+    public float CastTime           {get{return p_entityCastTime; }         set{p_entityCastTime            = value;}}
+    public PlayerState State { get { return m_currentState; } set { m_currentState = value; } }
+
 	
 	//MONO BEHAVIOUR DEPENDENCIES
 	void Start()
 	{
-		Default ();
+        Default();
+        m_currentState = PlayerState.NONE;
 	}
+
+    void Update() {
+        if (p_entityCastTime > 0.0f) {
+            p_entityCastTime -= Time.deltaTime;
+        }
+        else {
+            m_currentState = PlayerState.NONE;
+        }
+    }
 }
 

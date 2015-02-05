@@ -108,7 +108,7 @@ public class MovementController : MonoBehaviour {
 
         // -- Update Forces -- //
         m_tempForce.x += (m_leftStickInput.x * _movementSpeedType);
-        m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling
+        //m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
 
         // -- Update Forces and Step through Physics -- //
         m_physicsController.AddToForce(m_tempForce); //Apply Forces
@@ -205,7 +205,7 @@ public class MovementController : MonoBehaviour {
         }
         //Left Stick Null
         else {
-            if (m_physicsController.Velocity.x != 0)
+            if (m_physicsController.Velocity.x != 0 && !m_isJumping)
                 m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
         }
     }

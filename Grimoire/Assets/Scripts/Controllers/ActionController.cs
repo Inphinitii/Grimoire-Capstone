@@ -60,6 +60,7 @@ public class ActionController : MonoBehaviour
 			}
 			else if(m_inputHandler.B())
 			{
+                BroadcastMessage("OnFire");
                 //Use Currently Selected Page
 			}
             else if(m_inputHandler.RB())

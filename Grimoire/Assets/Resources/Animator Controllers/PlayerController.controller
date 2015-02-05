@@ -44,6 +44,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: Casting
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -109,7 +115,7 @@ Transition:
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
-    m_ConditionEvent: 
+    m_ConditionEvent: Jumping
     m_EventTreshold: 0
     m_ExitTime: .319999993
   m_Atomic: 1
@@ -125,14 +131,14 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110203806}
   m_DstState: {fileID: 110232354}
-  m_TransitionDuration: .394736797
-  m_TransitionOffset: 0
+  m_TransitionDuration: .443789482
+  m_TransitionOffset: .104719982
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: MovementSpeed
     m_EventTreshold: .100000001
     m_ExitTime: .605263233
-  m_Atomic: 1
+  m_Atomic: 0
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
@@ -196,6 +202,10 @@ Transition:
     m_ConditionEvent: Falling
     m_EventTreshold: 4.5
     m_ExitTime: .75
+  - m_ConditionMode: 2
+    m_ConditionEvent: Jumping
+    m_EventTreshold: .100000001
+    m_ExitTime: .75
   - m_ConditionMode: 3
     m_ConditionEvent: MovementSpeed
     m_EventTreshold: .100000001
@@ -228,6 +238,26 @@ Transition:
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
+--- !u!1101 &110146884
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 110284360}
+  m_DstState: {fileID: 110212420}
+  m_TransitionDuration: .25
+  m_TransitionOffset: 0
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Jumping
+    m_EventTreshold: 0
+    m_ExitTime: .75
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
 --- !u!1101 &110160160
 Transition:
   serializedVersion: 2
@@ -244,7 +274,7 @@ Transition:
     m_ConditionEvent: MovementSpeed
     m_EventTreshold: .100000001
     m_ExitTime: .875
-  m_Atomic: 1
+  m_Atomic: 0
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
@@ -493,6 +523,7 @@ StateMachine:
       second:
       - {fileID: 110126922}
       - {fileID: 110133712}
+      - {fileID: 110146884}
     data:
       first: {fileID: 110251084}
       second:

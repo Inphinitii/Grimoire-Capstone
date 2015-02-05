@@ -153,8 +153,6 @@ public class InputHandler : MonoBehaviour {
 		{
 			m_leftStick     = GamePad.GetAxis(GamePad.Axis.LeftStick,  (GamePad.Index)m_playerNumber);
 			m_rightStick    = GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber);
-            Debug.Log(m_rightStick);
-
 		}
 		else
 			m_leftStick     = Vector2.zero;

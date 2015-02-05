@@ -43,10 +43,12 @@ public class CameraScript : MonoBehaviour {
 		m_cameraPosition = new Vector3
 			(
 				Mathf.Lerp(m_cameraPosition.x, m_focalPoint.x,Time.deltaTime * p_CameraFollowDelay),
-				Mathf.Lerp(m_cameraPosition.y, m_focalPoint.y,Time.deltaTime * p_CameraZoomDelay),
-				Mathf.Lerp(m_cameraPosition.z, -m_cameraMagnification,Time.deltaTime * p_CameraFollowDelay)
+                Mathf.Lerp(m_cameraPosition.y, m_focalPoint.y, Time.deltaTime * p_CameraFollowDelay),
+				Mathf.Lerp(m_cameraPosition.z, -m_cameraMagnification,Time.deltaTime * p_CameraZoomDelay)
 				);
-        m_cameraReference.transform.position = m_cameraPosition + m_origCamOffset;
+        m_cameraReference.transform.position = m_cameraPosition + new Vector3(m_origCamOffset.x, m_origCamOffset.y, 0.0f);
+        //m_cameraReference.transform.LookAt(new Vector3(0.0f, m_focalPoint.y, 0.0f));
+        
 	}
 	
 	///  <Summary>
@@ -127,6 +129,6 @@ public class CameraScript : MonoBehaviour {
 			if (p_CameraFoci[i].transform.position.y >= _maximum.y)
 				_maximum.y = p_CameraFoci[i].transform.position.y;
 		}
-		return -(_maximum - _minimum).magnitude;
+		return (_maximum - _minimum).magnitude;
 	}
 }
