@@ -26,10 +26,11 @@ public class InputHandler : MonoBehaviour {
 	
     public bool AssignNumber;
     public byte UID;
+    public float comboInputWindow;
 
 	//Controller Information
 	private byte 	m_playerNumber = 1;
-    private bool    m_freezeMovement, m_freezeKeypress, m_active, m_dashHeld, m_dashPressed;
+    private bool m_freezeMovement, m_freezeKeypress, m_active, m_dashHeld, m_dashPressed, m_combinationCheck;
 
     private Button JumpButton;
 	
@@ -41,13 +42,25 @@ public class InputHandler : MonoBehaviour {
                         m_leftShoulder,
                         m_rightShoulder;
 
+    // Non-Standard Booleans
+    private bool        m_forwardSmash,
+                        m_downSmash,
+                        m_upSmash;
+
+    private bool        m_fallThrough;
+
+
 	private Vector2 	m_leftStick,
                         m_rightStick;
 
     private float       m_leftTrigger,
                         m_rightTrigger;
 
+    private float       m_comboTimer;
 
+    //For Keyboard
+    private KeyCode     m_firstKey,
+                        m_secondKey;
 						   
 	#endregion
 
@@ -82,13 +95,41 @@ public class InputHandler : MonoBehaviour {
 	{
 		if(m_active)
 		{
-			#if (KEYBOARD_DEBUG)
-			ProcessKeyboardInput();
-			#endif 
 
-			#if (!KEYBOARD_DEBUG)
-			ProcessGamepadInput();
-			#endif
+            //Currently shooting every frame. Limit this to only when the player presses a direction
+            if (m_combinationCheck) {
+                if (m_comboTimer > 0.0f) {
+                    m_comboTimer -= Time.deltaTime;
+
+                    if (Input.GetKey(KeyCode.A)) {
+                        m_secondKey = KeyCode.A;
+                        m_comboTimer = 0.0f;
+                    }
+
+                    else if (Input.GetKey(KeyCode.DownArrow))
+                        m_secondKey = KeyCode.DownArrow;
+                }
+                else {
+                    m_comboTimer = comboInputWindow;
+
+                    if (Input.GetKey(KeyCode.RightArrow))
+                        m_firstKey = KeyCode.RightArrow;
+
+                    else if (Input.GetKey(KeyCode.LeftArrow))
+                        m_firstKey = KeyCode.LeftArrow;
+
+                    else if (Input.GetKey(KeyCode.DownArrow))
+                        m_firstKey = KeyCode.DownArrow;
+                }
+            }
+
+            #if (KEYBOARD_DEBUG)
+                    ProcessKeyboardInput();
+            #endif
+
+            #if (!KEYBOARD_DEBUG)
+			        ProcessGamepadInput();
+            #endif
 		}
 	}
 
@@ -96,16 +137,24 @@ public class InputHandler : MonoBehaviour {
 	public bool A() 	{ return m_AButton; 	}
 	public bool Y() 	{ return m_YButton; 	}
 	public bool B() 	{ return m_BButton; 	}
-    public float LT()    { return m_leftTrigger; }
-    public float RT()    { return m_rightTrigger; }
     public bool LB()    { return m_leftShoulder; }
     public bool RB()    { return m_rightShoulder; }
+    public float LT()   { return m_leftTrigger; }
+    public float RT()   { return m_rightTrigger; }
+
+    //Non-Standard Returns
+    public bool FSmash() { return m_forwardSmash; }
+    public bool USmash() { return m_upSmash; }
+    public bool DSmash() { return m_downSmash; }
+
 
 	public Vector2 	LeftStick() { return m_leftStick; 	 	}
 
-	public bool FreezeKeypress { get { return m_freezeKeypress; } set { m_freezeKeypress = value; }}
-	public bool FreezeMovement { get { return m_freezeMovement; } set { m_freezeMovement = value; }}
-	public bool FreezeAll 	   { get { return m_active;         } set { m_active = value;         }}
+	public bool FreezeKeypress { get { return m_freezeKeypress; }   set { m_freezeKeypress = value; }}
+	public bool FreezeMovement { get { return m_freezeMovement; }   set { m_freezeMovement = value; }}
+    public bool ComboCheck     { get { return m_combinationCheck; } set { m_combinationCheck = value; } }
+	public bool FreezeAll 	   { get { return m_active;         }   set { m_active = value;         }}
+    public bool FallThrough() { return m_fallThrough; }
     public Button Jump()       { return JumpButton; }
 
 
@@ -144,6 +193,34 @@ public class InputHandler : MonoBehaviour {
 			m_YButton    = false;
 			m_XButton 	 = false;
 		}
+
+        //----------Special Cases-----------//{
+        if (m_firstKey != KeyCode.None && m_secondKey != KeyCode.None) {
+            if (m_firstKey == KeyCode.RightArrow || m_firstKey == KeyCode.LeftArrow && m_secondKey == KeyCode.A) {
+                m_forwardSmash = true;
+                FreezeMovement = true;
+            }
+            else if (m_firstKey == KeyCode.UpArrow && m_secondKey == KeyCode.A) {
+                m_upSmash = true;
+                FreezeMovement = true;
+            }
+            else if (m_firstKey == KeyCode.DownArrow && m_secondKey == KeyCode.A) {
+                m_downSmash = true;
+                FreezeMovement = true;
+            }
+            else if (m_firstKey == KeyCode.DownArrow && m_secondKey == KeyCode.DownArrow) {
+                m_fallThrough = true;
+            }
+            m_firstKey = KeyCode.None;
+            m_secondKey = KeyCode.None;
+        }
+        else {
+            m_forwardSmash  = false;
+            m_upSmash       = false;
+            m_downSmash     = false;
+            m_fallThrough   = false;
+        }
+
 	}
 
 	private void ProcessGamepadInput()

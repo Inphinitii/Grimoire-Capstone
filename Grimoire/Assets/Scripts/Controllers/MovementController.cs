@@ -11,11 +11,11 @@ public class MovementController : MonoBehaviour {
 
     //Dash Variables
     public float p_dashAccel = 200.0f;
+    public float p_dashStartupWindow;
     public float p_dashDuration;
-    public float p_dashCooldown;
 
     //Maximum Accelerations
-    public float p_maxGroundAccel = 12.0f;
+    public float p_maxGroundAccel = 10.0f;
     public float p_maxAirAccel = 9.0f;
 
     //Turning Modifiers
@@ -36,17 +36,20 @@ public class MovementController : MonoBehaviour {
     public LayerMask PlatformLayerMask;
 
     private PhysicsController m_physicsController;
-    private Actor m_actor;
     private InputHandler m_inputHandler;
     private bool m_isJumping;
+    private bool m_dashWaitForInput;
+    private bool m_isDashing;
+    public bool m_isMoving;
+    private Actor m_actor;
 
+    private Vector2 m_leftStickInput;
     private Vector2 m_tempForce;
     private Vector2 m_tempVel;
-    private Vector2 m_leftStickInput;
 
-    private int sign;
-    private int signLastFrame;
     private int jumpCount = 0;
+    private int signLastFrame;
+    private int sign;
 
     private float turningMultiplier;
     private float turningSpeedType;
@@ -54,18 +57,16 @@ public class MovementController : MonoBehaviour {
     private float jumpTimer = 0.0f;
 
     private float dashTimer = 0.0f;
-    private float dashCD;
-    private bool startDashTimer;
+    //private float runTimer = 0.05f;
 
     private LayerMask mCurrentMask;
     private LayerMask mCurrentlyHitting;
 
+    private Vector2 dashDirection;
+
     //TODO WALL JUMPING
     //TODO WALL SLIDING
-    //TODO FALLING THROUGH PLATFORMS
-
-    //ISSUE SOMETIMES FALL THROUGH THIN PLATFORM.
-    //ISSUE X POSITION DOES NOT HALT 
+    //TODO FALLING THROUGH PLATFORMS 
 
     void Start() {
         m_actor = GetComponent<Actor>();
@@ -77,6 +78,12 @@ public class MovementController : MonoBehaviour {
         m_leftStickInput = m_inputHandler.LeftStick();
         turningMultiplier = 1.0f;
 
+        if (Mathf.Abs(m_physicsController.Velocity.x) > 10.0f) {
+            m_inputHandler.ComboCheck = false;
+        }
+        else{
+            m_inputHandler.ComboCheck = true;
+        }
         // -- Ground Check Determinants -- //
         GroundCheck();
         m_physicsController.p_applyGravity = m_isJumping;
@@ -99,23 +106,47 @@ public class MovementController : MonoBehaviour {
         if (jumpTimer > 0.0f)
             jumpTimer -= Time.deltaTime;
 
-        if(startDashTimer){
-            dashTimer += Time.deltaTime;
-            if(dashTimer >= p_dashCooldown)
-                startDashTimer = false;
+        //Clean this up once it's working properly.
+        //Pause the player for X amount of seconds in the air, let them choose a direction, and shoot them towards it. 
+        if (m_dashWaitForInput) {          
+            dashTimer -= Time.deltaTime;
+
+            //Pause the player and wait for X Seconds before returning control to the physics controller.
+            if (dashTimer <= 0.0f) {
+                m_physicsController.Velocity = Vector2.zero;
+                m_physicsController.PausePhysics(false);
+                m_dashWaitForInput = false;
+                m_isDashing = false;    
+            }
+
+            //If paused and the directional stick is pressed with the dash button, move in that direction
+            //Y Direction is current screwed up for some reason?
+            if (m_isDashing) {
+                m_physicsController.PausePhysics(false);
+                m_physicsController.Velocity = dashDirection * p_dashAccel;
+                m_physicsController.ClearValues();
+            }
         }
+
             
 
         // -- Update Forces -- //
-        m_tempForce.x += (m_leftStickInput.x * _movementSpeedType);
-        //m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
+        if(m_isMoving)
+            m_tempForce.x += (m_leftStickInput.x * _movementSpeedType);
+
+        m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
 
         // -- Update Forces and Step through Physics -- //
-        m_physicsController.AddToForce(m_tempForce); //Apply Forces
-        m_physicsController.AddToVelocity(m_tempVel); //Apply to Velocity if necessary. 
-        signLastFrame = sign;
+        //Dashing is void of physics.
+        if (!m_isDashing) {
+            m_physicsController.AddToForce(m_tempForce); //Apply Forces
+            m_physicsController.AddToVelocity(m_tempVel); //Apply to Velocity if necessary. 
+        }
+
         m_tempForce = Vector2.zero;
         m_tempVel   = Vector2.zero;   
+
+        signLastFrame = sign;
     }
 
     public void ApplyJump() {
@@ -137,17 +168,20 @@ public class MovementController : MonoBehaviour {
             m_isJumping = true;
             jumpTimer = p_jumpCooldown;
             jumpCount++;
-
         }
     }
 
     //NEEDS FIXING
     public void ApplyDash() {
-        if (dashTimer > p_dashCooldown) {
-            m_tempVel += m_leftStickInput * p_dashAccel;
+        if (!m_dashWaitForInput) {
+            dashTimer = p_dashStartupWindow;
+            m_dashWaitForInput = true;
+            m_physicsController.PausePhysics(true);
         }
-        else {
-            startDashTimer = true;
+        else if(m_inputHandler.LeftStick() != Vector2.zero){
+            dashDirection = m_inputHandler.LeftStick();
+            dashTimer = p_dashDuration;
+            m_isDashing = true;
         }
 
     }
@@ -171,15 +205,22 @@ public class MovementController : MonoBehaviour {
         float rayDistance = Mathf.Abs(m_physicsController.Velocity.y * Time.deltaTime);
         Debug.DrawRay(start, rayDistance * rayDirection, Color.red);
 
-        if (goingUp)
+        if (goingUp) {
             mCurrentMask &= ~PlatformLayerMask; //Ignore the Platform Layer with the ray cast
-        else
+        }
+        else {
             mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform")); //Include both the floor and platform layer
+        }
 
-        if (Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask).collider != null) {
+        RaycastHit2D ray = Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask);
+        if (ray.collider != null) {
             //Find what object we're on. If it's a platform, let our character move through it if they wish. 
             jumpCount = 0;
             m_isJumping = false;
+            if (ray.collider.tag == "Platform") {
+                if (m_inputHandler.FallThrough())
+                    m_isJumping = true;
+            }
         }
         else {
             m_isJumping = true;
@@ -189,6 +230,7 @@ public class MovementController : MonoBehaviour {
     void OrientationCheck() {
         //Left Stick Right
         if (m_leftStickInput.x > 0.0f) {
+            m_isMoving = true;
             sign = 1;
             if (!m_isJumping)
                 if (transform.localRotation.y != 0.0f) {
@@ -197,6 +239,7 @@ public class MovementController : MonoBehaviour {
         }
         //Left Stick Left
         else if (m_leftStickInput.x < 0.0f) {
+            m_isMoving = true;
             sign = -1;
             if (!m_isJumping)
                 if (transform.localRotation.y == 0.0f) {
@@ -205,12 +248,15 @@ public class MovementController : MonoBehaviour {
         }
         //Left Stick Null
         else {
-            if (m_physicsController.Velocity.x != 0 && !m_isJumping)
+            if (m_physicsController.Velocity.x != 0 && !m_isJumping) {
                 m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
+                m_isMoving = false;
+            }
         }
     }
 
     void CapAcceleration() {
+        //Grounded Movement Speed Cap
         float value = !m_isJumping ? p_maxGroundAccel : p_maxAirAccel;
         if (m_physicsController.Velocity.x > value)
             m_physicsController.Velocity = new Vector2(value, m_physicsController.Velocity.y);

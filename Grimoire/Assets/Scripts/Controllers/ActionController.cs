@@ -16,9 +16,14 @@ using System.Collections.Generic;
 public class ActionController : MonoBehaviour
 {
 	InputHandler 			m_inputHandler;
-    MovementController m_movementController;
+    MovementController      m_movementController;
 	float 					m_actorCooldown;
-	
+
+    public bool             m_regularAttack;
+    public bool             m_smashAttack;
+
+    public float            m_chargeDuration,
+                            m_attackDuration = 0.4f; // Padding for the animation played
 	//TODO 
 	//Associate the player-equipped Grimoire with the ActionController
 	
@@ -33,9 +38,13 @@ public class ActionController : MonoBehaviour
 	{
 		//TODO
 		//Create a queue of moves
+        m_actorCooldown = m_chargeDuration + m_attackDuration;
 		if(m_actorCooldown > 0)
 		{
-			m_actorCooldown -= Time.deltaTime;
+            if (m_chargeDuration > 0.0f)
+                m_chargeDuration -= Time.deltaTime;
+            else
+                m_attackDuration -= Time.deltaTime;
 		}
 		else if(m_actorCooldown <= 0)
 		{			
@@ -44,11 +53,14 @@ public class ActionController : MonoBehaviour
 				
 			if(m_inputHandler.FreezeMovement)
 				m_inputHandler.FreezeMovement = false;
+
+            if (m_smashAttack)
+                m_smashAttack = false;
 				
 			//TODO 
 			//Use the Grimoire pages under these buttons.
 			if(m_inputHandler.Y())
-			{
+			{   
 			}
 			else if(m_inputHandler.A())
 			{
@@ -63,13 +75,20 @@ public class ActionController : MonoBehaviour
                 BroadcastMessage("OnFire");
                 //Use Currently Selected Page
 			}
-            else if(m_inputHandler.RB())
+
+            if(m_inputHandler.RB())
             {
                 //Switch Page -> Right
             }
             else if (m_inputHandler.LB())
             {
                 //Switch Page <- Left
+            }
+
+            if (m_inputHandler.FSmash()) {
+                m_smashAttack = true;
+                m_chargeDuration = 0.5f;
+                m_attackDuration = 0.75f;
             }
 
 		}

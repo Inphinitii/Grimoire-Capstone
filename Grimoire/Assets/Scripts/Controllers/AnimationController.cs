@@ -22,21 +22,27 @@ public class AnimationController : MonoBehaviour
 {
     Animator m_Animator;
     PhysicsController m_physicsController;
+    ActionController m_actionController;
+    MovementController m_movementController;
 
     void Start()
     {
         m_Animator = GetComponent<Animator>();
         m_physicsController = transform.gameObject.GetComponentInParent<PhysicsController>();
+        m_actionController = transform.gameObject.GetComponentInParent<ActionController>();
+        m_movementController = transform.gameObject.GetComponentInParent<MovementController>();
     }
 
     void Update()
     {
         WalkingAnimations();
         JumpingAnimations();
+        AttackAnimations();
     }
 
     void WalkingAnimations()
     {
+        m_Animator.SetBool("Moving", m_movementController.m_isMoving);
         m_Animator.SetFloat("MovementSpeed", Mathf.Abs(m_physicsController.Velocity.x));
     }
 
@@ -55,6 +61,13 @@ public class AnimationController : MonoBehaviour
         else if (m_physicsController.Velocity.y == 0)
             m_Animator.SetBool("Falling", false);
 
+
+    }
+
+    void AttackAnimations() {
+        m_Animator.SetBool("Casting", m_actionController.m_smashAttack);
+        m_Animator.SetFloat("CastingDuration", m_actionController.m_chargeDuration);
+        m_Animator.SetFloat("AttackDuration", m_actionController.m_attackDuration);
 
     }
 

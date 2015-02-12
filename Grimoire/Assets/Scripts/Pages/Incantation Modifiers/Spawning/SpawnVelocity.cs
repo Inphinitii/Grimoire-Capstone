@@ -11,6 +11,7 @@ public class SpawnVelocity : AbstractSpawn {
 
 	// Use this for initialization
 	void Start () {
+        base.Start();
         if (Forward)
             Direction = pGameObjectSpawnLocation.right;
 	}
@@ -23,7 +24,7 @@ public class SpawnVelocity : AbstractSpawn {
     public override void ActivateSpell()
     {
         if (!pSpawnInstantly)
-            obj = (Rigidbody2D)Instantiate(pGameObjectToSpawn, pGameObjectSpawnLocation.transform.position, Quaternion.identity) as Rigidbody2D;
+            obj = (Rigidbody2D)Instantiate(pGameObjectToSpawn, pSpawnPosition, Quaternion.identity) as Rigidbody2D;
 
        obj.gameObject.AddComponent<Force>().ItemForce = pForceType;
        obj.velocity = Direction * ObjectSpeed;
@@ -32,7 +33,7 @@ public class SpawnVelocity : AbstractSpawn {
     public override void UseIncantation(Force.ForceType _force)
     {
         if (pSpawnInstantly)
-            obj = (Rigidbody2D)Instantiate(pGameObjectToSpawn, pGameObjectSpawnLocation.transform.position, Quaternion.identity) as Rigidbody2D;
+            obj = (Rigidbody2D)Instantiate(pGameObjectToSpawn, pSpawnPosition, Quaternion.identity) as Rigidbody2D;
         pForceType = _force;
     }
 
