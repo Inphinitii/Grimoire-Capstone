@@ -20,7 +20,7 @@ public class Properties : MonoBehaviour
     }
 
 	private int 	p_entityHealth,
-					p_entityDurability;
+					    p_entityDurability;
 	
 	private float	p_entityJumpHeight,
 					p_entityMovementSpeed,

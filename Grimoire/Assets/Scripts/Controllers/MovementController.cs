@@ -63,46 +63,42 @@ public class MovementController : MonoBehaviour {
     private LayerMask mCurrentlyHitting;
 
     private Vector2 dashDirection;
-
+    float movementSpeedType;
     //TODO WALL JUMPING
     //TODO WALL SLIDING
     //TODO FALLING THROUGH PLATFORMS 
+    //TODO FIX MOVING THROUGH PLATFORMS BOTTOM UP
 
     void Start() {
         m_actor = GetComponent<Actor>();
         m_inputHandler = GetComponent<InputHandler>();
         m_physicsController = GetComponent<PhysicsController>();
+        m_isJumping = true;
     }
 
     void FixedUpdate() {
         m_leftStickInput = m_inputHandler.LeftStick();
         turningMultiplier = 1.0f;
+        m_isMoving = false;
 
-        if (Mathf.Abs(m_physicsController.Velocity.x) > 10.0f) {
-            m_inputHandler.ComboCheck = false;
-        }
-        else{
-            m_inputHandler.ComboCheck = true;
-        }
         // -- Ground Check Determinants -- //
-        GroundCheck();
         m_physicsController.p_applyGravity = m_isJumping;
         turningSpeedType = !m_isJumping ? p_groundTurningConstant : p_airTurningConstant;
-        float _movementSpeedType = !m_isJumping ? p_groundAccel : p_airAccel;
+        movementSpeedType = !m_isJumping ? p_groundAccel : p_airAccel;
 
-        // -- Scale Flipping -- //
-        OrientationCheck();
+
 
         // -- Movement Speed Cap -- //
         CapAcceleration();
+
+        //Move this later! Works for now as a patch job. 
+        //Stops the player from moving continuously. Encapsulate this in a state eventually. 
+        DampenMovement();
 
         // -- Turning -- //
         ApplyTurningSpeed(ref turningMultiplier);
 
         // -- Jumping -- //
-        //if (jumpTimer <= 0)
-           // ApplyJump(p_jumpAccel);
-
         if (jumpTimer > 0.0f)
             jumpTimer -= Time.deltaTime;
 
@@ -128,49 +124,52 @@ public class MovementController : MonoBehaviour {
             }
         }
 
-            
 
-        // -- Update Forces -- //
-        if(m_isMoving)
-            m_tempForce.x += (m_leftStickInput.x * _movementSpeedType);
-
-        m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
-
+         m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
         // -- Update Forces and Step through Physics -- //
         //Dashing is void of physics.
-        if (!m_isDashing) {
-            m_physicsController.AddToForce(m_tempForce); //Apply Forces
-            m_physicsController.AddToVelocity(m_tempVel); //Apply to Velocity if necessary. 
-        }
+        //if (!m_isDashing) {
+            m_physicsController.AddToForce(m_tempForce);
+            m_physicsController.AddToVelocity(m_tempVel);
+       // }
 
         m_tempForce = Vector2.zero;
-        m_tempVel   = Vector2.zero;   
+        m_tempVel   = Vector2.zero;
 
+        if(m_physicsController.Velocity.y < 0)
+            GroundCheck();
+
+        OneWayPlatform();
         signLastFrame = sign;
     }
 
     public void ApplyJump() {
         if (jumpCount < p_totalJumps && jumpTimer <= 0.0f) {
-            if (jumpCount > 0) {
-                m_physicsController.Velocity    = new Vector2(Mathf.Abs(m_physicsController.Velocity.x) * sign, m_physicsController.Velocity.y);
-                m_physicsController.Forces      = new Vector2(0.0f, 0.0f);
-                m_tempForce.y += (p_jumpAccel * 2.0f);
-
-                if (m_physicsController.Velocity.y < 0.0f)
-                    m_tempForce.y += m_physicsController.Velocity.y;
-            }
-            else {
-                m_tempForce.y += (p_jumpAccel * 2.0f);
-            }
-            m_tempForce.y += Mathf.Abs(m_physicsController.Velocity.y) * 100.0f; //Compensate for the y velocity when falling. Works but idk why. Witchcraft?
-
-            m_physicsController.p_applyGravity = true;
             m_isJumping = true;
+            m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, p_jumpAccel);
+            m_physicsController.p_applyGravity = true;
             jumpTimer = p_jumpCooldown;
             jumpCount++;
         }
     }
 
+    public void MoveX(Vector2 m_direction)
+    {
+        OrientationCheck(m_direction);
+        if (m_isMoving)
+        {
+            m_tempForce.x += (m_direction.x * movementSpeedType);
+        }
+    }
+
+    public void DampenMovement()
+    {
+        if (m_physicsController.Velocity.x != 0 && !m_isJumping)
+        {
+            m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
+            m_isMoving = false;
+        }
+    }
     //NEEDS FIXING
     public void ApplyDash() {
         if (!m_dashWaitForInput) {
@@ -193,43 +192,47 @@ public class MovementController : MonoBehaviour {
         }
     }
 
+
+    void OneWayPlatform()
+    {
+        bool goingUp = m_physicsController.Velocity.y > 0;
+        if (goingUp)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Platform"));
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Platform"), false);
+        }
+
+    }
     void GroundCheck() {
-        //Determine whether we're moving down or up.
         bool goingUp = m_physicsController.Velocity.y > 0;
         Vector2 rayDirection = goingUp ? Vector2.up : -Vector2.up;
-
         //Ray starting position
         Vector2 start = transform.position;
         start.y = (transform.position.y + skinWidth);
 
         float rayDistance = Mathf.Abs(m_physicsController.Velocity.y * Time.deltaTime);
         Debug.DrawRay(start, rayDistance * rayDirection, Color.red);
-
-        if (goingUp) {
-            mCurrentMask &= ~PlatformLayerMask; //Ignore the Platform Layer with the ray cast
-        }
-        else {
-            mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform")); //Include both the floor and platform layer
-        }
-
+        mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform")); //Include both the floor and platform layer
+        
         RaycastHit2D ray = Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask);
         if (ray.collider != null) {
-            //Find what object we're on. If it's a platform, let our character move through it if they wish. 
+            //m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, 0);
             jumpCount = 0;
+            m_physicsController.Position = m_physicsController.Position + (Vector3.up * (ray.distance + skinWidth));
             m_isJumping = false;
-            if (ray.collider.tag == "Platform") {
-                if (m_inputHandler.FallThrough())
-                    m_isJumping = true;
-            }
         }
         else {
             m_isJumping = true;
         }
     }
 
-    void OrientationCheck() {
+    public void OrientationCheck(Vector2 _stick) {
         //Left Stick Right
-        if (m_leftStickInput.x > 0.0f) {
+        if (_stick.x > 0.0f)
+        {
             m_isMoving = true;
             sign = 1;
             if (!m_isJumping)
@@ -238,20 +241,14 @@ public class MovementController : MonoBehaviour {
                 }
         }
         //Left Stick Left
-        else if (m_leftStickInput.x < 0.0f) {
+        else if (_stick.x < 0.0f)
+        {
             m_isMoving = true;
             sign = -1;
             if (!m_isJumping)
                 if (transform.localRotation.y == 0.0f) {
                     transform.Rotate(0, -180, 0, Space.Self);
                 }
-        }
-        //Left Stick Null
-        else {
-            if (m_physicsController.Velocity.x != 0 && !m_isJumping) {
-                m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
-                m_isMoving = false;
-            }
         }
     }
 
@@ -268,4 +265,5 @@ public class MovementController : MonoBehaviour {
         Debug.Log("Collision");
     }
 
+    public bool IsJumping() {  return m_isJumping; }
 }

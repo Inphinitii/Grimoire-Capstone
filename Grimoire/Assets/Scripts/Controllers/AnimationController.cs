@@ -28,9 +28,9 @@ public class AnimationController : MonoBehaviour
     void Start()
     {
         m_Animator = GetComponent<Animator>();
-        m_physicsController = transform.gameObject.GetComponentInParent<PhysicsController>();
-        m_actionController = transform.gameObject.GetComponentInParent<ActionController>();
-        m_movementController = transform.gameObject.GetComponentInParent<MovementController>();
+        m_physicsController = transform.gameObject.GetComponent<PhysicsController>();
+        m_actionController = transform.gameObject.GetComponent<ActionController>();
+        m_movementController = transform.gameObject.GetComponent<MovementController>();
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class AnimationController : MonoBehaviour
             m_Animator.SetBool("Jumping", false);
             m_Animator.SetBool("Falling", true);
         }
-        else if (m_physicsController.Velocity.y == 0)
+        if (!m_movementController.IsJumping())
             m_Animator.SetBool("Falling", false);
 
 

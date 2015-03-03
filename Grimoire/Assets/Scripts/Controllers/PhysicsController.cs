@@ -36,12 +36,11 @@ public class PhysicsController : MonoBehaviour {
 
             if (p_applyGravity)
                 m_force.y += -p_gravitationalForce;
-            else
-                m_velocity.y = 0.0f;
 
             m_acceleration = m_force / p_mass;
             m_velocity += m_acceleration * Time.deltaTime * p_timeScale;
             m_position += m_velocity * Time.deltaTime * p_timeScale;
+
 
             transform.position = (Vector3)m_position;
             m_force = Vector2.zero;
