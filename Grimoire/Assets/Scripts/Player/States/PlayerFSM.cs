@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,9 +7,9 @@ using System.Collections.Generic;
 public class PlayerFSM : MonoBehaviour {
 
     bool m_block;
-    IState m_currentState;
+    public IState m_currentState;
     List<IState> m_stateList;
-    //All possible states
+
     public enum States
     {
         STANDING,
@@ -18,19 +18,23 @@ public class PlayerFSM : MonoBehaviour {
         JUMPING,
         DASHING,
         ATTACKING,
-        BLOCKING
+        HIT,
+        FALLING
     };
 
     private InputHandler p_inputHandler;
     private MovementController p_movementController;
     private AnimationController p_animationController;
     private PhysicsController p_physicsController;
+    
 	// Use this for initialization
 	void Start () {
         p_inputHandler  = GetComponent<InputHandler>();
         p_movementController = GetComponent<MovementController>();
         p_animationController = GetComponent<AnimationController>();
         p_physicsController = GetComponent<PhysicsController>();
+        
+        
 
         m_stateList = new List<IState>();
         
@@ -48,9 +52,9 @@ public class PlayerFSM : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        m_currentState.ExecuteState();
-        Debug.Log(m_currentState);
+	void FixedUpdate () {
+                m_currentState.ExecuteState();
+                Debug.Log(m_currentState);
 	}
 
     public InputHandler GetInput() { return p_inputHandler; }

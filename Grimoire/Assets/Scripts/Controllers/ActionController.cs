@@ -17,7 +17,8 @@ public class ActionController : MonoBehaviour
 {
 	InputHandler 			m_inputHandler;
     MovementController      m_movementController;
-    //PlayerFSM m_stateMachine;
+    PlayerFSM m_stateMachine;
+    
 	float 					m_actorCooldown;
 
     public bool             m_regularAttack;
@@ -32,7 +33,7 @@ public class ActionController : MonoBehaviour
 	{
 		m_inputHandler 				= GetComponent<InputHandler>();
         m_movementController        = GetComponent<MovementController>();
-        //m_stateMachine = GetComponent<PlayerFSM>();
+        m_stateMachine 				= GetComponent<PlayerFSM>();
 		m_actorCooldown 			= 0.0f;
 	}
 
@@ -59,25 +60,9 @@ public class ActionController : MonoBehaviour
             if (m_smashAttack)
                 m_smashAttack = false;
 
-            //m_stateMachine.m_currentState.HandleInput(m_inputHandler);
             //TODO 
             //Use the Grimoire pages under these buttons.
-            if (m_inputHandler.Y())
-            {
-            }
-            else if (m_inputHandler.A())
-            {
-              //  m_movementController.ApplyJump();
-            }
-            else if (m_inputHandler.X())
-            {
-                m_movementController.ApplyDash();
-            }
-            else if (m_inputHandler.B())
-            {
-                BroadcastMessage("OnFire");
-                //Use Currently Selected Page
-            }
+
 
             if (m_inputHandler.RB())
             {
@@ -88,12 +73,6 @@ public class ActionController : MonoBehaviour
                 //Switch Page <- Left
             }
 
-            if (m_inputHandler.FSmash())
-            {
-                m_smashAttack = true;
-                m_chargeDuration = 0.5f;
-                m_attackDuration = 0.75f;
-            }
 
 		}
 	}

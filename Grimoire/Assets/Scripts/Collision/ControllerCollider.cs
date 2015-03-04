@@ -245,7 +245,7 @@ public class ControllerCollider : MonoBehaviour
 	public void SetRayOrigins(Vector2 _nextFramePosition)
 	{
 		Vector2 _scaledColliderSize = new Vector2( m_Collider.size.x * Mathf.Abs( transform.localScale.x ), m_Collider.size.y * Mathf.Abs( transform.localScale.y ) ) / 2;
-		Vector2 _scaledCenter 		= new Vector2( m_Collider.center.x * transform.localScale.x, m_Collider.center.y * transform.localScale.y );
+		Vector2 _scaledCenter 		= new Vector2( m_Collider.offset.x * transform.localScale.x, m_Collider.offset.y * transform.localScale.y );
 		
 		_raycastOrigins._topRight = transform.position + 	new Vector3( _scaledCenter.x + _scaledColliderSize.x, _scaledCenter.y + _scaledColliderSize.y );
 		_raycastOrigins._topRight.x -= m_skinWidth;

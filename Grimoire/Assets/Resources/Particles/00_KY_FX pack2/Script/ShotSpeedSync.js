@@ -3,9 +3,9 @@ public var offset:int = 10;
 private var parentParticle:ParticleSystem;
 
 function Start () {
-	parentParticle = transform.parent.particleSystem;
+	parentParticle = transform.parent.GetComponent.<ParticleSystem>();
 	var parentSpeed:float = parentParticle.startSpeed;
-	var thisSpeed:float = particleSystem.startSpeed;
+	var thisSpeed:float = GetComponent.<ParticleSystem>().startSpeed;
 	
 	//Debug.Log(parentSpeed);
 	if( parentSpeed >= thisSpeed){
@@ -16,7 +16,7 @@ function Start () {
 				sum = parentSpeed - thisSpeed;
 			}
 		}
-		particleSystem.startSpeed = thisSpeed;
+		GetComponent.<ParticleSystem>().startSpeed = thisSpeed;
 	}
 	
 	//Debug.Log(particleSystem.startSpeed);

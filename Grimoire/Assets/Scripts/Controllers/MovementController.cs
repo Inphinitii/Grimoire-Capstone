@@ -4,6 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(InputHandler))]
 [RequireComponent(typeof(PhysicsController))]
 public class MovementController : MonoBehaviour {
+
+	//TODO NEEDS REFACTORING 
     //Acceleration
     public float p_groundAccel = 100.0f;
     public float p_airAccel = 100.0f;
@@ -79,14 +81,12 @@ public class MovementController : MonoBehaviour {
     void FixedUpdate() {
         m_leftStickInput = m_inputHandler.LeftStick();
         turningMultiplier = 1.0f;
-        m_isMoving = false;
+       // m_isMoving = false;
 
         // -- Ground Check Determinants -- //
         m_physicsController.p_applyGravity = m_isJumping;
         turningSpeedType = !m_isJumping ? p_groundTurningConstant : p_airTurningConstant;
         movementSpeedType = !m_isJumping ? p_groundAccel : p_airAccel;
-
-
 
         // -- Movement Speed Cap -- //
         CapAcceleration();
@@ -126,17 +126,15 @@ public class MovementController : MonoBehaviour {
 
 
          m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
+         
         // -- Update Forces and Step through Physics -- //
-        //Dashing is void of physics.
-        //if (!m_isDashing) {
-            m_physicsController.AddToForce(m_tempForce);
-            m_physicsController.AddToVelocity(m_tempVel);
-       // }
+        m_physicsController.AddToForce(m_tempForce);
+        m_physicsController.AddToVelocity(m_tempVel);
 
         m_tempForce = Vector2.zero;
         m_tempVel   = Vector2.zero;
 
-        if(m_physicsController.Velocity.y < 0)
+        if(m_physicsController.Velocity.y <= 0)
             GroundCheck();
 
         OneWayPlatform();
@@ -219,12 +217,16 @@ public class MovementController : MonoBehaviour {
         
         RaycastHit2D ray = Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask);
         if (ray.collider != null) {
-            //m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, 0);
+            m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, 0);
             jumpCount = 0;
-            m_physicsController.Position = m_physicsController.Position + (Vector3.up * (ray.distance + skinWidth));
+            //m_physicsController.Position = m_physicsController.Position + (Vector3.up * (ray.distance + skinWidth));
+            //m_physicsController.ClearValues();
             m_isJumping = false;
         }
         else {
+			if(m_isJumping == false)
+        	jumpCount++;
+        	
             m_isJumping = true;
         }
     }

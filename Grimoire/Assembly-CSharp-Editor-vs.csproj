@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{4D607DF3-5760-501B-4783-AB36A227C565}</ProjectGuid>
+	<ProjectGuid>{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-Editor</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,44 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Resources\Models\Outpost\Scripts\PlayGUI.cs" />
-     <Compile Include="Assets\Resources\Prefabs\Characters\DEBUG\Test.cs" />
-     <Compile Include="Assets\Scripts\Attack.cs" />
-     <Compile Include="Assets\Scripts\AttackList.cs" />
-     <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
-     <Compile Include="Assets\Scripts\Collision\HitCircle.cs" />
-     <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
-     <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
-     <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\ColliderController.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\DestroyOverTime.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\IncreaseSpeed.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\AbstractHit.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\ReplaceOnHit.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Projectile\OnHit\ReplaceOnRelease.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\AbstractSpawn.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnDistance.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnLocation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Spawning\SpawnVelocity.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\AbstractIncantation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\CastingIncantation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\Force.cs" />
-     <Compile Include="Assets\Scripts\Pages\Incantations\HoldingIncantation.cs" />
-     <Compile Include="Assets\Scripts\Pages\Page.cs" />
-     <Compile Include="Assets\Scripts\Player\Actor.cs" />
-     <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
-     <Compile Include="Assets\Scripts\Player\Properties.cs" />
-     <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
-     <Compile Include="Assets\Scripts\Player\States\IState.cs" />
-     <Compile Include="Assets\Scripts\Player\States\JumpingState.cs" />
-     <Compile Include="Assets\Scripts\Player\States\MovementState.cs" />
-     <Compile Include="Assets\Scripts\Player\States\PlayerFSM.cs" />
-     <Compile Include="Assets\Scripts\Player\States\StandingState.cs" />
-     <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
+     <Compile Include="Assets\Editor\AttackListEditor.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
@@ -159,15 +122,51 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>C:/Users/Tyler Remazki/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+ <Reference Include="Assembly-UnityScript">
+ <HintPath>C:/Users/Tyler Remazki/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/androidplayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WP8.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/wp8support/UnityEditor.WP8.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Metro.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/metrosupport/UnityEditor.Metro.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.BB10.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/blackberryplayer/UnityEditor.BB10.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WebGL.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/webglsupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/linuxstandalonesupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/macstandalonesupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{22804007-2F89-F6DB-5BD1-8F0D1433A70B}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{A7F2248D-9099-5DA9-D228-6E5ACE1942F7}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{22804007-2F89-F6DB-5BD1-8F0D1433A70B}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-vs.csproj">
+      <Project>{4D607DF3-5760-501B-4783-AB36A227C565}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,13 +15,10 @@ public class MovementState : IState {
 
 
        Vector2 _leftStick = GetFSM().GetInput().LeftStick();
-       if (_leftStick.x > 0 || _leftStick.x < 0)
+       if (_leftStick.x != 0)
            GetFSM().GetMovementController().MoveX(_leftStick);
        else
-       {
            GetFSM().SetCurrentState(PlayerFSM.States.STANDING);
-       }
     }
 }
-
 

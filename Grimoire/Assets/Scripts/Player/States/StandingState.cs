@@ -10,19 +10,25 @@ public class StandingState : IState {
     {
         Vector2 _leftStick = GetFSM().GetInput().LeftStick();
 
-            //Neutral Attack
-            if (GetFSM().GetInput().Y() && _leftStick.x != 0)
+            //Forward Attack
+            if (GetFSM().GetInput().Y())
             {
-                GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
-                GetFSM().GetMovementController().OrientationCheck(_leftStick);
-                Debug.Log("Forward Standing Attack");
-                //Start attack
-            }
-            else if (GetFSM().GetInput().Y())
-            {
-                GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
-                Debug.Log("Neutral Standing Attack");
-                //Start attack
+				if(_leftStick.x != 0)
+				{
+	                GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
+	                GetFSM().GetMovementController().OrientationCheck(_leftStick);
+	                Debug.Log("Forward Standing Attack");
+                }
+                if(_leftStick.y > 0)
+                {
+					GetFSM().StartCoroutine(BlockStateSwitch(1.25f)); //Attack Delay
+					Debug.Log("Up Standing Attack");
+                }
+                else
+                {
+					GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
+					Debug.Log("Neutral Standing Attack");
+				}
             }
             else
             {

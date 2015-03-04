@@ -14,7 +14,7 @@ public var delayBck:float = 0;
 private var timer:float;
 
 function Start(){
-	thisMaterial = this.renderer.material;
+	thisMaterial = this.GetComponent.<Renderer>().material;
 	delayBck = delay;
 }
 
@@ -29,7 +29,7 @@ function Update () {
 		thisMaterial.mainTextureOffset.y += Time.deltaTime * offsetSpd;
 		if( thisMaterial.mainTextureOffset.y > 1)thisMaterial.mainTextureOffset.y = 0;
 	}else{
-		if( !this.particleSystem.isPlaying ){
+		if( !this.GetComponent.<ParticleSystem>().isPlaying ){
 			thisMaterial.SetTextureOffset ("_MainTex", Vector2(0 ,0) );
 			thisMaterial.SetTextureScale ("_MainTex", Vector2(0 ,0));
 			

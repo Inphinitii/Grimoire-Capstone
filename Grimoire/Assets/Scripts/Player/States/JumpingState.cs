@@ -6,8 +6,7 @@ public class JumpingState : IState {
     {
     }
 
-    public override void OnSwitch()
-    {
+    public override void OnSwitch(){
         GetFSM().GetMovementController().ApplyJump();
     }
 
@@ -21,6 +20,8 @@ public class JumpingState : IState {
 
        if (GetFSM().GetInput().A())
            GetFSM().GetMovementController().ApplyJump();
+       else if(GetFSM ().GetInput().Y())
+	    Debug.Log("Jumping Attack");
 
        if (!GetFSM().GetMovementController().IsJumping() && GetFSM().GetPhysicsController().Velocity.x == 0)
        {
