@@ -64,6 +64,8 @@ public class MovementController : MonoBehaviour {
     private LayerMask mCurrentMask;
     private LayerMask mCurrentlyHitting;
 
+    private float temp;
+
     private Vector2 dashDirection;
     float movementSpeedType;
     //TODO WALL JUMPING
@@ -148,6 +150,7 @@ public class MovementController : MonoBehaviour {
             m_physicsController.p_applyGravity = true;
             jumpTimer = p_jumpCooldown;
             jumpCount++;
+            temp = 1.0f;
         }
     }
 

@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
+     <Compile Include="Assets\Scripts\HurtBox.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />

@@ -45,7 +45,7 @@ public class PlayerFSM : MonoBehaviour {
         m_stateList.Add(new JumpingState());
 
         foreach (IState item in m_stateList){
-            item.SetFSM(this); //Set all of their FSM components to this.
+            item.SetFSM(this); 
         }
 
         m_currentState = m_stateList[0]; //Default State

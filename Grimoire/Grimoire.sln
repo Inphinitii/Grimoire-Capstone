@@ -5,8 +5,6 @@ Project("{737525F3-82C7-BE0B-252E-4B2B47911461}") = "Grimoire", "Assembly-CSharp
 EndProject
 Project("{737525F3-82C7-BE0B-252E-4B2B47911461}") = "Grimoire", "Assembly-CSharp.csproj", "{4D607DF3-5760-501B-4783-AB36A227C565}"
 EndProject
-Project("{737525F3-82C7-BE0B-252E-4B2B47911461}") = "Grimoire", "Assembly-CSharp-Editor.csproj", "{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}"
-EndProject
 Project("{737525F3-82C7-BE0B-252E-4B2B47911461}") = "Grimoire", "Assembly-UnityScript-firstpass.unityproj", "{A7F2248D-9099-5DA9-D228-6E5ACE1942F7}"
 EndProject
 Project("{737525F3-82C7-BE0B-252E-4B2B47911461}") = "Grimoire", "Assembly-UnityScript.unityproj", "{06491A90-9CF0-5970-DD75-201E70D99745}"
@@ -25,10 +23,6 @@ Global
 		{4D607DF3-5760-501B-4783-AB36A227C565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D607DF3-5760-501B-4783-AB36A227C565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D607DF3-5760-501B-4783-AB36A227C565}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96296D3F-363E-467B-BAEB-C9DC05E9E7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7F2248D-9099-5DA9-D228-6E5ACE1942F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7F2248D-9099-5DA9-D228-6E5ACE1942F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F2248D-9099-5DA9-D228-6E5ACE1942F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																																						GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
