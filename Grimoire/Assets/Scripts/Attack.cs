@@ -3,15 +3,19 @@ using System.Collections;
 
 public class Attack : MonoBehaviour {
 
-    public HurtBox[]  m_BoxColliders;
+
+    public AbstractHurtBox[]  boxColliders;
+    public Properties.ForceType forceType;
 
 	// Use this for initialization
-	void Start () {
-        HurtBox _temp;
-        for (int i = 0; i < m_BoxColliders.Length; i++)
+    void Awake()
+    {
+        AbstractHurtBox _temp;
+        for (int i = 0; i < boxColliders.Length; i++)
         {
-            _temp = (HurtBox)Instantiate(m_BoxColliders[i], this.transform.position, Quaternion.identity);
+            _temp = (AbstractHurtBox)Instantiate( boxColliders[i], this.transform.position, Quaternion.identity );
             _temp.transform.parent = this.transform;
+            _temp.SetForce( forceType );
         }
         this.gameObject.SetActive(false);
 	}

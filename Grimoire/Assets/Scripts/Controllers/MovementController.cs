@@ -64,7 +64,6 @@ public class MovementController : MonoBehaviour {
     private LayerMask mCurrentMask;
     private LayerMask mCurrentlyHitting;
 
-    private float temp;
 
     private Vector2 dashDirection;
     float movementSpeedType;
@@ -86,7 +85,7 @@ public class MovementController : MonoBehaviour {
        // m_isMoving = false;
 
         // -- Ground Check Determinants -- //
-        m_physicsController.p_applyGravity = m_isJumping;
+        //m_physicsController.p_applyGravity = m_isJumping;
         turningSpeedType = !m_isJumping ? p_groundTurningConstant : p_airTurningConstant;
         movementSpeedType = !m_isJumping ? p_groundAccel : p_airAccel;
 
@@ -150,7 +149,6 @@ public class MovementController : MonoBehaviour {
             m_physicsController.p_applyGravity = true;
             jumpTimer = p_jumpCooldown;
             jumpCount++;
-            temp = 1.0f;
         }
     }
 
@@ -264,10 +262,6 @@ public class MovementController : MonoBehaviour {
             m_physicsController.Velocity = new Vector2(value, m_physicsController.Velocity.y);
         if (m_physicsController.Velocity.x < -value)
             m_physicsController.Velocity = new Vector2(-value, m_physicsController.Velocity.y);
-    }
-
-    void OnTriggerEnter2D(Collider2D _collision) {
-        Debug.Log("Collision");
     }
 
     public bool IsJumping() {  return m_isJumping; }

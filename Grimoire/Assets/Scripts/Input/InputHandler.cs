@@ -33,39 +33,25 @@ public class InputHandler : MonoBehaviour {
 
 	//Controller Information
 	private byte 	m_playerNumber = 1;
-    private bool    m_freezeMovement, 
-                    m_freezeKeypress, 
-                    m_active, 
-                    m_combinationCheck;
+    private bool     m_freezeMovement, 
+                            m_freezeKeypress, 
+                            m_active, 
+                            m_combinationCheck;
 	
 	#region Controller Inputs	
     private bool 	m_XButton,
-	                m_YButton,
-	                m_BButton,
-	                m_AButton,
-	                m_leftShoulder,
-	                m_rightShoulder;
-
-    // Non-Standard Booleans
-    private bool 	m_forwardSmash,
-	                m_downSmash,
-	                m_upSmash;
-
-	private bool    m_fallThrough;
-
+	                    m_YButton,
+	                    m_BButton,
+	                    m_AButton,
+	                    m_leftShoulder,
+	                    m_rightShoulder;
 
 	private Vector2 m_leftStick,
-                    m_rightStick;
+                             m_rightStick;
 
     private float   m_leftTrigger,
-                    m_rightTrigger;
-
-    private float   m_comboTimer;
-
-    //For Keyboard
-    private KeyCode m_firstKey,
-                    m_secondKey;
-						   
+                          m_rightTrigger;
+					   
 	#endregion
 
 	void Start () 
@@ -118,19 +104,12 @@ public class InputHandler : MonoBehaviour {
     public float LT()   { return m_leftTrigger; }
     public float RT()   { return m_rightTrigger; }
 
-    //Non-Standard Returns
-    public bool FSmash() { return m_forwardSmash; }
-    public bool USmash() { return m_upSmash; }
-    public bool DSmash() { return m_downSmash; }
-
-
 	public Vector2 	LeftStick() { return m_leftStick; 	 	}
 
 	public bool FreezeKeypress { get { return m_freezeKeypress; }   set { m_freezeKeypress = value; }}
 	public bool FreezeMovement { get { return m_freezeMovement; }   set { m_freezeMovement = value; }}
     public bool ComboCheck     { get { return m_combinationCheck; } set { m_combinationCheck = value; } }
 	public bool FreezeAll 	   { get { return m_active;         }   set { m_active = value;         }}
-    public bool FallThrough() { return m_fallThrough; }
 
 
 	private void ProcessKeyboardInput()

@@ -27,6 +27,7 @@ public class PhysicsController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pausePhysics = false;
+        p_applyGravity = true;
 	}
 	
 	// Update is called once per frame

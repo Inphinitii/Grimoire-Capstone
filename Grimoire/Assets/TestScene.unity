@@ -824,8 +824,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb92b03dcc57a23458d9fe8e4b3f6184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoxColliders:
+  boxColliders:
   - {fileID: 11445572, guid: 84b5e0eba531efa49a9a538cd92c13b9, type: 2}
+  forceType: 0
 --- !u!4 &977830969
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,16 +1008,17 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1160207931}
+  - 50: {fileID: 1160207933}
+  - 61: {fileID: 1160207941}
   - 114: {fileID: 1160207938}
   - 114: {fileID: 1160207937}
   - 114: {fileID: 1160207936}
   - 114: {fileID: 1160207935}
   - 95: {fileID: 1160207934}
-  - 50: {fileID: 1160207933}
   - 114: {fileID: 1160207932}
   - 114: {fileID: 1160207939}
   - 114: {fileID: 1160207940}
-  - 61: {fileID: 1160207941}
+  - 114: {fileID: 1160207942}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -1189,18 +1191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2f804f39f406a4bbf5d96f80001717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AttackList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_AttackCooldown:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  attackListID: Basic Attacks
+  forceType: 0
+  attackList: []
+  attackCooldown: []
 --- !u!61 &1160207941
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1214,6 +1208,19 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.39999998}
   serializedVersion: 2
   m_Size: {x: .75, y: 2.75}
+--- !u!114 &1160207942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1160207930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b977bf110700f634b985c51b836e1b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorName: 
+  forceType: 0
 --- !u!1 &1216762525
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,15 +48,15 @@
   <ItemGroup>
      <Compile Include="Assets\Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\Resources\Prefabs\Characters\DEBUG\Test.cs" />
+     <Compile Include="Assets\Scripts\AbstractHurtBox.cs" />
      <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\AttackList.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
-     <Compile Include="Assets\Scripts\Collision\HitCircle.cs" />
      <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
-     <Compile Include="Assets\Scripts\HurtBox.cs" />
+     <Compile Include="Assets\Scripts\HurtBoxTest.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />

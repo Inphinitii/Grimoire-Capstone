@@ -15,32 +15,29 @@ using System.Collections;
 [RequireComponent(typeof(MovementController))]
 public class Actor : MonoBehaviour 
 {
-	private string 					m_actorName;
-	private Properties 				m_actorProperties;
-	
+	public string 			            actorName;
+    public Properties.ForceType forceType;
+
+	//-- Private Properties -- //
+	Properties 	                m_actorProperties;
+
 	//-- Script References --//
-	// This is for use within our components that affect our Actor.
-	Rigidbody2D 			m_rigidBody;
-	BoxCollider2D 			m_boxCollider;
-	MovementController 		m_movementController;
-	Animator 				m_componentAnimator;
-	InputHandler            m_inputHandler;
+	Rigidbody2D 			    m_rigidBody;
+	BoxCollider2D 			    m_boxCollider;
+	MovementController 	m_movementController;
+	Animator 				        m_componentAnimator;
+	InputHandler                m_inputHandler;
 	
 	void Start () 
 	{
-		m_actorName 			= "Default";
-		m_actorProperties 		= new Properties();
-		m_boxCollider 			= GetComponent(typeof(BoxCollider2D)) 		as BoxCollider2D;
+	    actorName 			            = "Default";
+		m_actorProperties 		    = new Properties();
+		m_boxCollider 			        = GetComponent(typeof(BoxCollider2D)) 		        as BoxCollider2D;
 		m_movementController	= GetComponent(typeof(MovementController)) 	as MovementController;
-		m_componentAnimator     = GetComponent(typeof(Animator)) 			as Animator;
-		m_inputHandler			= GetComponent(typeof(InputHandler)) 		as InputHandler;
+		m_componentAnimator  = GetComponent(typeof(Animator)) 			            as Animator;
+		m_inputHandler			    = GetComponent(typeof(InputHandler)) 		        as InputHandler;
 	}
 	
-	void Update () 
-	{
-	
-	}
-
 	#region Utility Functions
 	public Properties AccessProperties
 	{
@@ -50,14 +47,19 @@ public class Actor : MonoBehaviour
 
 	public string Name 
 	{
-		get { return m_actorName; }
-		set { m_actorName = value;}
+		get { return actorName; }
+		set { actorName = value;}
 	}
+    public Properties.ForceType Force
+    {
+        get { return forceType; }
+        set { forceType = value; }
+    }
 	
-	public BoxCollider2D 		GetCollider() 			{ return m_boxCollider;			}
-	public Animator 			GetAnimator() 			{ return m_componentAnimator;  	}
-	public MovementController 	GetMovementController() { return m_movementController; 	}
-	public InputHandler 		GetInputHandler() 		{ return m_inputHandler; 		}
+	public BoxCollider2D 		    GetCollider() 			            { return m_boxCollider;			        }
+	public Animator 			        GetAnimator() 			        { return m_componentAnimator;  	}
+	public MovementController 	GetMovementController()   { return m_movementController; 	}
+	public InputHandler 		        GetInputHandler() 		        { return m_inputHandler; 	        	}
 	
 
 	
@@ -71,7 +73,6 @@ public class Actor : MonoBehaviour
 	{
 		m_actorProperties.Default();
 	}
-	#endregion
 
 	/// <summary>
 	/// Change the health value within the Actor's properties in accordance with the value parameter. Used to both damage and heal the actor. 
@@ -80,16 +81,5 @@ public class Actor : MonoBehaviour
 	{
 		m_actorProperties.Health += _value;
 	}
-
-	/// <summary>
-	/// Change the StunTime value within the Actor's properties in accordance with the value parameter. Used to incapacitate the Actor for a certain amount of time. 
-	/// </summary>
-	public void SetStunTime(int _value)
-	{
-		m_actorProperties.StunTime = _value;
-	}
-
-	//WE'RE GOING TO BE USING A MESSAGE CALLBACK SYSTEM IN ORDER TO IMPLEMENT CERTAIN FEATURES 
-	//IE; ACTOR IS HIT : SEND ACTOR_HIT_MESSAGE
-	//COMPONENT RECEIVED ACTOR_HIT_MESSAGE AND DOES SOMETHING ACCORDINGLY
+	#endregion
 }
