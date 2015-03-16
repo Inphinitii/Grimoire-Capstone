@@ -19,10 +19,12 @@ public abstract class IState
         m_playerFSM.Blocking = false;
     }
 
-    public IEnumerator Attack( float _length , Attack _attack)
+    public IEnumerator Attack(Attack _attack)
     {
+		m_playerFSM.StartCoroutine (BlockStateSwitch (_attack.duration + _attack.cooldownTime));
+		yield return new WaitForSeconds (_attack.startupTime);
         _attack.gameObject.SetActive( true );
-        yield return new WaitForSeconds( _length );
+        yield return new WaitForSeconds( _attack.duration );
         _attack.gameObject.SetActive( false );
     }
 

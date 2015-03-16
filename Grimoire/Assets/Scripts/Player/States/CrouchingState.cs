@@ -15,9 +15,9 @@ public class CrouchingState : IState {
        if (GetFSM().GetInput().Y())
        {
            AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
-           GetFSM().StartCoroutine( BlockStateSwitch( _temp.attackTime ) );
-           GetFSM().StartCoroutine( Attack( _temp.attackTime, _temp.attackRef ) );
+			GetFSM ().SetCurrentState(PlayerFSM.States.ATTACKING, false);
+          // GetFSM().StartCoroutine( Attack( _temp.attackRef ) );
        }
-
+		
     }	
 }

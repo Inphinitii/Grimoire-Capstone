@@ -2,14 +2,17 @@
 using System.Collections;
 
 [System.Serializable]
-public class Attack : MonoBehaviour {
+public abstract class Attack : MonoBehaviour {
 
 
     public AbstractHurtBox[]  boxColliders;
     public Properties.ForceType forceType;
     public Transform position;
 
-    public Quaternion rotation;
+	public float duration;
+	public float startupTime;
+	public float cooldownTime;
+
 
 	// Use this for initialization
     void Start()
@@ -25,10 +28,10 @@ public class Attack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
-   public  void SetForce( Properties.ForceType _force )
+   public void SetForce( Properties.ForceType _force )
     {
         forceType = _force;
         for ( int i = 0; i < boxColliders.Length; i++ )
@@ -36,4 +39,6 @@ public class Attack : MonoBehaviour {
             boxColliders[i].SetForce( _force );
         }
     }
+
+	public abstract void HandleInput (InputHandler _input);
 }

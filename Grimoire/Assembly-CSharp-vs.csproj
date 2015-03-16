@@ -76,8 +76,10 @@
      <Compile Include="Assets\Scripts\Pages\Incantations\HoldingIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Page.cs" />
      <Compile Include="Assets\Scripts\Player\Actor.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\CrouchingKick.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
      <Compile Include="Assets\Scripts\Player\Properties.cs" />
+     <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />
      <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\IState.cs" />
      <Compile Include="Assets\Scripts\Player\States\JumpingState.cs" />
@@ -161,7 +163,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Tyler Remazki/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Tyler/Documents/Git Repositories/GrimoireGame/Grimoire/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

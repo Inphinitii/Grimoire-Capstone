@@ -8,8 +8,9 @@ public class AttackList : MonoBehaviour {
     public struct AttackStruct
     {
         public Attack attackRef;
-        public float    attackTime,
-                             attackCD;
+        public float  duration,
+                      startup,
+				      cooldown;
     }
 
     [SerializeField]
@@ -50,8 +51,9 @@ public class AttackList : MonoBehaviour {
 
             _temp = new AttackStruct();
             _temp.attackRef = _tempAtk;
-            _temp.attackCD = attackCooldown[i];
-            _temp.attackTime = attackLength[i];
+            _temp.cooldown = _tempAtk.cooldownTime;
+            _temp.duration = _tempAtk.duration;
+			_temp.startup = _tempAtk.startupTime;
 
             m_attackDictionary.Add( attackNames[i], _temp );
         }

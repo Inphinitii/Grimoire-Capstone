@@ -55,7 +55,6 @@ public class PlayerFSM : MonoBehaviour {
 	//Make this update. Figure out why the animations are being retarded. 
 	void Update () 
 	{
-		Debug.Log( currentState );
 		currentState.ExecuteState();
 	}
 
@@ -81,6 +80,16 @@ public class PlayerFSM : MonoBehaviour {
 			currentState.OnSwitch();
         }
     }
+
+	public void SetAttackState(Attack _attack, bool _force)
+	{
+		if (!m_block || _force) 
+		{
+			currentState = m_stateList[(int)States.ATTACKING];
+
+			currentState.OnSwitch();
+		}
+	}
 
 	/// <summary>
 	/// Function for use in the States that have no access to Unity functions. Call an IEnumerator through this GameObject.

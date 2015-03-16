@@ -43,6 +43,9 @@ MonoBehaviour:
   - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
   forceType: 0
   position: {fileID: 0}
+  duration: .150000006
+  startupTime: .0500000007
+  cooldownTime: 0
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &100100000
 Prefab:

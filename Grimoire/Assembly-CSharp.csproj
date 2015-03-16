@@ -76,8 +76,10 @@
      <Compile Include="Assets\Scripts\Pages\Incantations\HoldingIncantation.cs" />
      <Compile Include="Assets\Scripts\Pages\Page.cs" />
      <Compile Include="Assets\Scripts\Player\Actor.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\CrouchingKick.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
      <Compile Include="Assets\Scripts\Player\Properties.cs" />
+     <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />
      <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\IState.cs" />
      <Compile Include="Assets\Scripts\Player\States\JumpingState.cs" />
