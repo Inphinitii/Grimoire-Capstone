@@ -50,7 +50,7 @@ public class MovementController : MonoBehaviour {
     private Vector2 m_tempVel;
 
     private int jumpCount = 0;
-    private int signLastFrame;
+    public int signLastFrame;
     private int sign;
 
     private float turningMultiplier;
@@ -166,8 +166,8 @@ public class MovementController : MonoBehaviour {
         if (m_physicsController.Velocity.x != 0 && !m_isJumping)
         {
             m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
-            m_isMoving = false;
         }
+		m_isMoving = m_leftStickInput.x > 0 || m_leftStickInput.x < 0 ? true : false;
     }
     //NEEDS FIXING
     public void ApplyDash() {

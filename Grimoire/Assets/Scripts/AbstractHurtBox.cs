@@ -10,6 +10,7 @@ using System.Collections;
  =========================================================*/
 
 [RequireComponent(typeof(BoxCollider2D))]
+[System.Serializable]
 public abstract class AbstractHurtBox : MonoBehaviour {
 
     public Properties.ForceType forceType;
@@ -17,6 +18,11 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     public float                           hitForce;
     public int                              hitDamage;
     public bool                           staticForce;
+
+	void Start()
+	{
+		GetComponent<BoxCollider2D>().isTrigger = true;
+	}
 
     /// <summary>
     /// Called when any object is colliding with the hurt box.
@@ -35,7 +41,10 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     /// <param name="_collider"> Collider2D Object </param>
     public virtual void OnEnemyHit( Collider2D _collider )
     {
-        _collider.gameObject.GetComponent<PhysicsController>().Velocity = hitDirection * hitForce;
+        Vector2 direction = (_collider.transform.position - this.transform.position).normalized;
+        direction.x *= hitDirection.x;
+        direction.y = hitDirection.y;
+        _collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
     }
 
     /// <summary>

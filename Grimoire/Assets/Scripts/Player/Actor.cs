@@ -25,6 +25,7 @@ public class Actor : MonoBehaviour
 	Rigidbody2D 			    m_rigidBody;
 	BoxCollider2D 			    m_boxCollider;
 	MovementController 	m_movementController;
+	PhysicsController			m_physicsController;
 	Animator 				        m_componentAnimator;
 	InputHandler                m_inputHandler;
 	
@@ -35,7 +36,8 @@ public class Actor : MonoBehaviour
 		m_boxCollider 			        = GetComponent(typeof(BoxCollider2D)) 		        as BoxCollider2D;
 		m_movementController	= GetComponent(typeof(MovementController)) 	as MovementController;
 		m_componentAnimator  = GetComponent(typeof(Animator)) 			            as Animator;
-		m_inputHandler			    = GetComponent(typeof(InputHandler)) 		        as InputHandler;
+		m_inputHandler			    = GetComponent(typeof(InputHandler)) 		        as InputHandler;     
+		m_physicsController		= GetComponent(typeof(PhysicsController))			as PhysicsController;
 	}
 	
 	#region Utility Functions
@@ -60,6 +62,7 @@ public class Actor : MonoBehaviour
 	public Animator 			        GetAnimator() 			        { return m_componentAnimator;  	}
 	public MovementController 	GetMovementController()   { return m_movementController; 	}
 	public InputHandler 		        GetInputHandler() 		        { return m_inputHandler; 	        	}
+	public PhysicsController		GetPhysicsController()			{ return m_physicsController;			}
 	
 
 	

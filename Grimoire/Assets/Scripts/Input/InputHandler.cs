@@ -1,4 +1,4 @@
-﻿#define KEYBOARD_DEBUG 
+﻿//#define KEYBOARD_DEBUG 
 
 using UnityEngine;
 using System.Collections;
@@ -117,8 +117,6 @@ public class InputHandler : MonoBehaviour {
 		//------------KEYBOARD MOVEMENT DEBUG ------------//
 		if(!m_freezeMovement)
 		{
-			if(!Input.anyKey)
-				m_leftStick = Vector2.zero;
 			if(Input.GetKey(KeyCode.LeftArrow))
 				m_leftStick.x = -1;
 			if(Input.GetKey(KeyCode.RightArrow))
@@ -127,6 +125,8 @@ public class InputHandler : MonoBehaviour {
 				m_leftStick.y = 1;
 			if(Input.GetKey(KeyCode.DownArrow))
 				m_leftStick.y = -1;			
+			if(!Input.anyKey)
+				m_leftStick = Vector2.zero;
 		}
 		else
 			m_leftStick = Vector2.zero;
@@ -135,10 +135,10 @@ public class InputHandler : MonoBehaviour {
 		if(!m_freezeKeypress)
 		{
             //Jumping
-            m_XButton      = Input.GetKeyDown(KeyCode.Z);
-			m_AButton		= Input.GetKeyDown(KeyCode.X);
-			m_BButton 		= Input.GetKeyDown(KeyCode.S);
-			m_YButton 	    = Input.GetKeyDown(KeyCode.A);
+            m_XButton      = Input.GetKey(KeyCode.Z);
+			m_AButton		= Input.GetKey(KeyCode.X);
+			m_BButton 		= Input.GetKey(KeyCode.S);
+			m_YButton 	    = Input.GetKey(KeyCode.A);
 		}
 		else
 		{
@@ -154,8 +154,8 @@ public class InputHandler : MonoBehaviour {
 		//------------GAMEPAD DIRECTIONAL INPUT ------------//
 		if(!m_freezeMovement)
 		{
-			m_leftStick     = GamePad.GetAxis(GamePad.Axis.LeftStick,  (GamePad.Index)m_playerNumber);
-			m_rightStick    = GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber);
+			m_leftStick     = GamePad.GetAxis(GamePad.Axis.LeftStick,  (GamePad.Index)m_playerNumber, true);
+			m_rightStick    = GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true);
 		}
 		else
 			m_leftStick     = Vector2.zero;

@@ -1,63 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &147280
+--- !u!1 &187334
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 448614}
-  - 61: {fileID: 6134694}
-  - 114: {fileID: 11445572}
+  - 4: {fileID: 416990}
+  - 114: {fileID: 11481042}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CrouchingKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &448614
+--- !u!4 &416990
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147280}
+  m_GameObject: {fileID: 187334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.25999999, y: 2.61999989, z: -.00999999978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6134694
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147280}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
---- !u!114 &11445572
+--- !u!114 &11481042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147280}
+  m_GameObject: {fileID: 187334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633844c4937abfe4994913b7bdab18d9, type: 3}
+  m_Script: {fileID: 11500000, guid: bb92b03dcc57a23458d9fe8e4b3f6184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceType: 2
-  hitDirection: {x: 1, y: 1}
-  hitForce: 5
-  hitDamage: 0
-  staticForce: 0
+  boxColliders:
+  - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
+  forceType: 0
+  position: {fileID: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -67,5 +53,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 147280}
+  m_RootGameObject: {fileID: 187334}
   m_IsPrefabParent: 1

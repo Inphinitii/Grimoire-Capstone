@@ -8,17 +8,16 @@ public class CrouchingState : IState {
 
     public override void ExecuteState()
     {
-       Vector2 _leftStick = GetFSM().GetInput().LeftStick();
-
+		Vector2 _leftStick = GetFSM().GetInput().LeftStick();
        if (_leftStick.y >= 0)
-           GetFSM().SetCurrentState(PlayerFSM.States.STANDING);
+           GetFSM().SetCurrentState(PlayerFSM.States.STANDING, false);
 
        if (GetFSM().GetInput().Y())
        {
-           GetFSM().StartCoroutine(BlockStateSwitch(1.25f)); //Attack Delay
-           Debug.Log("Crouching Attack");
+           AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
+           GetFSM().StartCoroutine( BlockStateSwitch( _temp.attackTime ) );
+           GetFSM().StartCoroutine( Attack( _temp.attackTime, _temp.attackRef ) );
        }
-        //If Crouching + Attack button..
 
     }	
 }

@@ -8,7 +8,7 @@ public class StandingState : IState {
 
     public override void ExecuteState()
     {
-        Vector2 _leftStick = GetFSM().GetInput().LeftStick();
+		Vector2 _leftStick = GetFSM().GetInput().LeftStick();
 
             //Forward Attack
             if (GetFSM().GetInput().Y())
@@ -16,7 +16,7 @@ public class StandingState : IState {
 				if(_leftStick.x != 0)
 				{
 	                GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
-	                GetFSM().GetMovementController().OrientationCheck(_leftStick);
+					GetFSM().GetMovement().OrientationCheck( _leftStick );
 	                Debug.Log("Forward Standing Attack");
                 }
                 if(_leftStick.y > 0)
@@ -26,7 +26,9 @@ public class StandingState : IState {
                 }
                 else
                 {
-					GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
+                    AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
+					GetFSM().StartCoroutine(BlockStateSwitch(_temp.attackTime));
+                    GetFSM().StartCoroutine(Attack(_temp.attackTime, _temp.attackRef));
 					Debug.Log("Neutral Standing Attack");
 				}
             }
@@ -40,10 +42,10 @@ public class StandingState : IState {
     {
         yield return new WaitForSeconds(0.05f);
         if (_leftStick.x > 0 || _leftStick.x < 0)
-            GetFSM().SetCurrentState(PlayerFSM.States.MOVING);
+            GetFSM().SetCurrentState(PlayerFSM.States.MOVING, false);
         if (_leftStick.y < 0)
-            GetFSM().SetCurrentState(PlayerFSM.States.CROUCHING);
+			GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
         if (GetFSM().GetInput().A())
-            GetFSM().SetCurrentState(PlayerFSM.States.JUMPING);
+			GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
     }
 }

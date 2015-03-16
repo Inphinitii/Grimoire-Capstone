@@ -19,6 +19,13 @@ public abstract class IState
         m_playerFSM.Blocking = false;
     }
 
+    public IEnumerator Attack( float _length , Attack _attack)
+    {
+        _attack.gameObject.SetActive( true );
+        yield return new WaitForSeconds( _length );
+        _attack.gameObject.SetActive( false );
+    }
+
     public virtual void OnSwitch() { }
     public abstract void ExecuteState();
 

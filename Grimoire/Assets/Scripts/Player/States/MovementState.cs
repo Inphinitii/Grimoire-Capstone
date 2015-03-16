@@ -7,18 +7,18 @@ public class MovementState : IState {
 
     public override void ExecuteState()
     {
-       if (GetFSM().GetInput().Y())
+       if (GetFSM().GetActorReference().GetInputHandler().Y())
            Debug.Log("Dash Attack");
-       if (GetFSM().GetInput().A())
-           GetFSM().SetCurrentState(PlayerFSM.States.JUMPING);
+	   if ( GetFSM().GetActorReference().GetInputHandler().A() )
+           GetFSM().SetCurrentState(PlayerFSM.States.JUMPING, false);
 
 
 
-       Vector2 _leftStick = GetFSM().GetInput().LeftStick();
-       if (_leftStick.x != 0)
-           GetFSM().GetMovementController().MoveX(_leftStick);
-       else
-           GetFSM().SetCurrentState(PlayerFSM.States.STANDING);
+	   Vector2 _leftStick = GetFSM().GetActorReference().GetInputHandler().LeftStick();
+	   if ( _leftStick.x != 0 )
+		   GetFSM().GetActorReference().GetMovementController().MoveX( _leftStick );
+	   else
+		   GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
     }
 }
 
