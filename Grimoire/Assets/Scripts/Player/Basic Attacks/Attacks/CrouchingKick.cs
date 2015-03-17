@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrouchingKick : Attack {
+public class CrouchingKick : AbstractAttack {
 
 	// Use this for initialization
-	void Start () {
-	
+	public override void Start () {
+		base.Start();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update()
+	{
 	
 	}
 
 	public override void HandleInput (InputHandler _input)
 	{
-		//Handle the input for a crouching kick
+		base.HandleInput( _input );
+	}
+
+	public override void HitEnemy()
+	{
+		base.HitEnemy();
 	}
 }

@@ -48,8 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\Resources\Prefabs\Characters\DEBUG\Test.cs" />
+     <Compile Include="Assets\Scripts\AbstractAttack.cs" />
      <Compile Include="Assets\Scripts\AbstractHurtBox.cs" />
-     <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\AttackList.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
      <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />

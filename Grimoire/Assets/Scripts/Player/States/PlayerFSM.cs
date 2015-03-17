@@ -19,18 +19,22 @@ public class PlayerFSM : MonoBehaviour {
         MOVING,
         CROUCHING,
         JUMPING,
-        DASHING,
         ATTACKING,
+        DASHING,
         HIT,
         FALLING
     };
     public IState currentState;
 
-   private List<IState> m_stateList;
-   private bool m_block;
+    private List<IState>	m_stateList;
+    private bool					m_block;
 
-	private Actor m_actorReference;
-    private AttackList[] m_attackList;
+    private IState				m_previousState;
+	private Actor				m_actorReference;
+    private AttackList[]		m_attackList;
+
+	//For use in the AttackState class. 
+	private AbstractAttack m_currentAttack;
     
 	void Start () {
         m_attackList			= GetComponents<AttackList>();
@@ -39,10 +43,11 @@ public class PlayerFSM : MonoBehaviour {
         m_stateList = new List<IState>();
         
         // Pre-load the state objects into the state list. This is all done at compile time. 
-        m_stateList.Add(new StandingState());
-        m_stateList.Add(new MovementState());
-        m_stateList.Add(new CrouchingState());
-        m_stateList.Add(new JumpingState());
+        m_stateList.Add( new StandingState() );
+        m_stateList.Add( new MovementState() );
+        m_stateList.Add( new CrouchingState() );
+        m_stateList.Add( new JumpingState() );
+		m_stateList.Add( new AttackState() );
 
         foreach (IState item in m_stateList)
 		{
@@ -52,9 +57,9 @@ public class PlayerFSM : MonoBehaviour {
 		currentState = m_stateList[0]; 
 	}
 	
-	//Make this update. Figure out why the animations are being retarded. 
 	void Update () 
 	{
+		Debug.Log( currentState );
 		currentState.ExecuteState();
 	}
 
@@ -76,17 +81,23 @@ public class PlayerFSM : MonoBehaviour {
     public void SetCurrentState(States _states, bool _force){
         if (!m_block || _force)
         {
+			m_block = false;
+			m_previousState = currentState;
 			currentState = m_stateList[(int)_states];
 			currentState.OnSwitch();
         }
     }
 
-	public void SetAttackState(Attack _attack, bool _force)
+	/// <summary>
+	/// Return to the previous stored state.
+	/// </summary>
+	/// <param name="_force">Force the state change regardless of the block.</param>
+	public void GoToPreviousState(bool _force)
 	{
-		if (!m_block || _force) 
+		if ( !m_block || _force )
 		{
-			currentState = m_stateList[(int)States.ATTACKING];
-
+			m_block = false;
+			currentState = m_previousState;
 			currentState.OnSwitch();
 		}
 	}
@@ -99,8 +110,6 @@ public class PlayerFSM : MonoBehaviour {
     {
         StartCoroutine(_coroutine);
     }
-
-	
 
 	/// <summary>
 	/// Returns the Actor reference stored in this script.
@@ -149,4 +158,14 @@ public class PlayerFSM : MonoBehaviour {
         }
         return default( AttackList );
     }
+
+	/// <summary>
+	/// Getter/Setter for the current attack.
+	/// </summary>
+	public AbstractAttack CurrentAttack
+	{
+		get { return m_currentAttack; }
+		set { m_currentAttack = value; }
+	}
+
 }

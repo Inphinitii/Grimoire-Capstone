@@ -41,6 +41,9 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     /// <param name="_collider"> Collider2D Object </param>
     public virtual void OnEnemyHit( Collider2D _collider )
     {
+		SendMessageUpwards( "HitEnemy" );			//Send a message to this object
+		_collider.SendMessage( "OnHit" );	//Send a message to the enemy
+
         Vector2 direction = (_collider.transform.position - this.transform.position).normalized;
         direction.x *= hitDirection.x;
         direction.y = hitDirection.y;

@@ -1,4 +1,4 @@
-﻿#define KEYBOARD_DEBUG 
+﻿//#define KEYBOARD_DEBUG 
 
 using UnityEngine;
 using System.Collections;
@@ -98,11 +98,11 @@ public class InputHandler : MonoBehaviour {
 	public bool X() 	{ return m_XButton; 	}
 	public bool A() 	{ return m_AButton; 	}
 	public bool Y() 	{ return m_YButton; 	}
-	public bool B() 	{ return m_BButton; 	}
+	public bool B() 		{ return m_BButton; 	}
     public bool LB()    { return m_leftShoulder; }
     public bool RB()    { return m_rightShoulder; }
-    public float LT()   { return m_leftTrigger; }
-    public float RT()   { return m_rightTrigger; }
+    public float LT()		{ return m_leftTrigger; }
+    public float RT()	{ return m_rightTrigger; }
 
 	public Vector2 	LeftStick() { return m_leftStick; 	 	}
 

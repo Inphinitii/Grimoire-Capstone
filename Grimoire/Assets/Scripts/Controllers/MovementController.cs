@@ -7,126 +7,82 @@ public class MovementController : MonoBehaviour {
 
 	//TODO NEEDS REFACTORING 
     //Acceleration
-    public float p_groundAccel = 100.0f;
-    public float p_airAccel = 100.0f;
-    public float p_jumpAccel = 400.0f;
-
-    //Dash Variables
-    public float p_dashAccel = 200.0f;
-    public float p_dashStartupWindow;
-    public float p_dashDuration;
+    public float groundAccel	= 100.0f;
+    public float airAccel			= 25.0f;
+    public float jumpAccel		= 12.0f;
 
     //Maximum Accelerations
-    public float p_maxGroundAccel = 10.0f;
-    public float p_maxAirAccel = 9.0f;
-
-    //Turning Modifiers
-    public float p_groundTurningConstant = 1.2f;
-    public float p_airTurningConstant = 0.5f;
+    public float maxGroundAccel	= 12.0f;
+    public float maxAirAccel			= 12.0f;
 
     //Dampeners
-    public float p_groundDampeningConstant = 0.9f;
-    // public float p_airDampeningConstant = 0.5f;
+    public float groundDampeningConstant	= 0.88f;
+    public float airDampeningConstant			= 0.98f;
 
-    public float p_fastFallRate = 100.0f;
+    //Turning Modifiers
+    public float groundTurningConstant = 3.0f;
+    public float airTurningConstant			= 0.1f;
 
-    public bool p_multiJump = true;
-    public int p_totalJumps = 2;
-    public float p_jumpCooldown = 0.4f;
+	//Fast Fall Variables
+    public float fastFallRate = 100.0f;
 
-    public LayerMask GroundLayerMask;
-    public LayerMask PlatformLayerMask;
+	//Jumping Variables
+    public int	  totalJumps	= 2;
+    private int  jumpCount	= 0;
 
+	//Collision Variables
+    public	LayerMask	GroundLayerMask;
+    public	LayerMask	PlatformLayerMask;
+	private LayerMask	mCurrentMask;
+	private LayerMask	mCurrentlyHitting;
+    private float				skinWidth = 0.001f;
+
+	//Reference Variables
     private PhysicsController m_physicsController;
-    private InputHandler m_inputHandler;
-    private bool m_isJumping;
-    private bool m_dashWaitForInput;
-    private bool m_isDashing;
-    public bool m_isMoving;
-    private Actor m_actor;
+    private InputHandler		m_inputHandler;
 
-    private Vector2 m_leftStickInput;
+	//Movement Booleans
+    private bool m_isJumping;
+    private bool m_isMoving;
+
+	//Temporary forces to be added to the PhysicsController.
     private Vector2 m_tempForce;
     private Vector2 m_tempVel;
 
-    private int jumpCount = 0;
-    public int signLastFrame;
+	//Signs to determine orientation.
+    private int signLastFrame;
     private int sign;
 
     private float turningMultiplier;
     private float turningSpeedType;
-    private float skinWidth = 0.001f;
-    private float jumpTimer = 0.0f;
-
-    private float dashTimer = 0.0f;
-    //private float runTimer = 0.05f;
-
-    private LayerMask mCurrentMask;
-    private LayerMask mCurrentlyHitting;
+    private float movementSpeedType;
+	private float dampeningConstant;
 
 
-    private Vector2 dashDirection;
-    float movementSpeedType;
+	private float temp;
+
+
     //TODO WALL JUMPING
     //TODO WALL SLIDING
     //TODO FALLING THROUGH PLATFORMS 
     //TODO FIX MOVING THROUGH PLATFORMS BOTTOM UP
 
     void Start() {
-        m_actor = GetComponent<Actor>();
         m_inputHandler = GetComponent<InputHandler>();
         m_physicsController = GetComponent<PhysicsController>();
         m_isJumping = true;
     }
 
     void FixedUpdate() {
-        m_leftStickInput = m_inputHandler.LeftStick();
         turningMultiplier = 1.0f;
-       // m_isMoving = false;
 
-        // -- Ground Check Determinants -- //
-        //m_physicsController.p_applyGravity = m_isJumping;
-        turningSpeedType = !m_isJumping ? p_groundTurningConstant : p_airTurningConstant;
-        movementSpeedType = !m_isJumping ? p_groundAccel : p_airAccel;
+        turningSpeedType		= !m_isJumping ? groundTurningConstant : airTurningConstant;
+        movementSpeedType = !m_isJumping ? groundAccel : airAccel;
+		dampeningConstant	= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
 
-        // -- Movement Speed Cap -- //
         CapAcceleration();
-
-        //Move this later! Works for now as a patch job. 
-        //Stops the player from moving continuously. Encapsulate this in a state eventually. 
         DampenMovement();
-
-        // -- Turning -- //
         ApplyTurningSpeed(ref turningMultiplier);
-
-        // -- Jumping -- //
-        if (jumpTimer > 0.0f)
-            jumpTimer -= Time.deltaTime;
-
-        //Clean this up once it's working properly.
-        //Pause the player for X amount of seconds in the air, let them choose a direction, and shoot them towards it. 
-        if (m_dashWaitForInput) {          
-            dashTimer -= Time.deltaTime;
-
-            //Pause the player and wait for X Seconds before returning control to the physics controller.
-            if (dashTimer <= 0.0f) {
-                m_physicsController.Velocity = Vector2.zero;
-                m_physicsController.PausePhysics(false);
-                m_dashWaitForInput = false;
-                m_isDashing = false;    
-            }
-
-            //If paused and the directional stick is pressed with the dash button, move in that direction
-            //Y Direction is current screwed up for some reason?
-            if (m_isDashing) {
-                m_physicsController.PausePhysics(false);
-                m_physicsController.Velocity = dashDirection * p_dashAccel;
-                m_physicsController.ClearValues();
-            }
-        }
-
-
-         m_tempForce.y -= m_leftStickInput.y < 0 && m_isJumping ? p_fastFallRate : 0.0f; // Fast Falling -- NEEDS TWEAKING -- 
          
         // -- Update Forces and Step through Physics -- //
         m_physicsController.AddToForce(m_tempForce);
@@ -142,48 +98,123 @@ public class MovementController : MonoBehaviour {
         signLastFrame = sign;
     }
 
-    public void ApplyJump() {
-        if (jumpCount < p_totalJumps && jumpTimer <= 0.0f) {
-            m_isJumping = true;
-            m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, p_jumpAccel);
-            m_physicsController.p_applyGravity = true;
-            jumpTimer = p_jumpCooldown;
-            jumpCount++;
-        }
+
+
+	/// <summary>
+	/// Apply a jump force to the player character when a button is pressed. The longer the button is pressed, the longer the force is applied.
+	/// This allows for 'Short Hopping'.
+	/// Could be tweaked better. <----
+	/// </summary>
+	/// <param name="_buttonPressed"> Boolean representing if the button has been pressed or not.</param>
+	/// <param name="xDirection">X Direction Influence for use in the second jump.</param> //DO THIS LATER <----- <----
+    public void ApplyJump(bool _buttonPressed, Vector2 xDirection) {
+		if ( !m_isJumping )
+		{
+			jumpCount = 0;
+			temp = 0.0f;
+			m_isJumping = true;
+		}
+		else
+		{
+			if ( _buttonPressed && jumpCount < totalJumps )
+			{
+				if(temp < 0.15f)
+					m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, jumpAccel);
+
+				temp += ( Time.deltaTime );
+			}
+			else if ( !_buttonPressed )
+			{
+				temp = 0.0f;
+				jumpCount++;
+			}
+		}
     }
 
-    public void MoveX(Vector2 m_direction)
+    //NEEDS FIXING
+	/// <summary>
+	/// Apply a dashing force to the player character in the supplied directional vector.
+	/// </summary>
+	/// <param name="_direction">Direction of dash.</param>
+    public void ApplyDash(Vector2 _direction) {
+
+		//if (!m_dashWaitForInput) {
+		//	dashTimer = p_dashStartupWindow;
+		//	m_dashWaitForInput = true;
+		//	m_physicsController.PausePhysics(true);
+		//}
+		//else if(m_inputHandler.LeftStick() != Vector2.zero){
+		//	dashDirection = m_inputHandler.LeftStick();
+		//	dashTimer = p_dashDuration;
+		//	m_isDashing = true;
+		//}
+
+    }
+
+	/// <summary>
+	/// Apply a force downwards when the player wants to 'fast fall'. This is used in the Jumping State. 
+	/// </summary>
+	/// <param name="_leftStick">The movement stick variable from an input source.</param>
+	public void ApplyFastFall(Vector2 _leftStick)
+	{
+		m_tempForce.y -= _leftStick.y < 0 ? fastFallRate : 0.0f;
+	}
+
+	/// <summary>
+	/// Used externally by other controllers to move our character into the supplied direction. 
+	/// </summary>
+	/// <param name="m_direction">The direction of movement.</param>
+    public void MoveX(Vector2 _direction)
     {
-        OrientationCheck(m_direction);
+		OrientationCheck( _direction );
         if (m_isMoving)
         {
-            m_tempForce.x += (m_direction.x * movementSpeedType);
+			m_tempForce.x += ( _direction.x * movementSpeedType );
         }
     }
 
+	/// <summary>
+	/// Check the orientation of the character based
+	/// </summary>
+	/// <param name="_stick">The input vector corresponding to the left stick of the Xbox Controller.</param>
+    public void OrientationCheck(Vector2 _stick) {
+        //Left Stick Right
+        if (_stick.x > 0.0f)
+        {
+            m_isMoving = true;
+            sign = 1;
+            if (!m_isJumping)
+                if (transform.localRotation.y != 0.0f) {
+                    transform.Rotate(0, 180, 0, Space.Self);
+                }
+        }
+        //Left Stick Left
+        else if (_stick.x < 0.0f)
+        {
+            m_isMoving = true;
+            sign = -1;
+            if (!m_isJumping)
+                if (transform.localRotation.y == 0.0f) {
+                    transform.Rotate(0, -180, 0, Space.Self);
+                }
+        }
+    }
+
+	/// <summary>
+	/// Apply a dampening force to the players velocity. If this velocity is zero, our character has stopped moving. 
+	/// </summary>
     public void DampenMovement()
     {
-        if (m_physicsController.Velocity.x != 0 && !m_isJumping)
-        {
-            m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x * p_groundDampeningConstant, m_physicsController.Velocity.y);
-        }
-		m_isMoving = m_leftStickInput.x > 0 || m_leftStickInput.x < 0 ? true : false;
-    }
-    //NEEDS FIXING
-    public void ApplyDash() {
-        if (!m_dashWaitForInput) {
-            dashTimer = p_dashStartupWindow;
-            m_dashWaitForInput = true;
-            m_physicsController.PausePhysics(true);
-        }
-        else if(m_inputHandler.LeftStick() != Vector2.zero){
-            dashDirection = m_inputHandler.LeftStick();
-            dashTimer = p_dashDuration;
-            m_isDashing = true;
-        }
+        if (m_physicsController.Velocity.x != 0)
+			m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x * dampeningConstant, m_physicsController.Velocity.y );
 
+		m_isMoving = m_inputHandler.LeftStick().x > 0 || m_inputHandler.LeftStick().x < 0 ? true : false;
     }
 
+	/// <summary>
+	/// Multiply a constant modifier to the movement speed when the orientation changes to simulate a skidding effect. 
+	/// </summary>
+	/// <param name="_turningSpeed">The turning speed variable.</param>
     void ApplyTurningSpeed(ref float _turningSpeed) {
         if (signLastFrame != sign && sign != 0) {
             _turningSpeed = turningSpeedType * sign;
@@ -191,7 +222,10 @@ public class MovementController : MonoBehaviour {
         }
     }
 
-
+	/// <summary>
+	/// Check for collision with One Way Platforms when moving upwards on the Y axis. 
+	/// </summary>
+	/// NEEDS FIXING
     void OneWayPlatform()
     {
         bool goingUp = m_physicsController.Velocity.y > 0;
@@ -205,6 +239,11 @@ public class MovementController : MonoBehaviour {
         }
 
     }
+
+	/// <summary>
+	/// Check whether or not the player is grounded using a single raycast.
+	/// </summary>
+	/// TODO: Sliding on Slopes?
     void GroundCheck() {
         bool goingUp = m_physicsController.Velocity.y > 0;
         Vector2 rayDirection = goingUp ? Vector2.up : -Vector2.up;
@@ -232,37 +271,34 @@ public class MovementController : MonoBehaviour {
         }
     }
 
-    public void OrientationCheck(Vector2 _stick) {
-        //Left Stick Right
-        if (_stick.x > 0.0f)
-        {
-            m_isMoving = true;
-            sign = 1;
-            if (!m_isJumping)
-                if (transform.localRotation.y != 0.0f) {
-                    transform.Rotate(0, 180, 0, Space.Self);
-                }
-        }
-        //Left Stick Left
-        else if (_stick.x < 0.0f)
-        {
-            m_isMoving = true;
-            sign = -1;
-            if (!m_isJumping)
-                if (transform.localRotation.y == 0.0f) {
-                    transform.Rotate(0, -180, 0, Space.Self);
-                }
-        }
-    }
 
+	/// <summary>
+	/// Cap the velocity of the characters movement speed.
+	/// </summary>
     void CapAcceleration() {
         //Grounded Movement Speed Cap
-        float value = !m_isJumping ? p_maxGroundAccel : p_maxAirAccel;
+        float value = !m_isJumping ? maxGroundAccel : maxAirAccel;
         if (m_physicsController.Velocity.x > value)
             m_physicsController.Velocity = new Vector2(value, m_physicsController.Velocity.y);
         if (m_physicsController.Velocity.x < -value)
             m_physicsController.Velocity = new Vector2(-value, m_physicsController.Velocity.y);
     }
 
-    public bool IsJumping() {  return m_isJumping; }
+	/// <summary>
+	/// Returns whether or not the character is currently jumping. 
+	/// </summary>
+	/// <returns>Jump variable </returns>
+    public bool IsJumping()		{ return m_isJumping; }
+
+	/// <summary>
+	/// Returns whether or not the character is currently moving.
+	/// </summary>
+	/// <returns>Movement variable.</returns>
+	public bool IsMoving()		{ return m_isMoving; }
+
+	/// <summary>
+	/// Returns the orientation sign of the previous frame.
+	/// </summary>
+	/// <returns>Orientation sign of the previous frame.</returns>
+	public int SignLastFrame() { return signLastFrame; }
 }

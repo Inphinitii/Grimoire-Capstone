@@ -3,25 +3,29 @@ using System.Collections;
 
 public class AttackState : IState {
 
-	private Attack m_attack;
-	private bool m_interruptable;
+	private float m_time;
 
 	public AttackState()
 	{
 	}
-	
+
+	public override void OnSwitch()
+	{
+		m_time = GetFSM().CurrentAttack.GetStateBlockTime();
+	}
 	public override void ExecuteState()
 	{
-		GetFSM().StartCoroutine( Attack( m_attack ) );
-		if (m_interruptable) 
+		if ( m_time > 0.0f )
 		{
-			m_attack.HandleInput(m_playerFSM.GetActorReference().GetInputHandler());
+			GetFSM().StartCoroutine( BlockStateSwitch( GetFSM().CurrentAttack.GetStateBlockTime() ) );
+			GetFSM().StartCoroutine( GetFSM().CurrentAttack.StartAttack() );
+			GetFSM().CurrentAttack.HandleInput( GetFSM().GetActorReference().GetInputHandler() );
+			m_time -= Time.deltaTime;
 		}
-
-	}
-
-	public void SetAttack(Attack _attack, bool _interruptable){
-		m_attack = _attack;
-		m_interruptable = _interruptable;
+		else
+		{
+			GetFSM().GoToPreviousState( false );
+		}
+		
 	}
 }

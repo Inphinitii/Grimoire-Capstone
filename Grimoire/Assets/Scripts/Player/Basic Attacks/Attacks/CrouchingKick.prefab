@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 416990}
-  - 114: {fileID: 11481042}
+  - 114: {fileID: 11435220}
   m_Layer: 0
   m_Name: CrouchingKick
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11481042
+--- !u!114 &11435220
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -36,17 +36,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 187334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb92b03dcc57a23458d9fe8e4b3f6184, type: 3}
+  m_Script: {fileID: 11500000, guid: daf06f1d19443be49b8649eb9ba5625d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxColliders:
   - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
   forceType: 0
-  position: {fileID: 0}
   duration: .150000006
-  startupTime: .0500000007
-  cooldownTime: 0
-  rotation: {x: 0, y: 0, z: 0, w: 0}
+  startupTime: .100000001
+  cooldownTime: .100000001
+  dashWindow: .200000003
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

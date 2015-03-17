@@ -42,7 +42,7 @@ public class AnimationController : MonoBehaviour
 
     void WalkingAnimations()
     {
-        m_Animator.SetBool("Moving", m_movementController.m_isMoving);
+        m_Animator.SetBool("Moving", m_movementController.IsMoving());
         m_Animator.SetFloat("MovementSpeed", Mathf.Abs(m_physicsController.Velocity.x));
     }
 

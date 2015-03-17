@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 3471915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Foot_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,13 +277,13 @@ GameObject:
   - 114: {fileID: 29067381}
   - 114: {fileID: 29067380}
   - 114: {fileID: 29067379}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerCharacter 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &29067378
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 29067377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.30999994, y: -.689999998, z: 0}
+  m_LocalPosition: {x: 2.30999994, y: 1.42999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1540645084}
@@ -324,13 +324,9 @@ MonoBehaviour:
   attackListID: Basic Attacks
   forceType: 0
   attackList:
-  - {fileID: 0}
+  - {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
   attackNames:
   - CrouchingAttack
-  attackLength:
-  - .150000006
-  attackCooldown:
-  - .200000003
 --- !u!114 &29067381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,29 +396,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82e86d0a81a34445b5fa54d6866c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_groundAccel: 100
-  p_airAccel: 50
-  p_jumpAccel: 14.5
-  p_dashAccel: 50
-  p_dashStartupWindow: .5
-  p_dashDuration: .150000006
-  p_maxGroundAccel: 10
-  p_maxAirAccel: 10
-  p_groundTurningConstant: 3
-  p_airTurningConstant: .5
-  p_groundDampeningConstant: .899999976
-  p_fastFallRate: 100
-  p_multiJump: 1
-  p_totalJumps: 2
-  p_jumpCooldown: .300000012
+  groundAccel: 100
+  airAccel: 25
+  jumpAccel: 12
+  maxGroundAccel: 12
+  maxAirAccel: 12
+  groundDampeningConstant: .879999995
+  airDampeningConstant: .980000019
+  groundTurningConstant: 3
+  airTurningConstant: .100000001
+  fastFallRate: 100
+  totalJumps: 2
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
   PlatformLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  m_isMoving: 0
-  signLastFrame: 0
 --- !u!114 &29067386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,7 +600,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 66566312}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Foot_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +627,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 115235780}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LowerLeg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +663,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 205667562}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +693,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 212464958}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ForeArm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +721,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 228235094}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +749,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 253501149}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +842,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 356550238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ForeArm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,7 +870,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 371443089}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,7 +898,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412914541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +926,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 458581467}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -964,7 +954,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 463029649}
   - 137: {fileID: 463029650}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1036,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 486119674}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1237,7 +1227,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 518652507}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ForeArm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1265,7 +1255,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 529040376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LowerLeg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1406,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 729676851}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LowerLeg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1444,7 +1434,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 735468816}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1463,6 +1453,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 212464958}
   m_RootOrder: 0
+--- !u!1 &741350294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 741350295}
+  - 61: {fileID: 741350296}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &741350295
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 741350294}
+  m_LocalRotation: {x: -8.94069885e-08, y: .707106829, z: -3.55271453e-15, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1045875630}
+  m_RootOrder: 0
+--- !u!61 &741350296
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 741350294}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3}
 --- !u!1 &745758334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1502,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 745758335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Foot_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1498,7 +1529,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 762831480}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1525,7 +1556,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 802086184}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1553,7 +1584,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 802943047}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1581,7 +1612,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 832445731}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UpperLeg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1636,7 +1667,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 962660390}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UpperLeg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1664,7 +1695,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1001261427}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1723,7 +1754,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1027142830}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shoulder_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1804,7 +1835,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1033291517}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1897,6 +1928,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1216762526}
   m_RootOrder: 1
+--- !u!4 &1045875630
+Transform:
+  m_PrefabParentObject: {fileID: 400006, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
+  m_PrefabInternal: {fileID: 1497151800}
 --- !u!1 &1083824764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +1940,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1083824765}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1946,7 +1981,7 @@ GameObject:
   - 114: {fileID: 1160207939}
   - 114: {fileID: 1160207940}
   - 114: {fileID: 1160207942}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2040,29 +2075,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82e86d0a81a34445b5fa54d6866c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_groundAccel: 100
-  p_airAccel: 50
-  p_jumpAccel: 16
-  p_dashAccel: 50
-  p_dashStartupWindow: .5
-  p_dashDuration: .150000006
-  p_maxGroundAccel: 12
-  p_maxAirAccel: 12
-  p_groundTurningConstant: 3
-  p_airTurningConstant: .5
-  p_groundDampeningConstant: .899999976
-  p_fastFallRate: 100
-  p_multiJump: 1
-  p_totalJumps: 2
-  p_jumpCooldown: .300000012
+  groundAccel: 100
+  airAccel: 25
+  jumpAccel: 12
+  maxGroundAccel: 12
+  maxAirAccel: 12
+  groundDampeningConstant: .879999995
+  airDampeningConstant: .980000019
+  groundTurningConstant: 3
+  airTurningConstant: .100000001
+  fastFallRate: 100
+  totalJumps: 2
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
   PlatformLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  m_isMoving: 0
-  signLastFrame: 0
 --- !u!114 &1160207937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,13 +2151,9 @@ MonoBehaviour:
   attackListID: Basic Attacks
   forceType: 0
   attackList:
-  - {fileID: 0}
+  - {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
   attackNames:
   - CrouchingAttack
-  attackLength:
-  - .150000006
-  attackCooldown:
-  - .200000003
 --- !u!61 &1160207941
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2163,7 +2188,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1195013890}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2294,7 +2319,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1325475882}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ForeArm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,7 +2347,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1380952121}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shoulder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2382,7 +2407,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1451362472}
   - 137: {fileID: 1451362473}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2464,7 +2489,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1454387133}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2627,11 +2652,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.08999991
+      value: 3.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.08999991
+      value: 3.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_LocalScale.y
@@ -2663,23 +2688,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
@@ -2687,11 +2712,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
@@ -2699,7 +2724,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
@@ -2713,7 +2738,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1540645084}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2742,7 +2767,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1545698337}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2772,7 +2797,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1626879135}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shoulder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2800,7 +2825,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1637696174}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2930,6 +2955,7 @@ MonoBehaviour:
   p_CameraFoci:
   - {fileID: 1160207930}
   - {fileID: 351115527}
+  - {fileID: 29067377}
   p_CameraFollowDelay: 4
   p_CameraZoomDelay: 3
   p_CameraFollow: 1
@@ -3194,7 +3220,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1734244855}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shoulder_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3222,7 +3248,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1776145909}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UpperLeg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3250,7 +3276,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1816332184}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UpperLeg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3278,7 +3304,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1827840284}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3299,6 +3325,10 @@ Transform:
   - {fileID: 463029649}
   m_Father: {fileID: 1160207931}
   m_RootOrder: 0
+--- !u!4 &1875585009
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
+  m_PrefabInternal: {fileID: 1497151800}
 --- !u!1 &1884430248
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,7 +3337,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1884430249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LowerLeg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3335,7 +3365,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1952778579}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3363,7 +3393,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1990540369}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Foot_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3390,7 +3420,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2031175375}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3472,3 +3502,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &2090237538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2090237539}
+  - 61: {fileID: 2090237540}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090237539
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2090237538}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1875585009}
+  m_RootOrder: 0
+--- !u!61 &2090237540
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2090237538}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3}

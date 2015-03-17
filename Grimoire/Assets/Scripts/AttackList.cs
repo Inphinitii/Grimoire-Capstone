@@ -7,10 +7,17 @@ public class AttackList : MonoBehaviour {
 	//Hold a dictionary containing a custom structure with an Attack and its Time, with the key being the string identifier. Ie; <HighPunch, new AttackStruct(AttackScriptObject,1.0f)>;
     public struct AttackStruct
     {
-        public Attack attackRef;
-        public float  duration,
-                      startup,
-				      cooldown;
+		public AttackStruct( AbstractAttack _ref, float _duration, float _startup, float _cooldown )
+		{
+			attackRef		= _ref;
+			duration		= _duration;
+			startup			= _startup;
+			cooldown		= _cooldown;
+		}
+		public AbstractAttack attackRef;
+        public float	duration,
+							startup,
+							cooldown;
     }
 
     [SerializeField]
@@ -20,41 +27,28 @@ public class AttackList : MonoBehaviour {
     public Properties.ForceType forceType;
 
     [SerializeField]
-    public Attack[] attackList;
+	public AbstractAttack[] attackList;
 
     [SerializeField]
     public string[] attackNames;
 
     [SerializeField]
-    public float[] attackLength;
-
-    [SerializeField]
-    public float[]   attackCooldown;
-
-    [SerializeField]
     private Dictionary<string, AttackStruct> m_attackDictionary;
 
     private AttackStruct _temp;
-    private Attack _tempAtk;
+    private AbstractAttack _tempAtk;
 
     void Start()
     {
-        //Generate Attack Structs and push them into the Attack Dictionary.
         m_attackDictionary = new Dictionary<string, AttackStruct>();
         for ( int i = 0; i < attackList.Length; i++ )
         {
-            _tempAtk = (Attack)Instantiate( attackList[i], this.transform.position, Quaternion.identity ) as Attack;
+			_tempAtk = (AbstractAttack)Instantiate( attackList[i], this.transform.position, Quaternion.identity ) as AbstractAttack;
             _tempAtk.SetForce( forceType );
-            _tempAtk.position = this.transform;
             _tempAtk.transform.parent = this.transform;
-			_tempAtk.gameObject.active = false;
+			_tempAtk.gameObject.SetActive( false );
 
-            _temp = new AttackStruct();
-            _temp.attackRef = _tempAtk;
-            _temp.cooldown = _tempAtk.cooldownTime;
-            _temp.duration = _tempAtk.duration;
-			_temp.startup = _tempAtk.startupTime;
-
+            _temp = new AttackStruct(_tempAtk, _tempAtk.duration, _tempAtk.startupTime, _tempAtk.cooldownTime);
             m_attackDictionary.Add( attackNames[i], _temp );
         }
 	}

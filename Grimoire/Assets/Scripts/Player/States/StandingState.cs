@@ -15,20 +15,16 @@ public class StandingState : IState {
             {
 				if(_leftStick.x != 0)
 				{
-	                GetFSM().StartCoroutine(BlockStateSwitch(1.25f));
 					GetFSM().GetMovement().OrientationCheck( _leftStick );
 	                Debug.Log("Forward Standing Attack");
                 }
                 if(_leftStick.y > 0)
                 {
-					GetFSM().StartCoroutine(BlockStateSwitch(1.25f)); //Attack Delay
 					Debug.Log("Up Standing Attack");
                 }
                 else
                 {
                     AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
-					GetFSM().StartCoroutine(BlockStateSwitch(_temp.duration + _temp.cooldown));
-                    GetFSM().StartCoroutine(Attack(_temp.attackRef));
 					Debug.Log("Neutral Standing Attack");
 				}
             }
