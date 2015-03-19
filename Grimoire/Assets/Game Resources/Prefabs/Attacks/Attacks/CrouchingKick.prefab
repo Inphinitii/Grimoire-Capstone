@@ -47,6 +47,7 @@ MonoBehaviour:
   startupTime: .100000001
   cooldownTime: 0
   dashWindow: .200000003
+  dashOnCD: 0
   hitDirection: {x: 1, y: 1}
   hitForce: 10
   hitDamage: 0

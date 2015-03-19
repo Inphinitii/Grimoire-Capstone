@@ -23,13 +23,13 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     /// <summary>
     /// Called when any object is colliding with the hurt box.
     /// </summary>
-    public abstract void OnAnyHit();
+    public virtual void OnAnyHit(){}
 
     /// <summary>
     /// Called when any object that shares the same force type is colliding with the hurt box.
     /// </summary>
     /// <param name="_collider"> Collider2D Object </param>
-    public abstract void OnFriendlyHit( Collider2D _collider );
+    public virtual void OnFriendlyHit( Collider2D _collider ){}
 
     /// <summary>
     /// Called when any object that has a different force type is colliding with the hurt box.
@@ -49,6 +49,22 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     {
         forceType = _type;
     }
+
+	/// <summary>
+	/// Enable this hurtbox object.
+	/// </summary>
+	public void EnableHurtBox()
+	{
+		gameObject.SetActive( true );
+	}
+
+	/// <summary>
+	/// Disable this hurtbox object.
+	/// </summary>
+	public void DisableHurtBox()
+	{
+		gameObject.SetActive( false );
+	}
 
     /// <summary>
     /// Handles the 2D collision using Unity's default physics system.

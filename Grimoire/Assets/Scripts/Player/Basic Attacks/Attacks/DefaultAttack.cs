@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrouchingKick : AbstractAttack {
+public class DefaultAttack : AbstractAttack {
 
 	// Use this for initialization
 	public override void Start () {

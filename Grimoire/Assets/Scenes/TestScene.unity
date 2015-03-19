@@ -324,7 +324,7 @@ MonoBehaviour:
   attackListID: Basic Attacks
   forceType: 0
   attackList:
-  - {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
+  - {fileID: 0}
   attackNames:
   - CrouchingAttack
 --- !u!114 &29067381
@@ -639,6 +639,11 @@ Prefab:
       propertyPath: forceType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_IsPrefabParent: 0
@@ -2184,13 +2189,10 @@ GameObject:
   - 124: {fileID: 1653707127}
   - 81: {fileID: 1653707126}
   - 114: {fileID: 1653707131}
-  - 114: {fileID: 1653707132}
   - 45: {fileID: 1653707133}
   - 114: {fileID: 1653707134}
   - 114: {fileID: 1653707135}
-  - 114: {fileID: 1653707136}
-  - 114: {fileID: 1653707137}
-  - 114: {fileID: 1653707138}
+  - 114: {fileID: 1653707132}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2296,24 +2298,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653707125}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9aaa3f5f2d574f228e4a21aa38b61e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 4
-  showGeneratedNormals: 0
-  offsetScale: .200000003
-  blurRadius: 18
-  edgeThresholdMin: .0500000007
-  edgeThreshold: .200000003
-  edgeSharpness: 4
-  dlaaSharp: 0
-  ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
-  dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
-  nfaaShader: {fileID: 4800000, guid: ce0cb2621f6d84e21a87414e471a3cce, type: 3}
-  shaderFXAAPreset2: {fileID: 4800000, guid: 6f1418cffd12146f2a83be795f6fa5a7, type: 3}
-  shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
-  shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
-  shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
+  distanceFog: 1
+  useRadialDistance: 0
+  heightFog: 1
+  height: 1
+  heightDensity: 2
+  startDistance: 0
+  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!45 &1653707133
 Skybox:
   m_ObjectHideFlags: 0
@@ -2330,30 +2324,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653707125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a773099f140e846f7835d27351846623, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tweakMode: 0
-  screenBlendMode: 0
-  hdr: 1
-  sepBlurSpread: 1
-  quality: 0
-  bloomIntensity: .300000012
-  bloomThreshhold: .200000003
-  bloomThreshholdColor: {r: .477941155, g: .477941155, b: .477941155, a: 1}
-  bloomBlurIterations: 1
-  hollywoodFlareBlurIterations: 1
+  screenBlendMode: 1
+  hdr: 0
+  sepBlurSpread: 2
+  quality: 1
+  bloomIntensity: .5
+  bloomThreshold: .300000012
+  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
+  bloomBlurIterations: 2
+  hollywoodFlareBlurIterations: 2
   flareRotation: 0
   lensflareMode: 1
-  hollyStretchWidth: 5
+  hollyStretchWidth: 2.5
   lensflareIntensity: 0
-  lensflareThreshhold: .300000012
+  lensflareThreshold: .300000012
   lensFlareSaturation: .75
-  flareColorA: {r: 0, g: 0, b: .522058845, a: .749019623}
-  flareColorB: {r: .198529422, g: .164954588, b: .164954588, a: .749019623}
+  flareColorA: {r: .400000006, g: .400000006, b: .800000012, a: .75}
+  flareColorB: {r: .400000006, g: .800000012, b: .800000012, a: .75}
   flareColorC: {r: .800000012, g: .400000006, b: .800000012, a: .75}
-  flareColorD: {r: .389705896, g: .219209567, b: .048713237, a: .749019623}
-  blurWidth: .25
+  flareColorD: {r: .800000012, g: .400000006, b: 0, a: .75}
   lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
     type: 3}
   lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
@@ -2369,7 +2362,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653707125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b39678ff6aa4fec8d135d231ba9cde, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fd999d1b2cf94a45a5b0a47ce074bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   redChannel:
@@ -2382,8 +2375,8 @@ MonoBehaviour:
       tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2391,14 +2384,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: .00624999963
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+    - time: .506106377
+      value: .509691358
+      inSlope: 2.34606552
+      outSlope: 2.34606552
+      tangentMode: 0
     - time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 1.00625002
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2407,14 +2405,14 @@ MonoBehaviour:
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .991666675
+      value: .518750072
+      inSlope: -1.59574413
+      outSlope: -1.59574413
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   useDepthCorrection: 0
@@ -2428,19 +2426,39 @@ MonoBehaviour:
       tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   depthRedChannel:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   depthGreenChannel:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   depthBlueChannel:
@@ -2453,12 +2471,12 @@ MonoBehaviour:
       tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  saturation: 1
+  saturation: .800000012
   selectiveCc: 0
   selectiveFromColor: {r: 1, g: 1, b: 1, a: 1}
   selectiveToColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2470,74 +2488,6 @@ MonoBehaviour:
     type: 3}
   colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
     type: 3}
---- !u!114 &1653707136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1653707125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd05e71c69dd4457fa205c9eea7c2326, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 3
-  adaptiveTextureSize: 256
-  remapCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  exposureAdjustment: 1.5
-  middleGrey: .400000006
-  white: 2
-  adaptionSpeed: 1.5
-  tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
-  validRenderTextureFormat: 0
---- !u!114 &1653707137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1653707125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c3946ab5378473cb34bedd1c8194ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogMode: 0
-  startDistance: 18
-  globalDensity: .800000012
-  heightScale: 125
-  height: 0
-  globalFogColor: {r: .143866658, g: .139946178, b: .203921571, a: .435294122}
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
---- !u!114 &1653707138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1653707125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9aaa3f5f2d574f228e4a21aa38b61e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 1
-  showGeneratedNormals: 0
-  offsetScale: .200000003
-  blurRadius: 18
-  edgeThresholdMin: .0500000007
-  edgeThreshold: .200000003
-  edgeSharpness: 4
-  dlaaSharp: 0
-  ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
-  dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
-  nfaaShader: {fileID: 4800000, guid: ce0cb2621f6d84e21a87414e471a3cce, type: 3}
-  shaderFXAAPreset2: {fileID: 4800000, guid: 6f1418cffd12146f2a83be795f6fa5a7, type: 3}
-  shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
-  shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
-  shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
 --- !u!1 &1776145908
 GameObject:
   m_ObjectHideFlags: 0

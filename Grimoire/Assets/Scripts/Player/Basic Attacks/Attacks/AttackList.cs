@@ -14,14 +14,14 @@ public class AttackList : MonoBehaviour {
 			startup			= _startup;
 			cooldown		= _cooldown;
 		}
-		public AbstractAttack attackRef;
-        public float	duration,
-							startup,
-							cooldown;
+		public AbstractAttack	attackRef;
+        public float			duration,
+								startup,
+								cooldown;
     }
 
     [SerializeField]
-    public string    attackListID;
+    public string attackListID;
 
     [SerializeField]
     public Properties.ForceType forceType;
@@ -35,8 +35,8 @@ public class AttackList : MonoBehaviour {
     [SerializeField]
     private Dictionary<string, AttackStruct> m_attackDictionary;
 
-    private AttackStruct _temp;
-    private AbstractAttack _tempAtk;
+    private AttackStruct	_temp;
+    private AbstractAttack	_tempAtk;
 
     void Start()
     {
@@ -46,7 +46,6 @@ public class AttackList : MonoBehaviour {
 			_tempAtk = (AbstractAttack)Instantiate( attackList[i], this.transform.position, Quaternion.identity ) as AbstractAttack;
             _tempAtk.SetForce( forceType );
             _tempAtk.transform.parent = this.transform;
-			_tempAtk.gameObject.SetActive( false );
 
             _temp = new AttackStruct(_tempAtk, _tempAtk.duration, _tempAtk.startupTime, _tempAtk.cooldownTime);
             m_attackDictionary.Add( attackNames[i], _temp );
@@ -58,7 +57,17 @@ public class AttackList : MonoBehaviour {
 	
 	}
 
+	/// <summary>
+	/// Returns the ID associated with this attack list.
+	/// </summary>
+	/// <returns>Identifier</returns>
     public string GetID() { return attackListID; }
+
+	/// <summary>
+	/// Returns a specific attack with the associated name.
+	/// </summary>
+	/// <param name="_identifier">Identifier</param>
+	/// <returns></returns>
     public AttackStruct GetAttack( string _identifier )
     {
         _temp = new AttackStruct();

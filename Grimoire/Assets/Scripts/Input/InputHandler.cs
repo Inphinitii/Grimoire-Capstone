@@ -1,4 +1,4 @@
-﻿//#define KEYBOARD_DEBUG 
+﻿#define KEYBOARD_DEBUG 
 
 using UnityEngine;
 using System.Collections;
