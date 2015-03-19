@@ -42,10 +42,15 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
   forceType: 0
+  particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   duration: .150000006
   startupTime: .100000001
-  cooldownTime: .100000001
+  cooldownTime: 0
   dashWindow: .200000003
+  hitDirection: {x: 1, y: 1}
+  hitForce: 10
+  hitDamage: 0
+  staticForce: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

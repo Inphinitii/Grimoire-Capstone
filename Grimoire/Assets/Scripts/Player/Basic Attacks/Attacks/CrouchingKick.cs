@@ -19,8 +19,8 @@ public class CrouchingKick : AbstractAttack {
 		base.HandleInput( _input );
 	}
 
-	public override void HitEnemy()
+	public override void HitEnemy(Collider2D _collider)
 	{
-		base.HitEnemy();
+		base.HitEnemy( _collider );
 	}
 }

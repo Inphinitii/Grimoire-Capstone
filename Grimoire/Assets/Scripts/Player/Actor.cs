@@ -27,7 +27,7 @@ public class Actor : MonoBehaviour
 	MovementController 	m_movementController;
 	PhysicsController			m_physicsController;
 	Animator 				        m_componentAnimator;
-	InputHandler                m_inputHandler;
+	InputHandler				m_inputHandler;
 	
 	void Start () 
 	{
@@ -39,6 +39,10 @@ public class Actor : MonoBehaviour
 		m_inputHandler			    = GetComponent(typeof(InputHandler)) 		        as InputHandler;     
 		m_physicsController		= GetComponent(typeof(PhysicsController))			as PhysicsController;
 	}
+	void Update()
+	{
+
+	}
 	
 	#region Utility Functions
 	public Properties AccessProperties
@@ -46,27 +50,22 @@ public class Actor : MonoBehaviour
 		get { return m_actorProperties; }
 		set { m_actorProperties = value;}
 	}
-
-	public string Name 
-	{
-		get { return actorName; }
-		set { actorName = value;}
-	}
     public Properties.ForceType Force
     {
         get { return forceType; }
         set { forceType = value; }
     }
+	public string Name 
+	{
+		get { return actorName; }
+		set { actorName = value;}
+	}
 	
 	public BoxCollider2D 		    GetCollider() 			            { return m_boxCollider;			        }
 	public Animator 			        GetAnimator() 			        { return m_componentAnimator;  	}
 	public MovementController 	GetMovementController()   { return m_movementController; 	}
 	public InputHandler 		        GetInputHandler() 		        { return m_inputHandler; 	        	}
 	public PhysicsController		GetPhysicsController()			{ return m_physicsController;			}
-	
-
-	
-	
 
 	/// <summary>
 	/// This utility function allows the actor to view the currently viewed components in the ComponentCollection
@@ -83,6 +82,15 @@ public class Actor : MonoBehaviour
 	public void IncrementHPBy(int _value)
 	{
 		m_actorProperties.Health += _value;
+	}
+
+	/// <summary>
+	/// Function for use in the States that have no access to Unity functions. Call an IEnumerator through this GameObject.
+	/// </summary>
+	/// <param name="_coroutine">IEnumerator object.</param>
+	public void StartChildCoroutine( IEnumerator _coroutine )
+	{
+		StartCoroutine( _coroutine );
 	}
 	#endregion
 }
