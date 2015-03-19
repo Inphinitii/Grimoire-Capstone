@@ -4,23 +4,25 @@ using System.Collections;
 public class CameraScript : MonoBehaviour {
 	
 	//Public Properties
-	public GameObject[] p_CameraFoci;
-	public float        p_CameraFollowDelay;
-	public float        p_CameraZoomDelay;
-	public bool         p_CameraFollow;
-	public bool         p_DynamicCameraZoom;
+	public GameObject[]	cameraFoci;
+	public float					cameraFollowDelay;
+	public float					cameraZoomDelay;
+	public bool					cameraFollow;
+	public bool					dynamicCameraZoom;
 	
-	public float p_maximumZoom;
-	public float p_minimumZoom;
+	public float maximumZoom;
+	public float minimumZoom;
 	
 	//Private Properties
-	private Camera  m_cameraReference;
-	private Vector3 m_cameraPosition;
-    private Vector3 m_origCamOffset;
-	private Vector2 m_focalPoint;
-	private float   m_cameraMagnification;
+	private Camera		m_cameraReference;
+	private Vector3		m_cameraPosition;
+    private Vector3		m_origCamOffset;
+	private Vector2		m_focalPoint;
+	private Vector2		m_previousFocalPoint;
+	private float				m_cameraMagnification;
 
-	private float deviationConstant;
+	private float deviationConstant = 1.0f;
+	private Vector3 velocity;
 	
 	
 	
@@ -29,24 +31,25 @@ public class CameraScript : MonoBehaviour {
 		m_cameraPosition			= m_cameraReference.transform.position;
         m_origCamOffset			= m_cameraPosition;
 		m_cameraMagnification	= CameraMagnification();
+		m_previousFocalPoint = Vector2.up;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 
-		if (p_CameraFollow)
+		if (cameraFollow)
 			ReturnFocalPoint();
-		if (p_DynamicCameraZoom)
+		if (dynamicCameraZoom)
 			m_cameraMagnification = CameraMagnification();
 		
-		if (m_cameraMagnification > p_maximumZoom)
-			m_cameraMagnification = p_maximumZoom;
-		else if (m_cameraMagnification < p_minimumZoom)
-			m_cameraMagnification = p_minimumZoom;
+		if (m_cameraMagnification > maximumZoom)
+			m_cameraMagnification = maximumZoom;
+		else if (m_cameraMagnification < minimumZoom)
+			m_cameraMagnification = minimumZoom;
 
 		m_cameraPosition = new Vector3(
-				Mathf.Lerp( m_cameraPosition.x, m_focalPoint.x, Time.deltaTime * p_CameraFollowDelay ),
-				Mathf.Lerp( m_cameraPosition.y, m_focalPoint.y, Time.deltaTime * p_CameraFollowDelay ),
-				Mathf.Lerp( m_cameraPosition.z, -m_cameraMagnification, Time.deltaTime * p_CameraZoomDelay ) );
+		Mathf.Lerp( m_cameraPosition.x, m_focalPoint.x, Time.deltaTime * cameraFollowDelay ),
+		Mathf.Lerp( m_cameraPosition.y, m_focalPoint.y, Time.deltaTime * cameraFollowDelay ),
+		Mathf.Lerp( m_cameraPosition.z, -m_cameraMagnification, Time.deltaTime * cameraZoomDelay ) );
 
         m_cameraReference.transform.position = m_cameraPosition + new Vector3(m_origCamOffset.x, m_origCamOffset.y, 0.0f);        
 	}
@@ -55,19 +58,21 @@ public class CameraScript : MonoBehaviour {
 	/// Returns the Vector2 point between all of the Foci in m_CameraFoci
 	/// </summary>
 	void ReturnFocalPoint(){
+		m_previousFocalPoint = m_focalPoint;
 		m_focalPoint = Vector2.zero;
-		for (int i = 0; i < p_CameraFoci.Length; i++){
-			m_focalPoint += new Vector2(p_CameraFoci[i].transform.position.x,
-			                            p_CameraFoci[i].transform.position.y);
+		for (int i = 0; i < cameraFoci.Length; i++)
+		{
+			m_focalPoint += new Vector2(	cameraFoci[i].transform.position.x,
+																cameraFoci[i].transform.position.y);
 		}
-		m_focalPoint = m_focalPoint / p_CameraFoci.Length;
+		m_focalPoint = m_focalPoint / cameraFoci.Length;
 	}
 	
 	///  <Summary>
 	///  Manually the focus of the camera and remove the follow effect. 
 	///  </Summary>
 	public void SetFocalPoint(Vector2 _focalPoint){
-		p_CameraFollow = false;
+		cameraFollow = false;
 		m_focalPoint = _focalPoint;
 	}
 	
@@ -76,7 +81,7 @@ public class CameraScript : MonoBehaviour {
 	///  </Summary>
 	public void SetCameraZoom(float _zoom)
 	{
-		p_DynamicCameraZoom = false;
+		dynamicCameraZoom = false;
 		m_cameraMagnification = _zoom;
 	}
 	
@@ -85,14 +90,14 @@ public class CameraScript : MonoBehaviour {
 	///  </Summary>
 	public void LockCameraFollow()
 	{
-		p_CameraFollow = false;
+		cameraFollow = false;
 	}
 	
 	///  <Summary>
 	///  Resume the camera's ability to follow the focal point
 	///  </Summary>
 	public void ResumeCameraFollow(){
-		p_CameraFollow = true;
+		cameraFollow = true;
 	}
 	
 	///  <Summary>
@@ -100,14 +105,14 @@ public class CameraScript : MonoBehaviour {
 	///  </Summary>
 	public void LockCameraZoom()
 	{
-		p_DynamicCameraZoom = false;
+		dynamicCameraZoom = false;
 	}
 	
 	///  <Summary>
 	/// Resume the camera's ability to zoom based on the list of Foci
 	///  </Summary>
 	public void ResumeCameraZoom(){
-		p_DynamicCameraZoom = true;
+		dynamicCameraZoom = true;
 	}
 	
 	/// <Summary>
@@ -118,16 +123,16 @@ public class CameraScript : MonoBehaviour {
 		Vector2 _maximum = Vector2.zero;
 		Vector2 _minimum = Vector2.zero;
 		
-		for(int i = 0; i < p_CameraFoci.Length; i++){
-			if (p_CameraFoci[i].transform.position.x <= _minimum.x)
-				_minimum.x = p_CameraFoci[i].transform.position.x;
-			if (p_CameraFoci[i].transform.position.x >= _maximum.x)
-				_maximum.x = p_CameraFoci[i].transform.position.x;
+		for(int i = 0; i < cameraFoci.Length; i++){
+			if (cameraFoci[i].transform.position.x <= _minimum.x)
+				_minimum.x = cameraFoci[i].transform.position.x;
+			if (cameraFoci[i].transform.position.x >= _maximum.x)
+				_maximum.x = cameraFoci[i].transform.position.x;
 			
-			if (p_CameraFoci[i].transform.position.y <= _minimum.y)
-				_minimum.y = p_CameraFoci[i].transform.position.y;
-			if (p_CameraFoci[i].transform.position.y >= _maximum.y)
-				_maximum.y = p_CameraFoci[i].transform.position.y;
+			if (cameraFoci[i].transform.position.y <= _minimum.y)
+				_minimum.y = cameraFoci[i].transform.position.y;
+			if (cameraFoci[i].transform.position.y >= _maximum.y)
+				_maximum.y = cameraFoci[i].transform.position.y;
 		}
 		return (_maximum - _minimum).magnitude;
 	}

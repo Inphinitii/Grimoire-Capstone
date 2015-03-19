@@ -78,7 +78,7 @@
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\AttackList.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\DefaultAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\AbstractHurtBox.cs" />
-     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\HurtBoxTest.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\DefaultHurtBox.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
      <Compile Include="Assets\Scripts\Player\Properties.cs" />
      <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />

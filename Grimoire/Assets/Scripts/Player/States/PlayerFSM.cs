@@ -97,7 +97,7 @@ public class PlayerFSM : MonoBehaviour {
 		{
 			m_block = false;
 			currentState = m_previousState;
-			currentState.OnSwitch();
+			//currentState.OnSwitch();
 		}
 	}
 

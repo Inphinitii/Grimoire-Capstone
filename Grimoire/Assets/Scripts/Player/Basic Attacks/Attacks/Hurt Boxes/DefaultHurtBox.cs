@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HurtBoxTest : AbstractHurtBox 
+public class DefaultHurtBox : AbstractHurtBox 
 {
 
 	public override void OnFriendlyHit( Collider2D _collider )

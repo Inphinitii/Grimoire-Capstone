@@ -43,6 +43,7 @@ MonoBehaviour:
   - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
+  particleOnUse: {fileID: 0}
   duration: .200000003
   startupTime: .0500000007
   cooldownTime: 0
@@ -50,6 +51,7 @@ MonoBehaviour:
   dashOnCD: 0
   ableToCancel: 0
   hitDirection: {x: 0, y: 1}
+  hitAlongDistanceVector: 0
   hitForce: 10
   hitDamage: 0
   staticForce: 0

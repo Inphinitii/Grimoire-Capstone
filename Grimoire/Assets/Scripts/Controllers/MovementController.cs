@@ -301,4 +301,10 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <returns>Orientation sign of the previous frame.</returns>
 	public int SignLastFrame() { return signLastFrame; }
+
+	/// <summary>
+	/// Returns the orientation sign of the current frame.
+	/// </summary>
+	/// <returns>Orientation sign of the current frame.</returns>
+	public int SignThisFrame() { return sign; }
 }

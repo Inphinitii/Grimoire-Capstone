@@ -15,9 +15,10 @@ public abstract class AbstractAttack : MonoBehaviour
 {
 
 
-	public AbstractHurtBox[]	boxColliders;
+	public AbstractHurtBox[]		boxColliders;
 	public Properties.ForceType forceType;
-	public ParticleSystem		particleOnHit;
+	public ParticleSystem			particleOnHit;
+	public ParticleSystem			particleOnUse;
 
 	public float duration;
 	public float startupTime;
@@ -29,6 +30,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	public bool ableToCancel;
 
 	public Vector2	hitDirection;
+	public bool		hitAlongDistanceVector;
 	public float		hitForce;
 	public int			hitDamage;
 	public bool		staticForce;
@@ -197,9 +199,15 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// <param name="_collider"> Collider object </param>
 	public void ApplyForce( Collider2D _collider )
 	{
+	
 		Vector2 direction = ( _collider.transform.position - this.transform.position ).normalized;
-		direction.x *= hitDirection.x;
-		direction.y = hitDirection.y;
+
+		if ( !hitAlongDistanceVector )
+		{
+			direction.x *= hitDirection.x;
+			direction.y = hitDirection.y;
+		}
+
 		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
 	}
 }

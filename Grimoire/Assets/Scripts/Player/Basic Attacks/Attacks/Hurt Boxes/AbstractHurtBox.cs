@@ -13,11 +13,15 @@ using System.Collections;
 [System.Serializable]
 public abstract class AbstractHurtBox : MonoBehaviour {
 
-    public Properties.ForceType forceType;
+    public	Properties.ForceType forceType;
+	private BoxCollider2D	m_boxCollider;
+	private Transform			m_parent;
 
 	void Start()
 	{
-		GetComponent<BoxCollider2D>().isTrigger = true;
+		m_boxCollider = GetComponent<BoxCollider2D>();
+		m_boxCollider.isTrigger = true;
+		m_parent = transform.parent.transform;
 	}
 
     /// <summary>
@@ -82,4 +86,12 @@ public abstract class AbstractHurtBox : MonoBehaviour {
         else
             OnAnyHit();
     }
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.matrix = m_parent.transform.localToWorldMatrix;
+		Gizmos.DrawCube((Vector3)m_boxCollider.offset, (Vector3)m_boxCollider.size);
+		
+	}
 }
