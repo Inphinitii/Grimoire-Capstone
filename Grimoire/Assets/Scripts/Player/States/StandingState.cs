@@ -20,12 +20,15 @@ public class StandingState : IState {
                 }
                 if(_leftStick.y > 0)
                 {
-					Debug.Log("Up Standing Attack");
+					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingUp" );
+					GetFSM().CurrentAttack = _temp.attackRef;
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
                 }
                 else
                 {
-                    AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
-					Debug.Log("Neutral Standing Attack");
+					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingNeutral" );
+					GetFSM().CurrentAttack = _temp.attackRef;
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
             }
             else

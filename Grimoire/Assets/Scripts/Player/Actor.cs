@@ -16,6 +16,7 @@ using System.Collections;
 public class Actor : MonoBehaviour 
 {
 	public string 			            actorName;
+	public Color							actorColor;
     public Properties.ForceType forceType;
 
 	//-- Private Properties -- //
@@ -38,6 +39,7 @@ public class Actor : MonoBehaviour
 		m_componentAnimator  = GetComponent(typeof(Animator)) 			            as Animator;
 		m_inputHandler			    = GetComponent(typeof(InputHandler)) 		        as InputHandler;     
 		m_physicsController		= GetComponent(typeof(PhysicsController))			as PhysicsController;
+		GetComponentInChildren<Renderer>().material.color = actorColor;
 	}
 	void Update()
 	{

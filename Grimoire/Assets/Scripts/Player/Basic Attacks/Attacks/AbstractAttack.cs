@@ -24,18 +24,20 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float cooldownTime;
 
 	public float	dashWindow;
-	public bool		dashOnCD;
+	public bool	dashOnCD;
+
+	public bool ableToCancel;
 
 	public Vector2	hitDirection;
-	public float	hitForce;
-	public int		hitDamage;
+	public float		hitForce;
+	public int			hitDamage;
 	public bool		staticForce;
 
 	public float onHitFreezeDuration;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
-	protected bool				m_duringAttack;
-	private bool				m_dashAvailable;
+	protected bool							m_duringAttack;
+	private bool								m_dashAvailable;
 
 
 
@@ -55,6 +57,10 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	public virtual void Update()
 	{
+		if ( m_duringAttack )
+		{
+			DuringAttack();
+		}
 	}
 
 	/// <summary>
@@ -96,7 +102,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Handle the input appropriately for this particular attack. 
+	/// Handle the input appropriately for each particular attack if necessary.
 	/// </summary>
 	/// <param name="_input">The input handler reference of the actor.</param>
 	public virtual void HandleInput( InputHandler _input )
@@ -116,6 +122,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	public virtual void HitEnemy( Collider2D _collider )
 	{
 		transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
+		Camera.main.GetComponent<CameraShake>().Shake();
 		//StartCoroutine( DashWindow( dashWindow ) );
 	}
 
@@ -147,33 +154,18 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// <summary>
 	/// Called before the attack starts, during the startup period.
 	/// </summary>
-	public virtual void BeforeAttack()
-	{
-
-	}
+	public abstract void BeforeAttack();
 
 	/// <summary>
 	/// Called during the attack, after the startup period and before the
 	/// cooldown period. 
 	/// </summary>
-	public virtual void DuringAttack()
-	{
-		for ( int i = 0; i < m_childHurtBoxes.Length; i++ )
-		{
-			m_childHurtBoxes[i].EnableHurtBox();
-		}
-	}
+	public abstract void DuringAttack();
 
 	/// <summary>
 	/// Called after the attack, during the cooldown period.
 	/// </summary>
-	public virtual void AfterAttack()
-	{
-		for ( int i = 0; i < m_childHurtBoxes.Length; i++ )
-		{
-			m_childHurtBoxes[i].DisableHurtBox();
-		}
-	}
+	public abstract void AfterAttack();
 
 	/// <summary>
 	/// Freeze the players for a set amount of time in their animator before resuming it. This is going to contribute to the 

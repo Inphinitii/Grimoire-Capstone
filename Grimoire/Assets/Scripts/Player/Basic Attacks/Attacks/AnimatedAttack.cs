@@ -15,10 +15,7 @@ public class AnimatedAttack : AbstractAttack {
 	// Update is called once per frame
 	public override void Update () 
 	{
-		if ( m_duringAttack )
-		{
-			DuringAttack();
-		}
+		base.Update();
 	}
 
 	public override void OnEnable() 
@@ -34,7 +31,6 @@ public class AnimatedAttack : AbstractAttack {
 	public override void BeforeAttack()
 	{
 		m_timer = 0.0f;
-		base.BeforeAttack();
 	}
 
 	/// <summary>
@@ -42,7 +38,6 @@ public class AnimatedAttack : AbstractAttack {
 	/// </summary>
 	public override void DuringAttack()
 	{
-		Debug.Log( "Ding" );
 		m_timer += Time.deltaTime;
 		for ( int i = 0; i < hurtBoxTimes.Length; i++ )
 		{
@@ -61,7 +56,7 @@ public class AnimatedAttack : AbstractAttack {
 	public override void AfterAttack()
 	{
 		//m_childHurtBoxes[hurtBoxTimes.Length - 1].DisableHurtBox(); //Ensure the final hurtbox is disabled.
-		base.AfterAttack();
+		//Clean up hitboxes
 	}
 
 	

@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\Misc\CameraShake.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\ColliderController.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\DestroyOverTime.cs" />
