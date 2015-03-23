@@ -12,20 +12,11 @@ public class JumpingState : IState
 
 	public override void OnSwitch()
 	{
-		GetFSM().GetMovement().ApplyJump( true, Vector2.zero );
+		//GetFSM().GetMovement().ApplyJump( true, Vector2.zero );
 	}
 
 	public override void ExecuteState()
 	{
-		if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
-		{
-			GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-		}
-		else if ( !GetFSM().GetMovement().IsJumping() )
-		{
-			GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
-		}
-
 		/* Redundant Code */
 		Vector2 _leftStick = GetFSM().GetInput().LeftStick();
 		if ( _leftStick.x > 0 || _leftStick.x < 0 )
@@ -64,6 +55,15 @@ public class JumpingState : IState
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 
 			}
+		}
+
+		if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
+		{
+			GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+		}
+		else if ( !GetFSM().GetMovement().IsJumping() )
+		{
+			GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 		}
 	}
 }

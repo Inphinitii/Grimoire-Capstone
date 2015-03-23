@@ -94,7 +94,7 @@ public class MovementController : MonoBehaviour {
         if(m_physicsController.Velocity.y <= 0)
             GroundCheck();
 
-        OneWayPlatform();
+		OneWayPlatform();
         signLastFrame = sign;
     }
 
@@ -113,13 +113,16 @@ public class MovementController : MonoBehaviour {
 			jumpCount = 0;
 			temp = 0.0f;
 			m_isJumping = true;
+			SendMessage( "JumpStart" );
 		}
 		else
 		{
 			if ( _buttonPressed && jumpCount < totalJumps )
 			{
-				if(temp < 0.15f)
-					m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, jumpAccel);
+				if ( temp < 0.15f )
+				{
+					m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, jumpAccel );
+				}
 
 				temp += ( Time.deltaTime );
 			}
@@ -231,11 +234,11 @@ public class MovementController : MonoBehaviour {
         bool goingUp = m_physicsController.Velocity.y > 0;
         if (goingUp)
         {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Platform"));
+			Physics2D.IgnoreLayerCollision( LayerMask.NameToLayer( "Player" ), LayerMask.NameToLayer( "Platform" ) );
         }
         else
         {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Platform"), false);
+			Physics2D.IgnoreLayerCollision( LayerMask.NameToLayer( "Player" ), LayerMask.NameToLayer( "Platform" ), false );
         }
 
     }

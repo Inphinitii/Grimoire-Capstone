@@ -40,11 +40,11 @@ public class StandingState : IState {
     IEnumerator SwitchStates(Vector2 _leftStick)
     {
         yield return new WaitForSeconds(0.05f);
+        if (GetFSM().GetInput().A())
+			GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
         if (_leftStick.x > 0 || _leftStick.x < 0)
             GetFSM().SetCurrentState(PlayerFSM.States.MOVING, false);
         if (_leftStick.y < 0)
 			GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
-        if (GetFSM().GetInput().A())
-			GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
     }
 }
