@@ -11,7 +11,7 @@ public class ButtonTransition : MonoBehaviour {
 	void Start () {
         time = 0.0f;
         m_origTransform = this.GetComponent<RectTransform>().anchoredPosition;
-        m_endTransform = new Vector2(m_origTransform.x, -m_origTransform.y);
+        m_endTransform = new Vector2(m_origTransform.x + 10.0f, m_origTransform.y);
 	}
 	
 	// Update is called once per frame
@@ -27,7 +27,6 @@ public class ButtonTransition : MonoBehaviour {
                 outVector.y = QuadEaseIn(time, m_origTransform.y, m_endTransform.y, 1.0f);
 
                 GetComponent<RectTransform>().anchoredPosition = outVector;
-                //GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(m_origTransform, m_endTransform, time);
             }
             else
             {

@@ -38,7 +38,8 @@ public class MovementController : MonoBehaviour {
     private float				skinWidth = 0.001f;
 
 	//Reference Variables
-    private PhysicsController m_physicsController;
+	private Actor					m_actorReference;
+    private PhysicsController	m_physicsController;
     private InputHandler		m_inputHandler;
 
 	//Movement Booleans
@@ -68,8 +69,9 @@ public class MovementController : MonoBehaviour {
     //TODO FIX MOVING THROUGH PLATFORMS BOTTOM UP
 
     void Start() {
-        m_inputHandler = GetComponent<InputHandler>();
-        m_physicsController = GetComponent<PhysicsController>();
+        m_inputHandler				= GetComponent<InputHandler>();
+        m_physicsController		= GetComponent<PhysicsController>();
+		m_actorReference			= GetComponent<Actor>();
         m_isJumping = true;
     }
 
@@ -84,6 +86,7 @@ public class MovementController : MonoBehaviour {
         DampenMovement();
         ApplyTurningSpeed(ref turningMultiplier);
          
+		OneWayPlatform();
         // -- Update Forces and Step through Physics -- //
         m_physicsController.AddToForce(m_tempForce);
         m_physicsController.AddToVelocity(m_tempVel);
@@ -94,7 +97,6 @@ public class MovementController : MonoBehaviour {
         if(m_physicsController.Velocity.y <= 0)
             GroundCheck();
 
-		OneWayPlatform();
         signLastFrame = sign;
     }
 
@@ -113,12 +115,13 @@ public class MovementController : MonoBehaviour {
 			jumpCount = 0;
 			temp = 0.0f;
 			m_isJumping = true;
-			SendMessage( "JumpStart" );
+			m_actorReference.GetParticleManager().JumpParticle();
 		}
 		else
 		{
 			if ( _buttonPressed && jumpCount < totalJumps )
 			{
+				//m_actorReference.GetParticleManager().SetJumpParticle( false );
 				if ( temp < 0.15f )
 				{
 					m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, jumpAccel );
@@ -176,6 +179,11 @@ public class MovementController : MonoBehaviour {
         }
     }
 
+	//public IEnumerator Dash()
+	//{
+
+	//}
+
 	/// <summary>
 	/// Check the orientation of the character based
 	/// </summary>
@@ -208,11 +216,23 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
     public void DampenMovement()
     {
-        if (m_physicsController.Velocity.x != 0)
+		m_isMoving = m_inputHandler.LeftStick().x != 0 ? true : false;
+		if ( m_physicsController.Velocity.x != 0.0f )
+		{
 			m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x * dampeningConstant, m_physicsController.Velocity.y );
+		}
 
-		m_isMoving = m_inputHandler.LeftStick().x > 0 || m_inputHandler.LeftStick().x < 0 ? true : false;
+		//Skid particles. Separate these later, messy.
+		if (!m_isJumping && Mathf.Abs( m_physicsController.Velocity.x ) > 1.5f )
+		{
+			m_actorReference.GetParticleManager().SetSkidParticle( true );
+		}
+		else
+		{
+			m_actorReference.GetParticleManager().SetSkidParticle( false );
+		}
     }
+
 
 	/// <summary>
 	/// Multiply a constant modifier to the movement speed when the orientation changes to simulate a skidding effect. 
@@ -250,21 +270,18 @@ public class MovementController : MonoBehaviour {
     void GroundCheck() {
         bool goingUp = m_physicsController.Velocity.y > 0;
         Vector2 rayDirection = goingUp ? Vector2.up : -Vector2.up;
-        //Ray starting position
         Vector2 start = transform.position;
         start.y = (transform.position.y + skinWidth);
 
         float rayDistance = Mathf.Abs(m_physicsController.Velocity.y * Time.deltaTime);
-        Debug.DrawRay(start, rayDistance * rayDirection, Color.red);
+        //Debug.DrawRay(start, rayDistance * rayDirection, Color.red);
         mCurrentMask = (1 << LayerMask.NameToLayer("Floor")) | (1 << LayerMask.NameToLayer("Platform")); //Include both the floor and platform layer
         
         RaycastHit2D ray = Physics2D.Raycast(start, rayDirection, rayDistance, mCurrentMask);
         if (ray.collider != null) {
             m_physicsController.Velocity = new Vector2(m_physicsController.Velocity.x, 0);
-            jumpCount = 0;
-            //m_physicsController.Position = m_physicsController.Position + (Vector3.up * (ray.distance + skinWidth));
-            //m_physicsController.ClearValues();
             m_isJumping = false;
+            jumpCount = 0;
         }
         else {
 			if(m_isJumping == false)
@@ -310,4 +327,7 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <returns>Orientation sign of the current frame.</returns>
 	public int SignThisFrame() { return sign; }
+
+
+	public void SetJumping( bool _jumping ) { m_isJumping = _jumping; }
 }

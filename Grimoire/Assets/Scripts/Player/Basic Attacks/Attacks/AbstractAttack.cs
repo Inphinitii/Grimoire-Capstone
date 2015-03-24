@@ -17,6 +17,7 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	public AbstractHurtBox[]		boxColliders;
 	public Properties.ForceType forceType;
+
 	public ParticleSystem			particleOnHit;
 	public ParticleSystem			particleOnUse;
 
@@ -35,7 +36,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	public int			hitDamage;
 	public bool		staticForce;
 
-	public float onHitFreezeDuration;
+	private float m_onHitFreezeDuration = 0.35f;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
 	protected bool							m_duringAttack;
@@ -124,6 +125,10 @@ public abstract class AbstractAttack : MonoBehaviour
 	public virtual void HitEnemy( Collider2D _collider )
 	{
 		transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
+
+		//Add the attack delay to the blocking timer. Do we want this?
+		//transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( m_onHitFreezeDuration );
+
 		Camera.main.GetComponent<CameraShake>().Shake();
 		//StartCoroutine( DashWindow( dashWindow ) );
 	}
@@ -148,8 +153,8 @@ public abstract class AbstractAttack : MonoBehaviour
 		yield return new WaitForSeconds( startupTime );
 		m_duringAttack = true;
 		yield return new WaitForSeconds( duration );
-		m_duringAttack = false;
 		AfterAttack();
+		m_duringAttack = false;
 		yield return new WaitForSeconds( cooldownTime );
 	}
 
@@ -179,15 +184,27 @@ public abstract class AbstractAttack : MonoBehaviour
 	//REFACTOR
 	public IEnumerator FreezePlayers( Collider2D _collider )
 	{
+		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
+
+		//Freeze Animations
 		transform.parent.gameObject.GetComponent<Animator>().speed = 0.0f;
 		_collider.GetComponent<Animator>().speed = 0.0f;
+
+		//Freeze Physics
+		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
+		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
 
 		//Instantiate Particle Systems -- Separate this.
 		Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
 		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); //Fix this to one shot. Firing off multiple times.
 
-		yield return new WaitForSeconds( onHitFreezeDuration );
+		yield return new WaitForSeconds( m_onHitFreezeDuration );
+	
 		ApplyForce( _collider );
+
+		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
+		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
+
 		_collider.GetComponent<Animator>().speed = 1.0f;
 		transform.parent.gameObject.GetComponent<Animator>().speed = 1.0f;
 

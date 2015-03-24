@@ -36,7 +36,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 111328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf06f1d19443be49b8649eb9ba5625d, type: 3}
+  m_Script: {fileID: 11500000, guid: 926e9ee7a666bfc40ba22917c8398212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxColliders:
@@ -44,7 +44,7 @@ MonoBehaviour:
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
-  duration: .100000001
+  duration: .300000012
   startupTime: .100000001
   cooldownTime: .200000003
   dashWindow: .200000003
@@ -52,10 +52,9 @@ MonoBehaviour:
   ableToCancel: 0
   hitDirection: {x: 0, y: 0}
   hitAlongDistanceVector: 1
-  hitForce: 10
+  hitForce: 20
   hitDamage: 0
   staticForce: 0
-  onHitFreezeDuration: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

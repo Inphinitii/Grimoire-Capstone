@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerStates;
 
 /*========================================================
  * Author: Tyler Remazki
@@ -20,8 +21,8 @@ public class PlayerFSM : MonoBehaviour {
         CROUCHING,
         JUMPING,
         ATTACKING,
-        DASHING,
         HIT,
+        DASHING,
         FALLING
     };
     public IState currentState;
@@ -48,6 +49,7 @@ public class PlayerFSM : MonoBehaviour {
         m_stateList.Add( new CrouchingState() );
         m_stateList.Add( new JumpingState() );
 		m_stateList.Add( new AttackState() );
+		m_stateList.Add( new HitState() );
 
         foreach (IState item in m_stateList)
 		{
@@ -82,6 +84,7 @@ public class PlayerFSM : MonoBehaviour {
         {
 			m_block = false;
 			m_previousState = currentState;
+			currentState.OnExit();
 			currentState = m_stateList[(int)_states];
 			currentState.OnSwitch();
         }

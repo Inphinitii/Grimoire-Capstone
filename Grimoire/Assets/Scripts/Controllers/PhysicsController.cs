@@ -42,6 +42,14 @@ public class PhysicsController : MonoBehaviour {
             m_velocity += m_acceleration * Time.deltaTime * p_timeScale;
             m_position += m_velocity * Time.deltaTime * p_timeScale;
 
+			if ( m_velocity.x < 0.001 && m_velocity.x > 0.0f )
+			{
+				m_velocity.x = 0.0f;
+			}
+			else if ( m_velocity.x > -0.001 && m_velocity.x < 0.0f )
+			{
+				m_velocity.x = 0.0f;
+			}
 
             transform.position = (Vector3)m_position;
             m_force = Vector2.zero;
@@ -69,7 +77,7 @@ public class PhysicsController : MonoBehaviour {
     public void ClearValues() {
         m_acceleration = Vector2.zero;
         m_force = Vector2.zero;
-        //m_velocity = Vector2.zero;
+        m_velocity = Vector2.zero;
     }
 	
 	
