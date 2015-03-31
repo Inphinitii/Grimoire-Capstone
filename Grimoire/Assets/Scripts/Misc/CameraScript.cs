@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//TODO
+//LIMIT X/Y MOVEMENT FOR CAMERA POSITION 
 public class CameraScript : MonoBehaviour {
 	
 	//Public Properties
 	public GameObject[]	cameraFoci;
-	public float					cameraFollowDelay;
-	public float					cameraZoomDelay;
-	public bool					cameraFollow;
-	public bool					dynamicCameraZoom;
+	public float		cameraFollowDelay;
+	public float		cameraZoomDelay;
+	public bool			cameraFollow;
+	public bool			dynamicCameraZoom;
 	
 	public float maximumZoom;
 	public float minimumZoom;

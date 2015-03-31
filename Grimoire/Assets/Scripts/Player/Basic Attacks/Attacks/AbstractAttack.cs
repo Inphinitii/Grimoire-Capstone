@@ -16,7 +16,7 @@ public abstract class AbstractAttack : MonoBehaviour
 
 
 	public AbstractHurtBox[]		boxColliders;
-	public Properties.ForceType forceType;
+	public Properties.ForceType		forceType;
 
 	public ParticleSystem			particleOnHit;
 	public ParticleSystem			particleOnUse;
@@ -26,21 +26,22 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float cooldownTime;
 
 	public float	dashWindow;
-	public bool	dashOnCD;
+	public bool		dashOnCD;
 
 	public bool ableToCancel;
 
 	public Vector2	hitDirection;
 	public bool		hitAlongDistanceVector;
-	public float		hitForce;
-	public int			hitDamage;
+	public float	hitForce;
+	public int		hitDamage;
 	public bool		staticForce;
+	public bool		freezeMovementOnUse;
 
 	private float m_onHitFreezeDuration = 0.35f;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
-	protected bool							m_duringAttack;
-	private bool								m_dashAvailable;
+	protected bool				m_duringAttack;
+	private bool				m_dashAvailable;
 
 
 
@@ -153,8 +154,8 @@ public abstract class AbstractAttack : MonoBehaviour
 		yield return new WaitForSeconds( startupTime );
 		m_duringAttack = true;
 		yield return new WaitForSeconds( duration );
-		AfterAttack();
 		m_duringAttack = false;
+		AfterAttack();
 		yield return new WaitForSeconds( cooldownTime );
 	}
 

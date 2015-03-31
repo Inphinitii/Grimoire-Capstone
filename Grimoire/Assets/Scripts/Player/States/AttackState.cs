@@ -15,7 +15,9 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			GetFSM().GetActorReference().GetPhysicsController().ClearValues();
+			if(GetFSM().CurrentAttack.freezeMovementOnUse)
+				GetFSM().GetActorReference().GetPhysicsController().ClearValues();
+
 			m_time = GetFSM().CurrentAttack.GetStateBlockTime();
 			attackStart = true;
 		}

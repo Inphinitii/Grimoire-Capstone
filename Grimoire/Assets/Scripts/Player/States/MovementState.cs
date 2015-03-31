@@ -25,6 +25,11 @@ namespace PlayerStates
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
 			if( _leftStick.x == 0)
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+
+			if(GetFSM().GetActorReference().GetMovementController().IsJumping())
+			{
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+			}
 			
 		}
 	}

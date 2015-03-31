@@ -378,7 +378,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 4.30000019
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.z
@@ -404,21 +404,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11400138, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: skidParticle
-      value: 
-      objectReference: {fileID: 19857530, guid: 0cbb32790e3be9843a452531dee57bd8,
-        type: 2}
-    - target: {fileID: 11400138, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: smokeOnHitParticle
-      value: 
-      objectReference: {fileID: 19803602, guid: 98fc463e51d3d28428a3452235096e9e,
-        type: 2}
-    - target: {fileID: 11400138, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: jumpingParticle
-      value: 
-      objectReference: {fileID: 19853036, guid: 0eae7afc91861a14298c06fdca644785,
-        type: 2}
+    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: groundAccel
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_IsPrefabParent: 0
@@ -1294,7 +1283,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.67000008
+      value: 3.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 3d98c7674933b534d8afcd6f801aad40, type: 3}
       propertyPath: m_LocalScale.y
@@ -1708,7 +1697,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 4.30000019
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.z

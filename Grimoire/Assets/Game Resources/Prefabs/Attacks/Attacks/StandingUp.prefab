@@ -46,7 +46,7 @@ MonoBehaviour:
   particleOnUse: {fileID: 0}
   duration: .200000003
   startupTime: .0500000007
-  cooldownTime: .100000001
+  cooldownTime: .300000012
   dashWindow: .200000003
   dashOnCD: 0
   ableToCancel: 0
@@ -55,6 +55,7 @@ MonoBehaviour:
   hitForce: 25
   hitDamage: 0
   staticForce: 0
+  freezeMovementOnUse: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
