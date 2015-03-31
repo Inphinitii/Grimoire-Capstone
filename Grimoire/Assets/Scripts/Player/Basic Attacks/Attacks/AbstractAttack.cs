@@ -32,11 +32,13 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	public Vector2	hitDirection;
 	public bool		hitAlongDistanceVector;
-	public float	hitForce;
-	public int		hitDamage;
+	public float		hitForce;
+	public int			hitDamage;
 	public bool		staticForce;
 	public bool		freezeMovementOnUse;
 
+	public float		groundKnockBack;
+	public float		airKnockBack;
 	private float m_onHitFreezeDuration = 0.35f;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
@@ -227,5 +229,6 @@ public abstract class AbstractAttack : MonoBehaviour
 		}
 
 		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
+		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * groundKnockBack;
 	}
 }
