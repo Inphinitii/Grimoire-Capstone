@@ -4,18 +4,19 @@ using System.Collections;
 public class SpawnDistance : AbstractSpawn {
 
 	// Use this for initialization
-	void Start () {
-	
+	public override void Start()
+	{
+		base.Start();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	public override void Update()
+	{
+		base.Update();
 	}
 
     public override void ActivateSpell()
     {
-        
     }
 
     public override void UseIncantation(Force.ForceType _force)

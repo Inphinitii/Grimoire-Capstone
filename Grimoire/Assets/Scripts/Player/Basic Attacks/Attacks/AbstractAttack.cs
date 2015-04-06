@@ -16,7 +16,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	//Add a way of altering the way that the player reacts when they're hit
 	//Interface of an OnHit would work well. Call it from within this class.
 	public AbstractHurtBox[]		boxColliders;
-	public Properties.ForceType		forceType;
+	public Properties.ForceType	forceType;
 
 	public ParticleSystem			particleOnHit;
 	public ParticleSystem			particleOnUse;
@@ -29,8 +29,8 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	public Vector2	hitDirection;
 	public bool		hitAlongDistanceVector;
-	public float	hitForce;
-	public int		hitDamage;
+	public float		hitForce;
+	public int			hitDamage;
 	public bool		staticForce;
 	public bool		freezeMovementOnUse;
 
@@ -38,7 +38,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float	airKnockBack;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
-	protected bool				m_duringAttack;
+	protected bool							m_duringAttack;
 
 	/// <summary>
 	/// Called to start the specific attack.
@@ -143,7 +143,7 @@ public abstract class AbstractAttack : MonoBehaviour
 		if ( !hitAlongDistanceVector )
 		{
 			direction.x *= hitDirection.x;
-			direction.y = hitDirection.y;
+			direction.y   = hitDirection.y;
 		}
 
 		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
@@ -157,9 +157,9 @@ public abstract class AbstractAttack : MonoBehaviour
 	public void SetForce( Properties.ForceType _force )
 	{
 		forceType = _force;
-		for ( int i = 0; i < boxColliders.Length; i++ )
+		for ( int i = 0; i < m_childHurtBoxes.Length; i++ )
 		{
-			boxColliders[i].SetForce( _force );
+			m_childHurtBoxes[i].SetForce( _force );
 		}
 	}
 

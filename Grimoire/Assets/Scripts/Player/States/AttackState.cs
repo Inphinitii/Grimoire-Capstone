@@ -28,7 +28,6 @@ namespace PlayerStates
 			{
 				if ( attackStart )
 				{
-					/* GetFSM().StartCoroutine( BlockStateSwitch( GetFSM().CurrentAttack.GetStateBlockTime() ) ); OLD BLOCKING ROUTINE */
 					GetFSM().StartCoroutine( GetFSM().CurrentAttack.StartAttack() );
 					attackStart = false;
 				}
@@ -39,7 +38,6 @@ namespace PlayerStates
 			{
 				GetFSM().GoToPreviousState( false );
 			}
-
 		}
 	}
 }

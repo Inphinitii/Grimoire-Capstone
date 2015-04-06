@@ -38,7 +38,7 @@ namespace PlayerStates
 			{
 				GetFSM().StartCoroutine( SwitchStates( _leftStick ) );
 			}
-		}
+		} 
 
 		/// <summary>
 		/// Check for state switching after a set period of time.
@@ -47,7 +47,7 @@ namespace PlayerStates
 		/// <returns></returns>
 		IEnumerator SwitchStates( Vector2 _leftStick )
 		{
-			yield return new WaitForSeconds( 0.05f );
+			yield return new WaitForSeconds( 0.00f );
 			if ( GetFSM().GetInput().A() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.x > 0 || _leftStick.x < 0 )

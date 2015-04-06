@@ -51,12 +51,12 @@
      <Compile Include="Assets\Game Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />
-     <Compile Include="Assets\Scripts\Controllers\ActionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MovementController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\HumanoidHitbox.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
+     <Compile Include="Assets\Scripts\Levels\AbstractStage.cs" />
      <Compile Include="Assets\Scripts\Managers\ParticleManager.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraShake.cs" />
@@ -84,9 +84,12 @@
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\DefaultAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\AbstractHurtBox.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\DefaultHurtBox.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\IncantationAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\SlowFallAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire.cs" />
+     <Compile Include="Assets\Scripts\Player\GroundCheck.cs" />
      <Compile Include="Assets\Scripts\Player\Properties.cs" />
+     <Compile Include="Assets\Scripts\Player\SpellCharges.cs" />
      <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />
      <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\HitState.cs" />
@@ -95,6 +98,9 @@
      <Compile Include="Assets\Scripts\Player\States\MovementState.cs" />
      <Compile Include="Assets\Scripts\Player\States\PlayerFSM.cs" />
      <Compile Include="Assets\Scripts\Player\States\StandingState.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonHover.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonTransition.cs" />
+     <Compile Include="Assets\Scripts\UI\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
@@ -124,6 +130,7 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
      <None Include="Assets\Game Resources\Fonts\Runic Font\AngloSaxon\Runes_ReadMe.txt" />
+     <None Include="Assets\Standard Assets\Effects\HeatDistortion.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
      <None Include="Assets\Game Resources\Pages\IncantationExample.xml" />

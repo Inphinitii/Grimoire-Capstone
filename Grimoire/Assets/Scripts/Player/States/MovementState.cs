@@ -19,8 +19,10 @@ namespace PlayerStates
 
 
 			Vector2 _leftStick = GetFSM().GetActorReference().GetInputHandler().LeftStick();
-			if ( _leftStick.x != 0 )
+			if ( _leftStick.x != 0.0f )
+			{
 				GetFSM().GetActorReference().GetMovementController().MoveX( _leftStick );
+			}
 			if ( _leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
 			if( _leftStick.x == 0)

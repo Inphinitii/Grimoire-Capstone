@@ -20,7 +20,7 @@ public class SlowFallAttack : AbstractAttack
 	public override void Start()
 	{
 		base.Start();
-		m_defaultGravity = transform.parent.GetComponent<Actor>().GetPhysicsController().p_gravitationalForce;
+		m_defaultGravity = transform.parent.GetComponent<Actor>().GetPhysicsController().gravitationalForce;
 		m_physicsController = transform.parent.GetComponent<Actor>().GetPhysicsController();
 	}
 
@@ -53,14 +53,14 @@ public class SlowFallAttack : AbstractAttack
 			m_childHurtBoxes[i].EnableHurtBox();
 		}
 		//transform.parent.GetComponent<Actor>().GetPhysicsController().PausePhysics( true );
-		m_physicsController.p_gravitationalForce = ATTACK_GRAVITY;
+		m_physicsController.gravitationalForce = ATTACK_GRAVITY;
 
 	}
 
 	public override void AfterAttack()
 	{
 		//transform.parent.GetComponent<Actor>().GetPhysicsController().PausePhysics( false );
-		m_physicsController.p_gravitationalForce = m_defaultGravity;
+		m_physicsController.gravitationalForce = m_defaultGravity;
 		for ( int i = 0; i < m_childHurtBoxes.Length; i++ )
 		{
 			m_childHurtBoxes[i].DisableHurtBox();

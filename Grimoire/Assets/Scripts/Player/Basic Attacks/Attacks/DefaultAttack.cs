@@ -30,11 +30,11 @@ public class DefaultAttack : AbstractAttack {
 	public override void HitEnemy(Collider2D _collider)
 	{
 		transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
+		Camera.main.GetComponent<CameraShake>().Shake();
 
 		//Add the attack delay to the blocking timer. Do we want this?
 		//transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( m_onHitFreezeDuration );
 
-		Camera.main.GetComponent<CameraShake>().Shake();
 		//StartCoroutine( DashWindow( dashWindow ) );
 	}
 
@@ -58,6 +58,7 @@ public class DefaultAttack : AbstractAttack {
 			m_childHurtBoxes[i].DisableHurtBox();
 		}
 	}
+
 	/// <summary>
 	/// Freeze the players for a set amount of time in their animator before resuming it. This is going to contribute to the 
 	/// feeling of force applied by an attack. 
@@ -68,19 +69,20 @@ public class DefaultAttack : AbstractAttack {
 	//REFACTOR
 	public IEnumerator FreezePlayers( Collider2D _collider )
 	{
-		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		//Freeze Animations
 		transform.parent.gameObject.GetComponent<Animator>().speed = 0.0f;
-		_collider.GetComponent<Animator>().speed = 0.0f;
+		_collider.GetComponent<Animator>().speed									= 0.0f;
 
 		//Freeze Physics
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
+
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
+		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		//Instantiate Particle Systems -- Separate this.
 		Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
-		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); //Fix this to one shot. Firing off multiple times.
+		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); 
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
 

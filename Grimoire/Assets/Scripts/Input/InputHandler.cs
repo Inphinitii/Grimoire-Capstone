@@ -104,7 +104,9 @@ public class InputHandler : MonoBehaviour {
     public float LT()		{ return m_leftTrigger; }
     public float RT()	{ return m_rightTrigger; }
 
-	public Vector2 	LeftStick() { return m_leftStick; 	 	}
+	public Vector2 	LeftStick()		{ return m_leftStick; 	 	}
+	public Vector2 RightStick()		{ return m_rightStick;	    }
+
 
 	public bool FreezeKeypress { get { return m_freezeKeypress; }   set { m_freezeKeypress = value; }}
 	public bool FreezeMovement { get { return m_freezeMovement; }   set { m_freezeMovement = value; }}
@@ -154,12 +156,12 @@ public class InputHandler : MonoBehaviour {
 		//------------GAMEPAD DIRECTIONAL INPUT ------------//
 		if(!m_freezeMovement)
 		{
-			m_leftStick     = GamePad.GetAxis(GamePad.Axis.LeftStick,  (GamePad.Index)m_playerNumber, true);
-			m_rightStick    = GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true);
+			m_leftStick			= GamePad.GetAxis(GamePad.Axis.LeftStick,  (GamePad.Index)m_playerNumber, true);
+			m_rightStick		= GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true);
 		}
 		else
-			m_leftStick     = Vector2.zero;
-            m_rightStick    = Vector2.zero;
+			m_leftStick			= Vector2.zero;
+            m_rightStick		= Vector2.zero;
 
 		//------------GAMEPAD FACE BUTTON INPUT ------------//
 		if(!m_freezeKeypress)
@@ -170,8 +172,8 @@ public class InputHandler : MonoBehaviour {
 			m_XButton 	    = GamePad.GetButton(GamePad.Button.X, (GamePad.Index)m_playerNumber);
 
             //Shoulder Buttons
-            m_rightShoulder = GamePad.GetButton(GamePad.Button.RightShoulder,   (GamePad.Index)m_playerNumber);
-            m_leftShoulder  = GamePad.GetButton(GamePad.Button.LeftShoulder,    (GamePad.Index)m_playerNumber);
+            m_rightShoulder		= GamePad.GetButton(GamePad.Button.RightShoulder,   (GamePad.Index)m_playerNumber);
+            m_leftShoulder		= GamePad.GetButton(GamePad.Button.LeftShoulder,    (GamePad.Index)m_playerNumber);
 
             //Triggers
             m_rightTrigger 	= GamePad.GetTrigger(GamePad.Trigger.RightTrigger, (GamePad.Index)m_playerNumber);
@@ -186,11 +188,11 @@ public class InputHandler : MonoBehaviour {
             m_BButton = false;
             m_XButton = false;
 
-            m_rightShoulder = false;
-            m_leftShoulder  = false;
+            m_rightShoulder		= false;
+            m_leftShoulder		= false;
 
-            m_rightTrigger  = 0.0f;
-            m_leftTrigger = 0.0f;
+            m_rightTrigger	= 0.0f;
+            m_leftTrigger	= 0.0f;
 		}
 
 	}  

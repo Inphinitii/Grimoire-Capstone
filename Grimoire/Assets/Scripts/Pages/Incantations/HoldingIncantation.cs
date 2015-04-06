@@ -1,28 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HoldingIncantation : AbstractIncantation {
+public class HoldingIncantation : AbstractIncantation
+{
 
 	// Use this for initialization
-	void Start () {
-	
+	public override void Start()
+	{
+		base.Start();
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-	
+	public override void Update()
+	{
+		base.Update();
 	}
 
-    public override void HandleUse()
-    {
-        base.HandleUse();
-        BroadcastMessage("Casting", true);
-    }
+	public override void HandleUse()
+	{
+		base.HandleUse();
+		BroadcastMessage( "Casting", true );
+	}
 
-    public override void HandleRelease()
-    {
-        base.HandleRelease();
-        BroadcastMessage("Casting", false);
-        SendMessage("ActivateSpell");
-    }
+	public override void HandleRelease()
+	{
+		base.HandleRelease();
+		BroadcastMessage( "Casting", false );
+		SendMessage( "ActivateSpell" );
+	}
 }

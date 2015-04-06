@@ -160,16 +160,16 @@ GameObject:
   - 4: {fileID: 497350}
   - 50: {fileID: 5097330}
   - 61: {fileID: 6147636}
+  - 95: {fileID: 9597330}
+  - 114: {fileID: 11470970}
   - 114: {fileID: 11497336}
   - 114: {fileID: 11497334}
   - 114: {fileID: 11497332}
-  - 114: {fileID: 11497338}
-  - 95: {fileID: 9597330}
   - 114: {fileID: 11497330}
   - 114: {fileID: 11406110}
   - 114: {fileID: 11448172}
-  - 114: {fileID: 11470970}
-  - 114: {fileID: 11400138}
+  - 114: {fileID: 11442538}
+  - 114: {fileID: 11459084}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -681,9 +681,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 1.39999998}
+  m_Offset: {x: 0, y: 1.29999995}
   serializedVersion: 2
-  m_Size: {x: .75, y: 2.75}
+  m_Size: {x: .600000024, y: 2.5}
 --- !u!95 &9597330
 Animator:
   serializedVersion: 3
@@ -701,20 +701,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 197350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c22b48786dfa8e43881e711ea6d3c47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpingParticle: {fileID: 19853036, guid: 0eae7afc91861a14298c06fdca644785, type: 2}
-  skidParticle: {fileID: 19857530, guid: 0cbb32790e3be9843a452531dee57bd8, type: 2}
-  smokeOnHitParticle: {fileID: 19803602, guid: 98fc463e51d3d28428a3452235096e9e, type: 2}
 --- !u!114 &11406110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -726,6 +712,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30deba34fa0a6304abca9dec462f39fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11442538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa042084e994924f85b1091ab7dd5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayAnchor: {fileID: 497350}
+  rayDistance: 1
+  drawDebug: 0
 --- !u!114 &11448172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackListID: Basic Attacks
+  useActorForce: 0
   forceType: 0
   attackList:
   - {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
@@ -751,6 +752,20 @@ MonoBehaviour:
   - StandingUp
   - NeutralAir
   - BackAir
+--- !u!114 &11459084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c22b48786dfa8e43881e711ea6d3c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpingParticle: {fileID: 19853036, guid: 0eae7afc91861a14298c06fdca644785, type: 2}
+  skidParticle: {fileID: 19857530, guid: 0cbb32790e3be9843a452531dee57bd8, type: 2}
+  smokeOnHitParticle: {fileID: 19803602, guid: 98fc463e51d3d28428a3452235096e9e, type: 2}
 --- !u!114 &11470970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -762,8 +777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b977bf110700f634b985c51b836e1b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorName: 
-  actorColor: {r: 1, g: 1, b: 1, a: 0}
+  actorName: Player 2
+  actorColor: {r: 0, g: .793103218, b: 1, a: 0}
   forceType: 0
 --- !u!114 &11497330
 MonoBehaviour:
@@ -787,23 +802,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82e86d0a81a34445b5fa54d6866c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAccel: 150
-  airAccel: 25
+  groundAccel: 200
+  airAccel: 50
   jumpAccel: 14
   maxGroundAccel: 13
   maxAirAccel: 13
-  groundDampeningConstant: .860000014
+  groundDampeningConstant: .910000026
   airDampeningConstant: .970000029
   groundTurningConstant: 3
   airTurningConstant: .100000001
   fastFallRate: 100
   totalJumps: 2
-  GroundLayerMask:
+  groundCheckLayerMask:
     serializedVersion: 2
-    m_Bits: 256
-  PlatformLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
+  m_isJumping: 0
+  TestingObject: {fileID: 0}
 --- !u!114 &11497334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -815,13 +829,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025322ac0ba5d494ebfd553fa645152f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_gravitationalForce: 100
-  p_groundFriction: 20
-  p_airFriction: 5
-  p_mass: 2
-  p_timeScale: 1
-  p_applyGravity: 0
-  p_dragResistance: .129999995
+  gravitationalForce: 65
+  mass: 2
+  applyGravity: 0
 --- !u!114 &11497336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -836,21 +846,6 @@ MonoBehaviour:
   AssignNumber: 1
   UID: 1
   comboInputWindow: .100000001
---- !u!114 &11497338
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 197350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a44bc5fbebc106a4aa506bf0b3ee7546, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_regularAttack: 0
-  m_smashAttack: 0
-  m_chargeDuration: 0
-  m_attackDuration: .5
 --- !u!137 &13797330
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

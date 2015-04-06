@@ -5,6 +5,11 @@ public class Page
 
     AbstractIncantation mIncantation;
 
+	public virtual void UsePage()
+	{
+
+	}
+
     public virtual void OnPageUse()
     {
 

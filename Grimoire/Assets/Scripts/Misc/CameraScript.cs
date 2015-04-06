@@ -20,10 +20,8 @@ public class CameraScript : MonoBehaviour {
 	private Vector3		m_cameraPosition;
     private Vector3		m_origCamOffset;
 	private Vector2		m_focalPoint;
-	private Vector2		m_previousFocalPoint;
 	private float				m_cameraMagnification;
 
-	private float deviationConstant = 1.0f;
 	private Vector3 velocity;
 	
 	
@@ -33,7 +31,6 @@ public class CameraScript : MonoBehaviour {
 		m_cameraPosition			= m_cameraReference.transform.position;
         m_origCamOffset			= m_cameraPosition;
 		m_cameraMagnification	= CameraMagnification();
-		m_previousFocalPoint = Vector2.up;
 	}
 	
 	void FixedUpdate () {
@@ -60,7 +57,6 @@ public class CameraScript : MonoBehaviour {
 	/// Returns the Vector2 point between all of the Foci in m_CameraFoci
 	/// </summary>
 	void ReturnFocalPoint(){
-		m_previousFocalPoint = m_focalPoint;
 		m_focalPoint = Vector2.zero;
 		for (int i = 0; i < cameraFoci.Length; i++)
 		{

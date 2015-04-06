@@ -15,13 +15,14 @@ public class AttackList : MonoBehaviour {
 			cooldown		= _cooldown;
 		}
 		public AbstractAttack	attackRef;
-        public float			duration,
+        public float		duration,
 								startup,
 								cooldown;
     }
 
     [SerializeField]
     public string attackListID;
+	public bool useActorForce;
 
     [SerializeField]
     public Properties.ForceType forceType;
@@ -32,6 +33,7 @@ public class AttackList : MonoBehaviour {
     [SerializeField]
     public string[] attackNames;
 
+
     [SerializeField]
     private Dictionary<string, AttackStruct> m_attackDictionary;
 
@@ -40,12 +42,15 @@ public class AttackList : MonoBehaviour {
 
     void Start()
     {
+		if ( useActorForce )
+			forceType = GetComponent<Actor>().forceType;
+
         m_attackDictionary = new Dictionary<string, AttackStruct>();
         for ( int i = 0; i < attackList.Length; i++ )
         {
 			_tempAtk = (AbstractAttack)Instantiate( attackList[i], this.transform.position, Quaternion.identity ) as AbstractAttack;
-            _tempAtk.SetForce( forceType );
             _tempAtk.transform.parent = this.transform;
+			_tempAtk.forceType = forceType;
 
             _temp = new AttackStruct(_tempAtk, _tempAtk.duration, _tempAtk.startupTime, _tempAtk.cooldownTime);
             m_attackDictionary.Add( attackNames[i], _temp );
@@ -75,4 +80,15 @@ public class AttackList : MonoBehaviour {
             Debug.Log( "Can not find attack by the name of " + _identifier + " in the Attack List of UID: " + attackListID );
         return _temp;
     }
+
+	///// <summary>
+	///// Set the force of the attack objects within the attack list. Used externally. 
+	///// </summary>
+	///// <param name="_force"></param>
+	//public void SetForceType(Properties.ForceType _force)
+	//{
+	//	forceType = _force;
+	//	for ( int i = 0; i < attackList.Length; i++ )
+	//		attackList[i].SetForce( forceType );
+	//}
 }

@@ -23,7 +23,8 @@ public class PlayerFSM : MonoBehaviour {
         ATTACKING,
         HIT,
         DASHING,
-        FALLING
+        FALLING,
+		LANDING
     };
     public IState currentState;
 
@@ -38,9 +39,8 @@ public class PlayerFSM : MonoBehaviour {
 	private AbstractAttack m_currentAttack;
     
 	void Start () {
-        m_attackList			= GetComponents<AttackList>();
+        m_attackList			= gameObject.GetComponents<AttackList>();
 		m_actorReference	= GetComponent<Actor>();
-
         m_stateList = new List<IState>();
         
         // Pre-load the state objects into the state list. This is all done at compile time. 
@@ -56,7 +56,14 @@ public class PlayerFSM : MonoBehaviour {
             item.SetFSM(this); 
         }
 
+		//foreach ( AttackList item in m_attackList )
+		//{
+		//	item.SetForceType(m_actorReference.forceType);
+		//}
+
 		currentState = m_stateList[0]; 
+
+
 	}
 	
 	void Update () 

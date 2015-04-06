@@ -4,15 +4,10 @@ using System.Collections;
 public class PhysicsController : MonoBehaviour {
 	
 	//Public Variables
-	public float p_gravitationalForce;	
-	public float p_groundFriction = 20.0f;
-	public float p_airFriction = 5.0f;
-	public float p_mass = 10.0f;
-    public float p_timeScale = 1.0f;
-	public bool  p_applyGravity;
-	
-	[Range(0.0f, 1.0f)]
-	public float p_dragResistance 	= -0.15f;
+	public float gravitationalForce = 100.0f;
+	public float mass						= 2.0f;
+	public bool  applyGravity			= true;
+
 	
 	//Private Variables
 	private Vector2 m_velocity;
@@ -27,7 +22,7 @@ public class PhysicsController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pausePhysics = false;
-        p_applyGravity = true;
+        applyGravity = true;
 	}
 	
 	// Update is called once per frame
@@ -35,12 +30,13 @@ public class PhysicsController : MonoBehaviour {
         if (!pausePhysics) {
             m_position = (Vector2)transform.position;
 
-            if (p_applyGravity)
-                m_force.y += -p_gravitationalForce;
+            if (applyGravity)
+				m_force.y += -gravitationalForce * mass ;
 
-            m_acceleration = m_force / p_mass;
-            m_velocity += m_acceleration * Time.deltaTime * p_timeScale;
-            m_position += m_velocity * Time.deltaTime * p_timeScale;
+            m_acceleration = m_force / mass;
+
+            m_velocity	+= m_acceleration * Time.deltaTime;
+			m_position	+= m_velocity * Time.deltaTime;
 
 			if ( m_velocity.x < 0.001 && m_velocity.x > 0.0f )
 			{
@@ -56,10 +52,10 @@ public class PhysicsController : MonoBehaviour {
         }
 	}
 		
-	public Vector2 Velocity 	{ get{return m_velocity;} 		set{m_velocity = value;		} }
-	public Vector2 Acceleration { get{ return m_acceleration;} 	set{m_acceleration = value;	} }
-	public Vector2 Forces   	{ get{return m_force;   } 		set{m_force = value; 		} }
-    public Vector3 Position     { get { return transform.position; } set { transform.position = value; } }
+	public Vector2 Velocity 			{ get{return m_velocity;} 					set{m_velocity = value;					} }
+	public Vector2 Acceleration		{ get{ return m_acceleration;} 			set{m_acceleration = value;			} }
+	public Vector2 Forces   			{ get{return m_force;   } 					set{m_force = value; 						} }
+    public Vector3 Position			{ get { return transform.position; }	set { transform.position = value;	} }
 
     public void PausePhysics(bool _pause) {
         pausePhysics = _pause;
