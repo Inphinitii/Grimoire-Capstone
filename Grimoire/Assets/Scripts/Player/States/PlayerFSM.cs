@@ -30,19 +30,19 @@ public class PlayerFSM : MonoBehaviour {
     public IState currentState;
 
     private List<IState>	m_stateList;
-    private bool					m_block;
+    private bool			m_block;
 
-    private IState				m_previousState;
-	private Actor				m_actorReference;
-    private AttackList[]		m_attackList;
+    private IState			m_previousState;
+	private Actor			m_actorReference;
+    private AttackList[]	m_attackList;
 
 	//For use in the AttackState class. 
-	private AbstractAttack m_currentAttack;
+	private AttackList.AttackStruct m_currentAttack;
     
 	void Start () {
-        m_attackList			= gameObject.GetComponents<AttackList>();
+        m_attackList		= gameObject.GetComponents<AttackList>();
 		m_actorReference	= GetComponent<Actor>();
-        m_stateList = new List<IState>();
+        m_stateList			= new List<IState>();
         
         // Pre-load the state objects into the state list. This is all done at compile time. 
         m_stateList.Add( new StandingState() );
@@ -60,11 +60,6 @@ public class PlayerFSM : MonoBehaviour {
             item.SetFSM(this); 
         }
 
-		//foreach ( AttackList item in m_attackList )
-		//{
-		//	item.SetForceType(m_actorReference.forceType);
-		//}
-
 		currentState = m_stateList[0]; 
 
 
@@ -73,6 +68,7 @@ public class PlayerFSM : MonoBehaviour {
 	void Update () 
 	{
 		currentState.ExecuteState();
+		currentState.ExitConditions();
 	}
 
 
@@ -172,6 +168,11 @@ public class PlayerFSM : MonoBehaviour {
         return default( AttackList );
     }
 
+	/// <summary>
+	/// Return the state instance held within the internal array of states. 
+	/// </summary>
+	/// <param name="_state">Index of the state, represented as an enumerator</param>
+	/// <returns></returns>
 	public IState GetState( PlayerFSM.States _state )
 	{
 		return m_stateList[(int)_state];
@@ -180,7 +181,7 @@ public class PlayerFSM : MonoBehaviour {
 	/// <summary>
 	/// Getter/Setter for the current attack.
 	/// </summary>
-	public AbstractAttack CurrentAttack
+	public AttackList.AttackStruct CurrentAttack
 	{
 		get { return m_currentAttack; }
 		set { m_currentAttack = value; }

@@ -5,57 +5,41 @@ namespace PlayerStates
 {
 	public class StandingState : IState
 	{
+		Vector2 _leftStick;
 		public StandingState()
 		{
 		}
 
 		public override void ExecuteState()
 		{
-			Vector2 _leftStick = GetFSM().GetInput().LeftStick();
+			_leftStick = GetFSM().GetInput().LeftStick();
 
-			//Forward Attack
 			if ( GetFSM().GetInput().Attack() )
 			{
+				//Directional Attack - Standing
 				if ( _leftStick.x != 0 )
-				{
 					GetFSM().GetMovement().OrientationCheck( _leftStick );
-					Debug.Log( "Forward Standing Attack" );
-				}
+				//Upwards Attack - Standing
 				if ( _leftStick.y > 0 )
-				{
-					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingUp" );
-					GetFSM().CurrentAttack = _temp.attackRef;
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
+					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingUp" );
+				//Neutral Attack - Standing
 				else
-				{
-					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingNeutral" );
-					GetFSM().CurrentAttack = _temp.attackRef;
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
-			}
-			else
-			{
-				GetFSM().StartCoroutine( SwitchStates( _leftStick ) );
-			}
-		} 
+					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingNeutral" );
 
-		/// <summary>
-		/// Check for state switching after a set period of time.
-		/// </summary>
-		/// <param name="_leftStick">Input method.</param>
-		/// <returns></returns>
-		IEnumerator SwitchStates( Vector2 _leftStick )
+				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+			}
+		}
+
+		public override void ExitConditions()
 		{
-			yield return new WaitForSeconds( 0.00f );
+			if ( GetFSM().GetInput().Triggers() > 0.0f )
+				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 			if ( GetFSM().GetInput().Jump() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.x > 0 || _leftStick.x < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 			if ( _leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
-			if ( GetFSM().GetInput().Triggers() > 0.0f )
-				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, false );
 		}
 	}
 }

@@ -6,8 +6,9 @@ namespace PlayerStates
 	public class AttackState : IState
 	{
 
-		private float m_time;
-		private bool attackStart;
+		private bool			m_attackStart;
+		private float			m_time;
+		private AbstractAttack	m_attackReference;
 
 		public AttackState()
 		{
@@ -15,29 +16,29 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			if(GetFSM().CurrentAttack.freezeMovementOnUse)
-				GetFSM().GetActorReference().GetPhysicsController().ClearValues();
-
-			m_time = GetFSM().CurrentAttack.GetStateBlockTime();
-			attackStart = true;
+			m_time				= GetFSM().CurrentAttack.attackRef.GetStateBlockTime();
+			m_attackReference	= GetFSM().CurrentAttack.attackRef;
+			m_attackStart		= true;
 		}
 		public override void ExecuteState()
 		{
-			BlockStateSwitch( GetFSM().CurrentAttack.GetStateBlockTime() );
+			BlockStateSwitch( m_attackReference.GetStateBlockTime() );
 			if ( m_time > 0.0f )
 			{
-				if ( attackStart )
+				if ( m_attackStart )
 				{
-					GetFSM().StartCoroutine( GetFSM().CurrentAttack.StartAttack() );
-					attackStart = false;
+					GetFSM().StartCoroutine( m_attackReference.StartAttack() );
+					m_attackStart = false;
 				}
-				GetFSM().CurrentAttack.HandleInput( GetFSM().GetActorReference().GetInputHandler() );
+				m_attackReference.HandleInput( GetFSM().GetActorReference().GetInputHandler() );
 				m_time -= Time.deltaTime;
 			}
-			else
-			{
+		}
+
+		public override void ExitConditions()
+		{
+			if(m_time <= 0.0f)
 				GetFSM().GoToPreviousState( false );
-			}
 		}
 	}
 }

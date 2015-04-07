@@ -5,23 +5,30 @@ namespace PlayerStates
 {
 	public class CrouchingState : IState
 	{
+		Vector2 m_leftStick;
+
 		public CrouchingState()
 		{
 		}
 
 		public override void ExecuteState()
 		{
-			Vector2 _leftStick = GetFSM().GetInput().LeftStick();
+			m_leftStick = GetFSM().GetInput().LeftStick();
 
-			if ( _leftStick.y >= 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-
-			if ( GetFSM().GetInput().Attack() && _leftStick.y < 0)
+			if ( GetFSM().GetInput().Attack() )
 			{
-				AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
-				GetFSM().CurrentAttack = _temp.attackRef;
+				if ( m_leftStick.y < 0.0f )
+					m_playerFSM.CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
+
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 			}
+
+		}
+
+		public override void ExitConditions()
+		{
+			if ( m_leftStick.y >= 0 )
+				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
 
 		}
 	}

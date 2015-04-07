@@ -14,10 +14,11 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			m_dashComponent = m_playerFSM.gameObject.GetComponent<Dash>();
+			if(m_dashComponent == null)
+				m_dashComponent = m_playerFSM.gameObject.GetComponent<Dash>();
+
 			m_dashComponent.StartCoroutine( m_dashComponent.StartDash( m_playerFSM.GetInput().LeftStick() ) );
-			BlockStateSwitch( m_dashComponent.dashDuration / 2.0f );
-			base.OnSwitch();
+			BlockStateSwitch( m_dashComponent.dashDuration );
 		}
 
 		public override void OnExit()
@@ -27,11 +28,9 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
-			if(m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers() > 0.0f)
-			{
+			//Make sure this doesn't register the trigger if it's already down. 
+			if(m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers() < 0.5f)
 				m_playerFSM.GoToPreviousState(true);
-				//Change to the appropriate state. 
-			}
 		}
 	}
 }

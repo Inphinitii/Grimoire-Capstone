@@ -14,7 +14,8 @@ namespace PlayerStates
 	public abstract class IState
 	{
 		protected PlayerFSM m_playerFSM;
-		private float m_blockTimer;
+		protected bool		m_attacking;
+		private float		m_blockTimer;
 
 		/// <summary>
 		/// Set the FSM that contains this State so that we can have access to reference variables.
@@ -71,6 +72,11 @@ namespace PlayerStates
 		/// Called when this state is the FSM's current state. 
 		/// </summary>
 		public abstract void ExecuteState();
+
+		/// <summary>
+		/// Used simply for organization purposes of keeping the state exit conditions within a single method call. 
+		/// </summary>
+		public virtual void ExitConditions() { } 
 
 		/// <summary>
 		/// Receive the current FSM that this state is contained within.

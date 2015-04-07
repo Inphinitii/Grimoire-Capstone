@@ -7,10 +7,12 @@ namespace PlayerStates
 	//TODO LANDING STATE
 	public class HitState : IState
 	{
-		private float oldDampening;
-		private const float hitMovementDampener = 0.35f;
-		private const float hitGroundDampener = 0.93f;
-		private const float smokeParticleThreshold = 10.0f;
+		private float		m_oldDampening;
+		private Vector2		m_leftStick;
+		private const float MOVEMENT_DAMPENER		= 0.35f;
+		private const float GROUND_ACCEL_DAMPENER	= 0.93f;
+		private const float SMOKE_THRESHOLD			= 10.0f;
+
 
 		public HitState()
 		{
@@ -18,47 +20,43 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			oldDampening = GetFSM().GetActorReference().GetMovementController().groundDampeningConstant;
-			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = hitGroundDampener;
+			m_oldDampening = GetFSM().GetActorReference().GetMovementController().groundDampeningConstant;
+			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = GROUND_ACCEL_DAMPENER;
 
 		}
 
 		public override void OnExit()
 		{
-			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = oldDampening;
+			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
 		}
 
 		public override void ExecuteState()
 		{
-			Vector2 _leftStick = GetFSM().GetInput().LeftStick();
-			GetFSM().GetActorReference().GetMovementController().MoveX( _leftStick * hitMovementDampener );
+			m_leftStick = GetFSM().GetInput().LeftStick();
+
+			if(m_leftStick.x != 0.0f)
+				GetFSM().GetActorReference().GetMovementController().MoveX( m_leftStick * MOVEMENT_DAMPENER );
+
 			if ( GetFSM().GetActorReference().GetPhysicsController().Velocity.y > 0.0f )
-			{
 				GetFSM().GetActorReference().GetMovementController().SetJumping( true );
-			}
 
-			//Particles
-			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.y ) > smokeParticleThreshold ) 
-			{
-				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( true );
-			}
-			else
-			{
-				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );
-			}
-
-			ApexOfHit();
+			DisplayParticles();
 
 
 		}
 
-		void ApexOfHit()
+		public override void ExitConditions()
 		{
-
 			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
-			{
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
-			}
+		}
+
+		private void DisplayParticles()
+		{
+			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.y ) > SMOKE_THRESHOLD )
+				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( true );
+			else
+				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );
 		}
 	}
 }

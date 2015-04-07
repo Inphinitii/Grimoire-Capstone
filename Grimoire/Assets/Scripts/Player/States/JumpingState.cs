@@ -5,8 +5,9 @@ namespace PlayerStates
 {
 	public class JumpingState : IState
 	{
-		bool lastJump;
-		bool getJump;
+		bool	m_lastJump;
+		bool	m_getJump;
+		Vector2 m_leftStick;
 
 		public JumpingState()
 		{
@@ -14,61 +15,46 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			//GetFSM().GetMovement().ApplyJump( true, Vector2.zero );
 		}
 
 		public override void ExecuteState()
 		{
-			/* Redundant Code */
-			Vector2 _leftStick = GetFSM().GetInput().LeftStick();
-			if ( _leftStick.x > 0 || _leftStick.x < 0 )
-				GetFSM().GetMovement().MoveX( _leftStick );
-			///////////////////
-			lastJump = getJump;
 
 
-			getJump = GetFSM().GetInput().Jump();
-			if ( getJump )
-			{
-				GetFSM().GetMovement().ApplyJump( true, _leftStick );
-			}
-			else if ( getJump != lastJump )
-			{
-				GetFSM().GetMovement().ApplyJump( false, _leftStick );
-			}
+			m_lastJump		= m_getJump;
+			m_leftStick		= GetFSM().GetInput().LeftStick();
+			m_getJump		= GetFSM().GetInput().Jump();
+
+			if ( m_leftStick.x != 0.0f )
+				GetFSM().GetMovement().MoveX( m_leftStick );
+
+
+			//Jumping behaviour differs whether or not the button was let go or pressed.
+			if ( m_getJump )
+				GetFSM().GetMovement().ApplyJump( true, m_leftStick );
+			else if ( m_getJump != m_lastJump )
+				GetFSM().GetMovement().ApplyJump( false, m_leftStick );
+
 
 			if ( GetFSM().GetInput().Attack() )
 			{
-				if ( _leftStick.y < 0 )
-				{
-					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "DownAir" );
-					GetFSM().CurrentAttack = _temp.attackRef;
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
-				else if ( _leftStick.x > 0 && GetFSM().GetMovement().SignThisFrame() == -1 ||
-						_leftStick.x < 0 && GetFSM().GetMovement().SignThisFrame() == 1 )
-				{
-					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "BackAir" );
-					GetFSM().CurrentAttack = _temp.attackRef;
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
-				else if ( _leftStick.x == 0 && _leftStick.y == 0 )
-				{
-					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
-					GetFSM().CurrentAttack = _temp.attackRef;
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+				//Downward Attack - Jumping
+				if ( m_leftStick.y < 0 )
+					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "DownAir" ); 
+				//Neutral Attack - Jumping
+				else if ( m_leftStick.x == 0 && m_leftStick.y == 0 )
+					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
 
-				}
+				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );		
 			}
+		}
 
+		public override void ExitConditions()
+		{
 			if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
-			{
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-			}
 			else if ( !GetFSM().GetMovement().IsJumping() )
-			{
 				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
-			}
 		}
 	}
 }

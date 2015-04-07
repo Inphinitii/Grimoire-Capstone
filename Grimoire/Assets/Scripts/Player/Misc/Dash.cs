@@ -10,51 +10,45 @@ public class Dash : MonoBehaviour
 	public float dashSpeed;
 	public float dashCooldown;
 
-	private PhysicsController			m_physicsController;
+	private PhysicsController	m_physicsController;
 	private MovementController	m_movementController;
-	private bool								m_dashing;
-	private bool								m_dashComplete;
+	private bool				m_dashComplete;
+	private bool				m_orientSelf;
 	
 
 	// Use this for initialization
 	void Start()
 	{
-		m_physicsController = GetComponent<PhysicsController>();
-		m_movementController = GetComponent<MovementController>();
-		m_dashing = false;
+		m_physicsController		= GetComponent<PhysicsController>();
+		m_movementController	= GetComponent<MovementController>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		//if(GetComponent<InputHandler>().SpellSwap())
-		//{
-		//	if(!m_dashing)
-		//		StartCoroutine(StartDash( Vector2.right ));
-		//}
+
 	}
 
 	public IEnumerator StartDash(Vector2 _direction)
 	{
-		m_dashComplete = false;
-		bool orientation = false;
-		GetDiamondGateDirection( ref _direction , ref orientation);
+		m_dashComplete		= false;
+		m_orientSelf		= false;
 
-		if ( orientation )
+		GetDiamondGateDirection( ref _direction, ref m_orientSelf );
+
+		if ( m_orientSelf )
 			m_movementController.OrientationCheck( _direction );
 
-		m_dashing = true;
 		//m_physicsController.applyGravity = false;
 		if(m_movementController.IsJumping() == false)
-		m_physicsController.Velocity = _direction * dashSpeed;
+			m_physicsController.Velocity = _direction * dashSpeed;
 
-		m_movementController.m_capAcceleration = false;
+		m_movementController.m_capAcceleration = false; //Remove the acceleration cap temporarily. 
 		yield return new WaitForSeconds( dashDuration + dashCooldown );
 		m_movementController.m_capAcceleration = true;
 
 		//m_physicsController.applyGravity = true;
 		m_dashComplete = true;
-		m_dashing = false;
 	}
 
 	void GetDiamondGateDirection(ref Vector2 _direction, ref bool _orientationCheck)

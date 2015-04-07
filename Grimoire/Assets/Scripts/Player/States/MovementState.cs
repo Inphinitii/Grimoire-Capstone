@@ -5,34 +5,37 @@ namespace PlayerStates
 {
 	public class MovementState : IState
 	{
+		Vector2 m_leftStick;
 		public MovementState()
 		{
 		}
 
 		public override void ExecuteState()
 		{
-			if ( GetFSM().GetActorReference().GetInputHandler().Attack() )
+			m_leftStick = GetFSM().GetActorReference().GetInputHandler().LeftStick();
+
+			if ( m_leftStick.x != 0.0f )
+				GetFSM().GetActorReference().GetMovementController().MoveX( m_leftStick );
+
+			if ( GetFSM().GetInput().Attack() )
+			{
 				Debug.Log( "Dash Attack" );
+			}
+
+			
+		}
+
+		public override void ExitConditions()
+		{
 			if ( GetFSM().GetActorReference().GetInputHandler().Jump() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
-
-
-
-			Vector2 _leftStick = GetFSM().GetActorReference().GetInputHandler().LeftStick();
-			if ( _leftStick.x != 0.0f )
-			{
-				GetFSM().GetActorReference().GetMovementController().MoveX( _leftStick );
-			}
-			if ( _leftStick.y < 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
-			if( _leftStick.x == 0)
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-
-			if(GetFSM().GetActorReference().GetMovementController().IsJumping())
-			{
+			if ( GetFSM().GetActorReference().GetMovementController().IsJumping() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
-			}
-			
+
+			if ( m_leftStick.y < 0 )
+				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
+			if ( m_leftStick.x == 0 )
+				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
 		}
 	}
 }
