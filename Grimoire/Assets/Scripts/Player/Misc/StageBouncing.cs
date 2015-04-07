@@ -8,7 +8,8 @@ public class StageBouncing : MonoBehaviour
 
 	public LayerMask platformLayerMask;
 	public LayerMask groundLayerMask;
-	public float bounceDampener = 0.1f;
+	public float bounceThreshold = 10.0f;
+	public float bounceDampener = 1.0f;
 
 	private Actor m_actorReference;
 	private PlayerFSM m_fsmReference;
@@ -19,38 +20,49 @@ public class StageBouncing : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		m_actorReference	= GetComponent<Actor>();
-		m_fsmReference		= GetComponent < PlayerFSM>();
-		m_movementController = GetComponent<MovementController>();
+		m_actorReference			= GetComponent<Actor>();
+		m_fsmReference				= GetComponent < PlayerFSM>();
+		m_movementController	= GetComponent<MovementController>();
 	}
 
 	// Update is called once per frame
 	void LateUpdate()
 	{
+	}
+
+	void Bounce(float _velocityy)
+	{
 		if ( bounce )
 		{
 			Vector2 reflectionVector;
-			if ( m_actorReference.GetPhysicsController().Velocity.y < -25.0f )
-			{
-				m_movementController.groundCheck = false;
-				_collisionNormal.Normalize();
-				reflectionVector = (Vector2)Vector3.Reflect( (Vector3)m_actorReference.GetPhysicsController().Velocity, (Vector3)_collisionNormal );
-				m_actorReference.GetPhysicsController().Velocity = reflectionVector * bounceDampener;
-				m_fsmReference.SetCurrentState( PlayerFSM.States.BOUNCE, true );
-				bounce = false;
-			}
+			m_movementController.groundCheck = false;
+			_collisionNormal.Normalize();
+			reflectionVector = (Vector2)Vector3.Reflect( (Vector3)m_actorReference.GetPhysicsController().LastVelocity, Vector2.up ); // HACKY. We're not taking collision normals, we're using just Vector2.up
+
+			m_actorReference.GetPhysicsController().Velocity = reflectionVector * bounceDampener;
+			m_fsmReference.SetCurrentState( PlayerFSM.States.BOUNCE, true );
+			bounce = false;
 		}
 	}
 
-	void OnCollisionEnter2D( Collision2D _collider )
+	void OnCollisionStay2D( Collision2D _collider )
 	{
-		if ( _collider.collider.gameObject.layer == LayerMask.NameToLayer( "Platform" ) || _collider.collider.gameObject.layer == LayerMask.NameToLayer( "Floor" ) )
+		if ( !bounce )
 		{
-			if(m_fsmReference.GetState( PlayerFSM.States.HIT) == m_fsmReference.currentState)
+			if ( _collider.collider.gameObject.layer == LayerMask.NameToLayer( "Platform" ) || _collider.collider.gameObject.layer == LayerMask.NameToLayer( "Floor" ) )
 			{
-				_collisionNormal = _collider.contacts[0].normal;
-				bounce = true;
-				LateUpdate();
+				if ( m_fsmReference.currentState == m_fsmReference.GetState( PlayerFSM.States.HIT ) )
+				{
+					_collisionNormal = Vector2.zero;
+					_collisionNormal += _collider.contacts[0].normal;
+
+					float vel = m_actorReference.GetPhysicsController().Velocity.y;
+					if ( vel < -bounceThreshold )
+					{
+						bounce = true;
+						Bounce( vel );
+					}
+				}
 			}
 		}
 	}

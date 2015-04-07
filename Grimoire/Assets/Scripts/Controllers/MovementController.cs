@@ -44,8 +44,9 @@ public class MovementController : MonoBehaviour {
 	private GroundCheck		m_groundCheck;
 
 	//Movement Booleans
-    public bool m_isJumping;
-    private bool m_isMoving;
+    private bool		m_isJumping;
+    private bool		m_isMoving;
+	public bool		m_capAcceleration = true;
 
 	//Temporary forces to be added to the PhysicsController.
     private Vector2 m_tempForce;
@@ -74,6 +75,7 @@ public class MovementController : MonoBehaviour {
 		m_actorReference			= GetComponent<Actor>();
         m_isJumping = true;
 		groundCheck = true;
+		m_capAcceleration = true;
     }
 
 	void Update()
@@ -83,7 +85,10 @@ public class MovementController : MonoBehaviour {
 		turningSpeedType		= !m_isJumping ? groundTurningConstant : airTurningConstant;
 		movementSpeedType = !m_isJumping ? groundAccel : airAccel;
 		dampeningConstant	= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
-		CapAcceleration();
+
+		if ( m_capAcceleration ) 
+			CapAcceleration();
+
 		DampenMovement();
 		ApplyTurningSpeed( ref turningMultiplier );
 

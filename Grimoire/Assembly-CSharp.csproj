@@ -88,12 +88,14 @@
      <Compile Include="Assets\Scripts\Player\Grimoire\Grimoire.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire\SpellCharges.cs" />
      <Compile Include="Assets\Scripts\Player\Misc\Actor.cs" />
+     <Compile Include="Assets\Scripts\Player\Misc\Dash.cs" />
      <Compile Include="Assets\Scripts\Player\Misc\GroundCheck.cs" />
      <Compile Include="Assets\Scripts\Player\Misc\Properties.cs" />
      <Compile Include="Assets\Scripts\Player\Misc\StageBouncing.cs" />
      <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />
      <Compile Include="Assets\Scripts\Player\States\BounceState.cs" />
      <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
+     <Compile Include="Assets\Scripts\Player\States\DashingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\HitState.cs" />
      <Compile Include="Assets\Scripts\Player\States\IState.cs" />
      <Compile Include="Assets\Scripts\Player\States\JumpingState.cs" />

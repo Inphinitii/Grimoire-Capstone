@@ -52,6 +52,7 @@ public class PlayerFSM : MonoBehaviour {
 		m_stateList.Add( new AttackState() );
 		m_stateList.Add( new HitState() );
 		m_stateList.Add( new BounceState() );
+		m_stateList.Add( new DashingState() );
 
 
         foreach (IState item in m_stateList)

@@ -54,6 +54,8 @@ namespace PlayerStates
 				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 			if ( _leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
+			if ( GetFSM().GetInput().Triggers() > 0.0f )
+				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, false );
 		}
 	}
 }

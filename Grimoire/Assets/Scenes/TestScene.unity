@@ -252,6 +252,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  bounceThreshold: 15
   bounceDampener: .75
 --- !u!1 &52124850
 GameObject:
@@ -429,7 +430,7 @@ Transform:
   - {fileID: 1875902383}
   - {fileID: 1732048690}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &140153644
 Transform:
   m_ObjectHideFlags: 0
@@ -980,7 +981,22 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  bounceThreshold: 15
   bounceDampener: .75
+--- !u!114 &1160207945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1160207930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b0969ecf0b0da45879b25a386de925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDuration: .5
+  dashSpeed: 20
+  dashCooldown: .200000003
 --- !u!1 &1216500973
 GameObject:
   m_ObjectHideFlags: 0

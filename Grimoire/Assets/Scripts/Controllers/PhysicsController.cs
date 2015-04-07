@@ -7,11 +7,10 @@ public class PhysicsController : MonoBehaviour {
 	public float gravitationalForce = 100.0f;
 	public float mass						= 2.0f;
 	public bool  applyGravity			= true;
-
 	
 	//Private Variables
 	private Vector2 m_velocity;
-    private Vector2 m_finalVelocity;
+	private Vector2 m_lastVelocity;
 	private Vector2 m_acceleration;
 	private Vector2 m_force;
     private Vector2 m_position;
@@ -28,6 +27,7 @@ public class PhysicsController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         if (!pausePhysics) {
+			m_lastVelocity = m_velocity;
             m_position = (Vector2)transform.position;
 
             if (applyGravity)
@@ -51,8 +51,9 @@ public class PhysicsController : MonoBehaviour {
             m_force = Vector2.zero;
         }
 	}
-		
-	public Vector2 Velocity 			{ get{return m_velocity;} 					set{m_velocity = value;					} }
+
+	public Vector2 Velocity				{ get { return m_velocity; }				set { m_velocity = value;				} }
+	public Vector2 LastVelocity		{ get { return m_lastVelocity; }			set { m_lastVelocity = value;			} }
 	public Vector2 Acceleration		{ get{ return m_acceleration;} 			set{m_acceleration = value;			} }
 	public Vector2 Forces   			{ get{return m_force;   } 					set{m_force = value; 						} }
     public Vector3 Position			{ get { return transform.position; }	set { transform.position = value;	} }

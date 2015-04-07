@@ -44,13 +44,14 @@ MonoBehaviour:
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
-  startupFrames: 5
-  durationFrames: 8
-  cooldownFrames: 7
+  startupFrames: 4
+  durationFrames: 10
+  cooldownFrames: 6
+  onHitCooldownFrames: 3
   ableToCancel: 0
   hitDirection: {x: 0, y: 1}
   hitAlongDistanceVector: 0
-  hitForce: 25
+  hitForce: 20
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0

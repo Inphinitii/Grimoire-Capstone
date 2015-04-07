@@ -17,6 +17,11 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 	private BoxCollider2D	m_boxCollider;
 	private Transform			m_parent;
 
+	void Awake()
+	{
+		gameObject.tag = "HurtBox";
+	}
+
 	void Start()
 	{
 		m_boxCollider = GetComponent<BoxCollider2D>();
@@ -44,6 +49,15 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 		SendMessageUpwards( "HitEnemy", _collider );			//Send a message to this object
 		_collider.SendMessage( "OnHit" );								//Send a message to the enemy
     }
+
+	/// <summary>
+	/// Called when any two hurt boxes intersect.
+	/// </summary>
+	/// <param name="_collider"> Collider2D Object </param>
+	public virtual void OnHurtboxHit( Collider2D _collider ) 
+	{
+		SendMessageUpwards( "HitHurtBox", _collider );
+	}
 
     /// <summary>
     /// Set the force type of the current hurt box. Used in the Attack method that houses the HurtBoxes.
@@ -83,6 +97,11 @@ public abstract class AbstractHurtBox : MonoBehaviour {
             else
                 OnEnemyHit(_collider);
         }
+		else if (_collider.gameObject.tag == "HurtBox")
+		{
+			if ( _collider.gameObject.GetComponent<AbstractHurtBox>().forceType != forceType )
+				OnHurtboxHit( _collider );
+		}
         else
             OnAnyHit();
     }

@@ -21,9 +21,10 @@ public abstract class AbstractAttack : MonoBehaviour
 	public ParticleSystem			particleOnHit;
 	public ParticleSystem			particleOnUse;
 
-	public float startupFrames;
-	public float durationFrames;
-	public float cooldownFrames;
+	public int startupFrames;
+	public int durationFrames;
+	public int cooldownFrames;
+	public int onHitCooldownFrames;
 
 	public bool ableToCancel;
 
@@ -116,6 +117,15 @@ public abstract class AbstractAttack : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Called when an AbstractHurtBox makes contact with another hurtbox. 
+	/// </summary>
+	public virtual void HitHurtBox( Collider2D _collider )
+	{
+		Vector2 direction = ( _collider.transform.position - this.transform.position ).normalized;
+		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * (hitForce * 0.5f);
+	}
+
+	/// <summary>
 	/// Called before the attack starts, during the startup period.
 	/// </summary>
 	public abstract void BeforeAttack();
@@ -172,7 +182,8 @@ public abstract class AbstractAttack : MonoBehaviour
 		return Startup() + Duration() + Cooldown();
 	}
 
-	public float Duration()		{ return durationFrames * FRAME_TIME; }
-	public float Startup()		{ return startupFrames * FRAME_TIME; }
-	public float Cooldown()	{ return cooldownFrames * FRAME_TIME; }
+	public float Duration()				{ return durationFrames * FRAME_TIME;				}
+	public float Startup()				{ return startupFrames * FRAME_TIME;				}
+	public float Cooldown()			{ return cooldownFrames * FRAME_TIME;			}
+	public float OnHitCooldown()	{ return onHitCooldownFrames * FRAME_TIME;	}
 }

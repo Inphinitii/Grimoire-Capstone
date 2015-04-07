@@ -11,7 +11,7 @@ using System.Collections;
 
 public class DefaultAttack : AbstractAttack {
 
-	private float m_onHitFreezeDuration = 0.35f;
+	private float m_onHitFreezeDuration = 0.25f;
 
 	public override void Start () {
 		base.Start();
@@ -33,7 +33,7 @@ public class DefaultAttack : AbstractAttack {
 		Camera.main.GetComponent<CameraShake>().Shake();
 
 		//Add the attack delay to the blocking timer. Do we want this?
-		//transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( m_onHitFreezeDuration );
+		transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( OnHitCooldown() );
 
 		//StartCoroutine( DashWindow( dashWindow ) );
 	}

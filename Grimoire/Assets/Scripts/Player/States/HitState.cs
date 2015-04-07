@@ -47,7 +47,18 @@ namespace PlayerStates
 				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );
 			}
 
+			ApexOfHit();
 
+
+		}
+
+		void ApexOfHit()
+		{
+
+			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
+			{
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+			}
 		}
 	}
 }
