@@ -38,16 +38,28 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
+				if( m_leftStick.x != 0)
+				{
+					//FIX DIS
+					GetFSM().GetMovement().OrientationCheck( m_leftStick );
+					if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f ||
+						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f)
+					{
+						GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "FrontAir" );
+					}
+
+					if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f ||
+						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
+					{
+						GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "BackAir" );
+					}
+				}
 				//Downward Attack - Jumping
 				if ( m_leftStick.y < 0 )
 					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "DownAir" ); 
 				//Neutral Attack - Jumping
 				else if ( m_leftStick.x == 0 && m_leftStick.y == 0 )
 					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
-				else if( m_leftStick.x != 0)
-				{
-					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
-				}
 
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );		
 			}

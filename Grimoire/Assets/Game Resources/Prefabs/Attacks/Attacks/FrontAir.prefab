@@ -1,46 +1,46 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &150458
+--- !u!1 &114522
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 496580}
-  - 114: {fileID: 11475860}
+  - 4: {fileID: 477154}
+  - 114: {fileID: 11435460}
   m_Layer: 0
-  m_Name: BackAir
+  m_Name: FrontAir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &496580
+--- !u!4 &477154
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150458}
+  m_GameObject: {fileID: 114522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.25999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11475860
+--- !u!114 &11435460
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150458}
+  m_GameObject: {fileID: 114522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daf06f1d19443be49b8649eb9ba5625d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxColliders:
-  - {fileID: 11495844, guid: f8fb44f04439f2a49b5b627f5e951b0c, type: 2}
+  - {fileID: 11464956, guid: 66c21bb6d0dc9a24481e02b074f9dac2, type: 2}
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
@@ -49,9 +49,9 @@ MonoBehaviour:
   cooldownFrames: 2
   onHitCooldownFrames: 2
   ableToCancel: 0
-  hitDirection: {x: 1, y: 0}
+  hitDirection: {x: 1, y: -1}
   hitAlongDistanceVector: 0
-  hitForce: 10
+  hitForce: 35
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
@@ -66,5 +66,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 150458}
+  m_RootGameObject: {fileID: 114522}
   m_IsPrefabParent: 1

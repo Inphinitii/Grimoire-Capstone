@@ -46,7 +46,8 @@ public class MovementController : MonoBehaviour {
 	//Movement Booleans
     private bool		m_isJumping;
     private bool		m_isMoving;
-	public bool		m_capAcceleration = true;
+	private bool		m_facingRight;
+	public bool			m_capAcceleration = true;
 
 	//Temporary forces to be added to the PhysicsController.
     private Vector2 m_tempForce;
@@ -70,7 +71,7 @@ public class MovementController : MonoBehaviour {
 
     void Start() {
         m_inputHandler				= GetComponent<InputHandler>();
-        m_physicsController		= GetComponent<PhysicsController>();
+        m_physicsController			= GetComponent<PhysicsController>();
 		m_groundCheck				= GetComponent<GroundCheck>();
 		m_actorReference			= GetComponent<Actor>();
         m_isJumping = true;
@@ -95,7 +96,7 @@ public class MovementController : MonoBehaviour {
 		if ( m_physicsController.Velocity.y < 0 && groundCheck )
 			GroundCheck();
 
-		signLastFrame = sign;
+		//signLastFrame = sign;
 
 	}
 
@@ -199,19 +200,25 @@ public class MovementController : MonoBehaviour {
 		if ( _stick.x > deadZone )
         {
             m_isMoving = true;
+			signLastFrame = sign;
             sign = 1;
             if (!m_isJumping)
-                if (transform.localRotation.y != 0.0f) {
+                if (transform.localRotation.y != 0.0f) 
+				{
+					m_facingRight = true;
                     transform.Rotate(0, 180, 0, Space.Self);
-                }
+				}
         }
         //Left Stick Left
 		else if ( _stick.x < -deadZone )
         {
             m_isMoving = true;
+			signLastFrame = sign;
             sign = -1;
             if (!m_isJumping)
-                if (transform.localRotation.y == 0.0f) {
+                if (transform.localRotation.y == 0.0f) 
+				{
+					m_facingRight = false;
                     transform.Rotate(0, -180, 0, Space.Self);
                 }
         }
@@ -320,6 +327,12 @@ public class MovementController : MonoBehaviour {
 	public bool IsMoving()		{ return m_isMoving; }
 
 	/// <summary>
+	/// Returns whether or not the character is facing right.
+	/// </summary>
+	/// <returns>Facing Right Boolean</returns>
+	public bool IsFacingRight() { return m_facingRight; }
+
+	/// <summary>
 	/// Returns the orientation sign of the previous frame.
 	/// </summary>
 	/// <returns>Orientation sign of the previous frame.</returns>
@@ -335,4 +348,5 @@ public class MovementController : MonoBehaviour {
 	/// Set the jumping variable to the one supplied.
 	/// </summary>
 	public void SetJumping( bool _jumping ) { m_isJumping = _jumping; }
+
 }

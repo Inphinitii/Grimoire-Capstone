@@ -325,11 +325,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: attackList.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: attackNames.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.x
@@ -361,7 +361,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: TestingObject
@@ -412,6 +412,15 @@ Prefab:
       value: 
       objectReference: {fileID: 11488184, guid: 047cd90d0b8fe274bbb7f0d9d9f7c14a,
         type: 2}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackList.Array.data[6]
+      value: 
+      objectReference: {fileID: 11435460, guid: 9974a71a6f177294b90bc3000390671a,
+        type: 2}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackNames.Array.data[6]
+      value: FrontAir
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_IsPrefabParent: 0

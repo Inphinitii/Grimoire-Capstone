@@ -52,10 +52,10 @@ public class PhysicsController : MonoBehaviour {
         }
 	}
 
-	public Vector2 Velocity				{ get { return m_velocity; }				set { m_velocity = value;				} }
-	public Vector2 LastVelocity		{ get { return m_lastVelocity; }			set { m_lastVelocity = value;			} }
+	public Vector2 Velocity			{ get { return m_velocity; }			set { m_velocity = value;			} }
+	public Vector2 LastVelocity		{ get { return m_lastVelocity; }		set { m_lastVelocity = value;		} }
 	public Vector2 Acceleration		{ get{ return m_acceleration;} 			set{m_acceleration = value;			} }
-	public Vector2 Forces   			{ get{return m_force;   } 					set{m_force = value; 						} }
+	public Vector2 Forces   		{ get{return m_force;   } 				set{m_force = value; 				} }
     public Vector3 Position			{ get { return transform.position; }	set { transform.position = value;	} }
 
     public void PausePhysics(bool _pause) {
