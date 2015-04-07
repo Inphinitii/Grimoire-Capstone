@@ -14,7 +14,7 @@ namespace PlayerStates
 		{
 			_leftStick = GetFSM().GetInput().LeftStick();
 
-			if ( GetFSM().GetInput().Attack() )
+			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
 				//Directional Attack - Standing
 				if ( _leftStick.x != 0 )
@@ -32,12 +32,15 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-			if ( GetFSM().GetInput().Triggers() > 0.0f )
-				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
-			if ( GetFSM().GetInput().Jump() )
-				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.x > 0 || _leftStick.x < 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+			{
+				if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f && GetFSM().GetInput().Triggers().lastFrame <= 0.0f )
+					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+				else
+					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+			}
+			if ( GetFSM().GetInput().Jump().thisFrame )
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
 		}

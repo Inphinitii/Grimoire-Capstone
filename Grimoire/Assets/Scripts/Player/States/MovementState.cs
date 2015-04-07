@@ -17,7 +17,7 @@ namespace PlayerStates
 			if ( m_leftStick.x != 0.0f )
 				GetFSM().GetActorReference().GetMovementController().MoveX( m_leftStick );
 
-			if ( GetFSM().GetInput().Attack() )
+			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
 				Debug.Log( "Dash Attack" );
 			}
@@ -27,7 +27,9 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-			if ( GetFSM().GetActorReference().GetInputHandler().Jump() )
+			if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f && GetFSM().GetInput().Triggers().lastFrame <= 0.0f )
+				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( GetFSM().GetActorReference().GetMovementController().IsJumping() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );

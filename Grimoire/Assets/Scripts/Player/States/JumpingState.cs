@@ -23,7 +23,7 @@ namespace PlayerStates
 
 			m_lastJump		= m_getJump;
 			m_leftStick		= GetFSM().GetInput().LeftStick();
-			m_getJump		= GetFSM().GetInput().Jump();
+			m_getJump		= GetFSM().GetInput().Jump().thisFrame;
 
 			if ( m_leftStick.x != 0.0f )
 				GetFSM().GetMovement().MoveX( m_leftStick );
@@ -36,7 +36,7 @@ namespace PlayerStates
 				GetFSM().GetMovement().ApplyJump( false, m_leftStick );
 
 
-			if ( GetFSM().GetInput().Attack() )
+			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
 				//Downward Attack - Jumping
 				if ( m_leftStick.y < 0 )
@@ -44,6 +44,10 @@ namespace PlayerStates
 				//Neutral Attack - Jumping
 				else if ( m_leftStick.x == 0 && m_leftStick.y == 0 )
 					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
+				else if( m_leftStick.x != 0)
+				{
+					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
+				}
 
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );		
 			}

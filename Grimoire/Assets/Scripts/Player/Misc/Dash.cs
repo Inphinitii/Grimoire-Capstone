@@ -53,28 +53,28 @@ public class Dash : MonoBehaviour
 
 	void GetDiamondGateDirection(ref Vector2 _direction, ref bool _orientationCheck)
 	{
-		if ( _direction.x > 0.85f )
+		if ( _direction.x > 0.6f )
 		{
 			_direction.x = 1.0f;
 			_direction.y = 0.0f;
 			_orientationCheck = true;
 		}
-		if ( _direction.x < -0.85f )
+		else if ( _direction.x < -0.6f )
 		{
 			_direction.x = -1.0f;
 			_direction.y = 0.0f;
 			_orientationCheck = true;
 		}
-		if ( _direction.y > 0.85f )
-		{
-			_direction.x = 0.0f;
-			_direction.y = 1.0f;
-		}
-		if ( _direction.y < -0.85f )
-		{
-			_direction.x = 0.0f;
-			_direction.y = -1.0f;
-		}
+		//if ( _direction.y > 0.6f )
+		//{
+		//	_direction.x = 0.0f;
+		//	_direction.y = 1.0f;
+		//}
+		//if ( _direction.y < -0.6f )
+		//{
+		//	_direction.x = 0.0f;
+		//	_direction.y = -1.0f;
+		//}
 	}
 
 	public bool DashComplete() { return m_dashComplete; }

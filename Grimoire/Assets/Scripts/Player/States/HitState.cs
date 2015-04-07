@@ -22,6 +22,7 @@ namespace PlayerStates
 		{
 			m_oldDampening = GetFSM().GetActorReference().GetMovementController().groundDampeningConstant;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = GROUND_ACCEL_DAMPENER;
+			GetFSM().StartChildCoroutine( Flash() );
 
 		}
 
@@ -57,6 +58,15 @@ namespace PlayerStates
 				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( true );
 			else
 				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );
+		}
+
+		//Currently debugging. Maybe turn this into something interesting and visually appealing later. 
+		private IEnumerator Flash()
+		{
+			GetFSM().GetActorReference().GetRenderer().material.color = Color.white;
+			yield return new WaitForSeconds( 0.25f );
+			GetFSM().GetActorReference().GetRenderer().material.color = GetFSM().GetActorReference().actorColor;
+
 		}
 	}
 }

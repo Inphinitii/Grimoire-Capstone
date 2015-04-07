@@ -377,7 +377,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: groundDampeningConstant
-      value: .959999979
+      value: .920000017
       objectReference: {fileID: 0}
     - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: groundTurningConstant
@@ -994,8 +994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b0969ecf0b0da45879b25a386de925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDuration: .5
-  dashSpeed: 20
+  dashDuration: .25
+  dashSpeed: 25
   dashCooldown: .200000003
 --- !u!1 &1216500973
 GameObject:

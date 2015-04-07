@@ -29,7 +29,7 @@ namespace PlayerStates
 		public override void ExecuteState()
 		{
 			//Make sure this doesn't register the trigger if it's already down. 
-			if(m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers() < 0.5f)
+			if ( m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers().thisFrame < 1.0f && m_playerFSM.GetInput().Triggers().lastFrame > 0.0f)
 				m_playerFSM.GoToPreviousState(true);
 		}
 	}
