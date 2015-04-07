@@ -27,7 +27,7 @@ namespace PlayerStates
 			lastJump = getJump;
 
 
-			getJump = GetFSM().GetInput().A();
+			getJump = GetFSM().GetInput().Jump();
 			if ( getJump )
 			{
 				GetFSM().GetMovement().ApplyJump( true, _leftStick );
@@ -37,11 +37,13 @@ namespace PlayerStates
 				GetFSM().GetMovement().ApplyJump( false, _leftStick );
 			}
 
-			if ( GetFSM().GetInput().Y() )
+			if ( GetFSM().GetInput().Attack() )
 			{
 				if ( _leftStick.y < 0 )
 				{
-					Debug.Log( "Down air" );
+					AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "DownAir" );
+					GetFSM().CurrentAttack = _temp.attackRef;
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 				else if ( _leftStick.x > 0 && GetFSM().GetMovement().SignThisFrame() == -1 ||
 						_leftStick.x < 0 && GetFSM().GetMovement().SignThisFrame() == 1 )

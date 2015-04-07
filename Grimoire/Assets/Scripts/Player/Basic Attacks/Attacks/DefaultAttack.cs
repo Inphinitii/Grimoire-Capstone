@@ -45,6 +45,9 @@ public class DefaultAttack : AbstractAttack {
 
 	public override void DuringAttack()
 	{
+		if ( freezeMovementOnUse )
+			transform.parent.gameObject.GetComponent<PhysicsController>().ClearValues();
+
 		for ( int i = 0; i < m_childHurtBoxes.Length; i++ )
 		{
 			m_childHurtBoxes[i].EnableHurtBox();

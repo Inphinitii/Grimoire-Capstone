@@ -22,6 +22,7 @@ public class PlayerFSM : MonoBehaviour {
         JUMPING,
         ATTACKING,
         HIT,
+		BOUNCE,
         DASHING,
         FALLING,
 		LANDING
@@ -50,6 +51,8 @@ public class PlayerFSM : MonoBehaviour {
         m_stateList.Add( new JumpingState() );
 		m_stateList.Add( new AttackState() );
 		m_stateList.Add( new HitState() );
+		m_stateList.Add( new BounceState() );
+
 
         foreach (IState item in m_stateList)
 		{
@@ -167,6 +170,11 @@ public class PlayerFSM : MonoBehaviour {
         }
         return default( AttackList );
     }
+
+	public IState GetState( PlayerFSM.States _state )
+	{
+		return m_stateList[(int)_state];
+	}
 
 	/// <summary>
 	/// Getter/Setter for the current attack.

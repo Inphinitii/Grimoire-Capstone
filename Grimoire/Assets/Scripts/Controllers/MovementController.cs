@@ -27,6 +27,8 @@ public class MovementController : MonoBehaviour {
 	//Fast Fall Variables
     public float fastFallRate = 100.0f;
 
+	public bool groundCheck;
+
 	//Jumping Variables
     public int	  totalJumps	= 2;
     private int  jumpCount	= 0;
@@ -71,6 +73,7 @@ public class MovementController : MonoBehaviour {
 		m_groundCheck				= GetComponent<GroundCheck>();
 		m_actorReference			= GetComponent<Actor>();
         m_isJumping = true;
+		groundCheck = true;
     }
 
 	void Update()
@@ -84,7 +87,7 @@ public class MovementController : MonoBehaviour {
 		DampenMovement();
 		ApplyTurningSpeed( ref turningMultiplier );
 
-		if ( m_physicsController.Velocity.y < 0 )
+		if ( m_physicsController.Velocity.y < 0 && groundCheck )
 			GroundCheck();
 
 		signLastFrame = sign;
@@ -187,7 +190,7 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <param name="_stick">The input vector corresponding to the left stick of the Xbox Controller.</param>
     public void OrientationCheck(Vector2 _stick) {
-		float deadZone = 0.0f;
+		float deadZone = 0.4f;
 		if ( _stick.x > deadZone )
         {
             m_isMoving = true;

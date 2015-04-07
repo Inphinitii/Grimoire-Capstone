@@ -52,7 +52,7 @@ public class AttackList : MonoBehaviour {
             _tempAtk.transform.parent = this.transform;
 			_tempAtk.forceType = forceType;
 
-            _temp = new AttackStruct(_tempAtk, _tempAtk.duration, _tempAtk.startupTime, _tempAtk.cooldownTime);
+            _temp = new AttackStruct(_tempAtk, _tempAtk.Duration(), _tempAtk.Startup(), _tempAtk.Cooldown());
             m_attackDictionary.Add( attackNames[i], _temp );
         }
 	}

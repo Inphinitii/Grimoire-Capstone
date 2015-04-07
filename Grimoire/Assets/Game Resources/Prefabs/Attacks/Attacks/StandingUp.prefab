@@ -44,11 +44,9 @@ MonoBehaviour:
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
-  duration: .200000003
-  startupTime: .0500000007
-  cooldownTime: .300000012
-  dashWindow: .200000003
-  dashOnCD: 0
+  startupFrames: 5
+  durationFrames: 8
+  cooldownFrames: 7
   ableToCancel: 0
   hitDirection: {x: 0, y: 1}
   hitAlongDistanceVector: 0
@@ -56,6 +54,8 @@ MonoBehaviour:
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
+  groundKnockBack: 0
+  airKnockBack: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

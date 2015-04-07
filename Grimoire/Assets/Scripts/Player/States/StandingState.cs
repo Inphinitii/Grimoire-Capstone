@@ -14,7 +14,7 @@ namespace PlayerStates
 			Vector2 _leftStick = GetFSM().GetInput().LeftStick();
 
 			//Forward Attack
-			if ( GetFSM().GetInput().Y() )
+			if ( GetFSM().GetInput().Attack() )
 			{
 				if ( _leftStick.x != 0 )
 				{
@@ -48,7 +48,7 @@ namespace PlayerStates
 		IEnumerator SwitchStates( Vector2 _leftStick )
 		{
 			yield return new WaitForSeconds( 0.00f );
-			if ( GetFSM().GetInput().A() )
+			if ( GetFSM().GetInput().Jump() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.x > 0 || _leftStick.x < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );

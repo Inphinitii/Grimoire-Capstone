@@ -89,6 +89,7 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
+
 		Gizmos.color = Color.red;
 		Gizmos.matrix = m_parent.transform.localToWorldMatrix;
 		Gizmos.DrawCube((Vector3)m_boxCollider.offset, (Vector3)m_boxCollider.size);

@@ -11,9 +11,9 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
-			if ( GetFSM().GetActorReference().GetInputHandler().Y() )
+			if ( GetFSM().GetActorReference().GetInputHandler().Attack() )
 				Debug.Log( "Dash Attack" );
-			if ( GetFSM().GetActorReference().GetInputHandler().A() )
+			if ( GetFSM().GetActorReference().GetInputHandler().Jump() )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 
 

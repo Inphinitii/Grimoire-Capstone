@@ -62,7 +62,7 @@ public class InputHandler : MonoBehaviour {
 	        {
 		        m_playerNumber 	= s_playerNumber;
 		        m_active 		= true;
-		        s_playerNumber += 1; 
+		        s_playerNumber++; 
 			
 		        m_freezeMovement 	= false;
 		        m_freezeKeypress	= false;
@@ -95,23 +95,24 @@ public class InputHandler : MonoBehaviour {
 		}
 	}
 
-	public bool X() 	{ return m_XButton; 	}
-	public bool A() 	{ return m_AButton; 	}
-	public bool Y() 	{ return m_YButton; 	}
-	public bool B() 		{ return m_BButton; 	}
-    public bool LB()    { return m_leftShoulder; }
-    public bool RB()    { return m_rightShoulder; }
-    public float LT()		{ return m_leftTrigger; }
-    public float RT()	{ return m_rightTrigger; }
+	public bool Attack() 			{ return m_XButton; 	}
+	public bool Jump() 			{ return m_AButton; 	}
+	public bool SpellSwap() 	{ return m_YButton; 	}
+	public bool Special() 		{ return m_BButton; 	}
+    public bool LB()				{ return m_leftShoulder; }
+    public bool RB()				{ return m_rightShoulder; }
+    public float LT()					{ return m_leftTrigger; }
+    public float RT()				{ return m_rightTrigger; }
+	public float Triggers()		{ return m_rightTrigger + m_leftTrigger; }
 
-	public Vector2 	LeftStick()		{ return m_leftStick; 	 	}
-	public Vector2 RightStick()		{ return m_rightStick;	    }
+	public Vector2 	LeftStick()	{ return m_leftStick; 	 	}
+	public Vector2 RightStick()	{ return m_rightStick;	    }
 
 
-	public bool FreezeKeypress { get { return m_freezeKeypress; }   set { m_freezeKeypress = value; }}
-	public bool FreezeMovement { get { return m_freezeMovement; }   set { m_freezeMovement = value; }}
-    public bool ComboCheck     { get { return m_combinationCheck; } set { m_combinationCheck = value; } }
-	public bool FreezeAll 	   { get { return m_active;         }   set { m_active = value;         }}
+	public bool FreezeKeypress		{ get { return m_freezeKeypress; }		set { m_freezeKeypress = value; }}
+	public bool FreezeMovement	{ get { return m_freezeMovement; }		set { m_freezeMovement = value; }}
+    public bool ComboCheck			{ get { return m_combinationCheck; }	set { m_combinationCheck = value; } }
+	public bool FreezeAll 				{ get { return m_active;         }				set { m_active = value;         }}
 
 
 	private void ProcessKeyboardInput()

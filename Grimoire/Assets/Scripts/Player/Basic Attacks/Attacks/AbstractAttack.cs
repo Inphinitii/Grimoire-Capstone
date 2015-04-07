@@ -21,9 +21,9 @@ public abstract class AbstractAttack : MonoBehaviour
 	public ParticleSystem			particleOnHit;
 	public ParticleSystem			particleOnUse;
 
-	public float duration;
-	public float startupTime;
-	public float cooldownTime;
+	public float startupFrames;
+	public float durationFrames;
+	public float cooldownFrames;
 
 	public bool ableToCancel;
 
@@ -39,6 +39,7 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
 	protected bool							m_duringAttack;
+	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
 
 	/// <summary>
 	/// Called to start the specific attack.
@@ -46,12 +47,12 @@ public abstract class AbstractAttack : MonoBehaviour
 	public virtual IEnumerator StartAttack()
 	{
 		BeforeAttack();
-		yield return new WaitForSeconds( startupTime );
+		yield return new WaitForSeconds( Startup() );
 		m_duringAttack = true;
-		yield return new WaitForSeconds( duration );
+		yield return new WaitForSeconds( Duration() );
 		m_duringAttack = false;
 		AfterAttack();
-		yield return new WaitForSeconds( cooldownTime );
+		yield return new WaitForSeconds( Cooldown() );
 	}
 
 	/// <summary>
@@ -130,7 +131,6 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public abstract void AfterAttack();
 
-
 	/// <summary>
 	/// Apply a force to the given collider object along the given direction with the given force.
 	/// </summary>
@@ -169,6 +169,10 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// <returns>Return a float that is used in the FSM to block state switching.</returns>
 	public float GetStateBlockTime()
 	{
-		return startupTime + duration + cooldownTime;
+		return Startup() + Duration() + Cooldown();
 	}
+
+	public float Duration()		{ return durationFrames * FRAME_TIME; }
+	public float Startup()		{ return startupFrames * FRAME_TIME; }
+	public float Cooldown()	{ return cooldownFrames * FRAME_TIME; }
 }

@@ -23,13 +23,14 @@ public class Actor : MonoBehaviour
 	Properties m_actorProperties;
 
 	//-- Script References --//
-	Rigidbody2D m_rigidBody;
-	BoxCollider2D m_boxCollider;
-	MovementController m_movementController;
-	PhysicsController m_physicsController;
-	Animator m_componentAnimator;
-	InputHandler m_inputHandler;
-	ParticleManager m_particleManager;
+	Rigidbody2D					m_rigidBody;
+	BoxCollider2D				m_boxCollider;
+	MovementController	m_movementController;
+	PhysicsController			m_physicsController;
+	Animator						m_componentAnimator;
+	InputHandler				m_inputHandler;
+	ParticleManager			m_particleManager;
+	Renderer						m_renderer;
 
 	void Start()
 	{
@@ -41,7 +42,8 @@ public class Actor : MonoBehaviour
 		m_inputHandler				= GetComponent( typeof( InputHandler ) )							as InputHandler;
 		m_physicsController		= GetComponent( typeof( PhysicsController ) )					as PhysicsController;
 		m_particleManager			= GetComponentInChildren( typeof( ParticleManager ) )	as ParticleManager;
-		GetComponentInChildren<Renderer>().material.color = actorColor;
+		m_renderer						= GetComponentInChildren( typeof( Renderer ) )				as Renderer;
+		m_renderer.material.color = actorColor;
 	}
 	void Update()
 	{
@@ -71,6 +73,7 @@ public class Actor : MonoBehaviour
 	public InputHandler				GetInputHandler()				{ return m_inputHandler; }
 	public PhysicsController		GetPhysicsController()			{ return m_physicsController; }
 	public ParticleManager			GetParticleManager()			{ return m_particleManager; }
+	public Renderer					GetRenderer()						{ return m_renderer; }
 
 	/// <summary>
 	/// This utility function allows the actor to view the currently viewed components in the ComponentCollection

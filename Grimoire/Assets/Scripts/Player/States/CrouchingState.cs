@@ -15,7 +15,7 @@ namespace PlayerStates
 
 			if ( _leftStick.y >= 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-			if ( GetFSM().GetInput().Y() )
+			if ( GetFSM().GetInput().Attack() )
 			{
 				AttackList.AttackStruct _temp = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
 				GetFSM().CurrentAttack = _temp.attackRef;

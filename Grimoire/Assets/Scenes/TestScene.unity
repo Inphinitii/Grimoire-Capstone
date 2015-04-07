@@ -235,6 +235,24 @@ BoxCollider2D:
 GameObject:
   m_PrefabParentObject: {fileID: 197350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_PrefabInternal: {fileID: 1866262148}
+--- !u!114 &29067391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29067377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc60ed5e9873fc4e8a749c332fe3927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  bounceDampener: .75
 --- !u!1 &52124850
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +322,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackList.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackNames.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -376,6 +402,15 @@ Prefab:
       propertyPath: attackListID
       value: Basic Attacks
       objectReference: {fileID: 0}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackNames.Array.data[5]
+      value: DownAir
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: attackList.Array.data[5]
+      value: 
+      objectReference: {fileID: 11488184, guid: 047cd90d0b8fe274bbb7f0d9d9f7c14a,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_IsPrefabParent: 0
@@ -738,7 +773,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1027479929}
   - 60: {fileID: 1027479930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PolyCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,6 +963,24 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 197350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_PrefabInternal: {fileID: 102718308}
+--- !u!114 &1160207944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1160207930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc60ed5e9873fc4e8a749c332fe3927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  bounceDampener: .75
 --- !u!1 &1216500973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,7 +1619,7 @@ Prefab:
       objectReference: {fileID: 2073125481}
     - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: forceType
@@ -1579,6 +1632,14 @@ Prefab:
     - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: useActorForce
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: UID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: airDampeningConstant
+      value: .99000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
