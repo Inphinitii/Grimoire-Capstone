@@ -47,7 +47,7 @@ namespace PlayerStates
 					{
 						GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "FrontAir" );
 					}
-
+					
 					if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f ||
 						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
 					{

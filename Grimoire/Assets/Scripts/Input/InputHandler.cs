@@ -45,15 +45,15 @@ public class InputHandler : MonoBehaviour
 	}
 
 
-	public static int s_playerNumber;
+	public static int s_playerNumber = 1;
 
 	public bool AssignNumber;
 	public byte UID;
 	public float comboInputWindow;
 
 	//Controller Information
-	private int m_playerNumber = 1;
-	private bool m_freezeMovement,
+	public int		m_playerNumber = 1;
+	private bool	m_freezeMovement,
 					m_freezeKeypress,
 					m_active,
 					m_combinationCheck;
@@ -70,7 +70,7 @@ public class InputHandler : MonoBehaviour
 	private Vector2 m_leftStick,
 					m_rightStick;
 
-	private InputTrigger m_leftTrigger,
+	private InputTrigger	m_leftTrigger,
 							m_rightTrigger;
 
 	#endregion
@@ -106,13 +106,13 @@ public class InputHandler : MonoBehaviour
 	{
 		if ( m_active )
 		{
-#if (KEYBOARD_DEBUG)
-                    ProcessKeyboardInput();
-#endif
+			#if (KEYBOARD_DEBUG)
+								ProcessKeyboardInput();
+			#endif
 
-#if (!KEYBOARD_DEBUG)
-			ProcessGamepadInput();
-#endif
+			#if (!KEYBOARD_DEBUG)
+						ProcessGamepadInput();
+			#endif
 		}
 	}
 
@@ -195,8 +195,10 @@ public class InputHandler : MonoBehaviour
 			m_rightStick = GamePad.GetAxis( GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true );
 		}
 		else
+		{
 			m_leftStick = Vector2.zero;
-		m_rightStick = Vector2.zero;
+			m_rightStick = Vector2.zero;
+		}
 
 		//------------GAMEPAD FACE BUTTON INPUT ------------//
 		if ( !m_freezeKeypress )
@@ -244,6 +246,6 @@ public class InputHandler : MonoBehaviour
 	void GetGamepadTrigger( ref InputTrigger _button, GamePad.Trigger _gamepadButton, GamePad.Index _index )
 	{
 		_button.lastFrame = _button.thisFrame;
-		_button.thisFrame = GamePad.GetTrigger(_gamepadButton, _index, true);
+		_button.thisFrame = GamePad.GetTrigger( _gamepadButton, _index, true );
 	}
 }

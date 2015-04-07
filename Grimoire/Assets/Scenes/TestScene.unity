@@ -421,6 +421,14 @@ Prefab:
       propertyPath: attackNames.Array.data[6]
       value: FrontAir
       objectReference: {fileID: 0}
+    - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: AssignNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: airDampeningConstant
+      value: .939999998
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_IsPrefabParent: 0
@@ -1664,7 +1672,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: airDampeningConstant
-      value: .99000001
+      value: .980000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: AssignNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: comboInputWindow
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}

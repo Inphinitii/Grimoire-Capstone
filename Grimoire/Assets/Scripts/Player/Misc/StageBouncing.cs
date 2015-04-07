@@ -6,14 +6,14 @@ using System.Collections;
 public class StageBouncing : MonoBehaviour
 {
 
-	public LayerMask platformLayerMask;
-	public LayerMask groundLayerMask;
-	public float bounceThreshold = 10.0f;
-	public float bounceDampener = 1.0f;
+	public LayerMask	platformLayerMask;
+	public LayerMask	groundLayerMask;
+	public float		bounceThreshold = 10.0f;
+	public float		bounceDampener = 1.0f;
 
-	private Actor m_actorReference;
-	private PlayerFSM m_fsmReference;
-	private MovementController m_movementController;
+	private Actor				m_actorReference;
+	private PlayerFSM			m_fsmReference;
+	private MovementController	m_movementController;
 
 	private Vector2 _collisionNormal;
 	private bool bounce;
@@ -22,7 +22,7 @@ public class StageBouncing : MonoBehaviour
 	{
 		m_actorReference			= GetComponent<Actor>();
 		m_fsmReference				= GetComponent < PlayerFSM>();
-		m_movementController	= GetComponent<MovementController>();
+		m_movementController		= GetComponent<MovementController>();
 	}
 
 	// Update is called once per frame
@@ -35,9 +35,9 @@ public class StageBouncing : MonoBehaviour
 		if ( bounce )
 		{
 			Vector2 reflectionVector;
-			m_movementController.groundCheck = false;
+			//m_movementController.groundCheck = false;
 			_collisionNormal.Normalize();
-			reflectionVector = (Vector2)Vector3.Reflect( (Vector3)m_actorReference.GetPhysicsController().LastVelocity, Vector2.up ); // HACKY. We're not taking collision normals, we're using just Vector2.up
+			reflectionVector = (Vector2)Vector3.Reflect( (Vector3)m_actorReference.GetPhysicsController().LastVelocity, _collisionNormal ); // HACKY. We're not taking collision normals, we're using just Vector2.up
 
 			m_actorReference.GetPhysicsController().Velocity = reflectionVector * bounceDampener;
 			m_fsmReference.SetCurrentState( PlayerFSM.States.BOUNCE, true );

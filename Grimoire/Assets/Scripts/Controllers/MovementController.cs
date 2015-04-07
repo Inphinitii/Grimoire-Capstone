@@ -74,9 +74,9 @@ public class MovementController : MonoBehaviour {
         m_physicsController			= GetComponent<PhysicsController>();
 		m_groundCheck				= GetComponent<GroundCheck>();
 		m_actorReference			= GetComponent<Actor>();
-        m_isJumping = true;
-		groundCheck = true;
-		m_capAcceleration = true;
+        m_isJumping			= true;
+		groundCheck			= true;
+		m_capAcceleration	= true;
     }
 
 	void Update()
@@ -84,8 +84,8 @@ public class MovementController : MonoBehaviour {
 		turningMultiplier = 1.0f;
 
 		turningSpeedType		= !m_isJumping ? groundTurningConstant : airTurningConstant;
-		movementSpeedType = !m_isJumping ? groundAccel : airAccel;
-		dampeningConstant	= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
+		movementSpeedType		= !m_isJumping ? groundAccel : airAccel;
+		dampeningConstant		= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
 
 		if ( m_capAcceleration ) 
 			CapAcceleration();
@@ -96,7 +96,7 @@ public class MovementController : MonoBehaviour {
 		if ( m_physicsController.Velocity.y < 0 && groundCheck )
 			GroundCheck();
 
-		//signLastFrame = sign;
+		signLastFrame = sign;
 
 	}
 
@@ -122,18 +122,20 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <param name="_buttonPressed"> Boolean representing if the button has been pressed or not.</param>
 	/// <param name="xDirection">X Direction Influence for use in the second jump.</param> //DO THIS LATER <----- <----
-    public void ApplyJump(bool _buttonPressed, Vector2 xDirection) {
+    public void ApplyJump(bool _buttonPressed, Vector2 xDirection) 
+	{
 		if ( !m_isJumping )
 		{
 			jumpCount = 0;
 			temp = 0.0f;
 			m_isJumping = true;
-			m_actorReference.GetParticleManager().JumpParticle();
 		}
  
 		if ( _buttonPressed && jumpCount < totalJumps )
 		{
-			//m_actorReference.GetParticleManager().SetJumpParticle( false );
+			if(temp == 0.0f)
+				m_actorReference.GetParticleManager().JumpParticle();
+
 			if ( temp < 0.20f )
 			{
 				m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, jumpAccel );
@@ -147,26 +149,6 @@ public class MovementController : MonoBehaviour {
 			jumpCount++;
 		}
 		
-    }
-
-    //NEEDS FIXING
-	/// <summary>
-	/// Apply a dashing force to the player character in the supplied directional vector.
-	/// </summary>
-	/// <param name="_direction">Direction of dash.</param>
-    public void ApplyDash(Vector2 _direction) {
-
-		//if (!m_dashWaitForInput) {
-		//	dashTimer = p_dashStartupWindow;
-		//	m_dashWaitForInput = true;
-		//	m_physicsController.PausePhysics(true);
-		//}
-		//else if(m_inputHandler.LeftStick() != Vector2.zero){
-		//	dashDirection = m_inputHandler.LeftStick();
-		//	dashTimer = p_dashDuration;
-		//	m_isDashing = true;
-		//}
-
     }
 
 	/// <summary>
@@ -197,6 +179,7 @@ public class MovementController : MonoBehaviour {
 	/// <param name="_stick">The input vector corresponding to the left stick of the Xbox Controller.</param>
     public void OrientationCheck(Vector2 _stick) {
 		float deadZone = 0.4f;
+
 		if ( _stick.x > deadZone )
         {
             m_isMoving = true;
@@ -209,7 +192,6 @@ public class MovementController : MonoBehaviour {
                     transform.Rotate(0, 180, 0, Space.Self);
 				}
         }
-        //Left Stick Left
 		else if ( _stick.x < -deadZone )
         {
             m_isMoving = true;

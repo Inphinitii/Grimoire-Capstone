@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\HumanoidHitbox.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Levels\AbstractStage.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ParticleManager.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraShake.cs" />

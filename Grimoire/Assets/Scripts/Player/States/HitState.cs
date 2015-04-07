@@ -22,6 +22,7 @@ namespace PlayerStates
 		{
 			m_oldDampening = GetFSM().GetActorReference().GetMovementController().groundDampeningConstant;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = GROUND_ACCEL_DAMPENER;
+			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = false;
 			GetFSM().StartChildCoroutine( Flash() );
 
 		}
@@ -29,6 +30,7 @@ namespace PlayerStates
 		public override void OnExit()
 		{
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
+			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = true;
 		}
 
 		public override void ExecuteState()
