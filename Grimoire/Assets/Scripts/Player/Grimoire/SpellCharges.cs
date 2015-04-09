@@ -15,17 +15,18 @@ using System.Collections;
  * charges.
  =========================================================*/
 
-//HORRIBLY MESSY PLS DONT LOOK 
 [RequireComponent(typeof(MovementController))]
 public class SpellCharges : MonoBehaviour
 {
-	public Charge chargePrefab;
-	public int maxSpellCharges;
-	public float chargeTime;
-	public float chargeRadius;
-	public float internalTimer;
+	public int			maxSpellCharges;
+	public bool		freezeTime;
+	public float		chargeTime;
+	public float		chargeRadius;
+	public Charge	chargePrefab;
 
-	private Charge[] m_Charges;
+	private Charge[]	m_Charges;
+	private float			m_internalTimer;
+	private bool			m_chargesRemaining;
 
 	void Start()
 	{
@@ -37,13 +38,16 @@ public class SpellCharges : MonoBehaviour
 
 	void Update()
 	{
-		internalTimer += Time.deltaTime;
+		if ( !freezeTime )
+			m_internalTimer += Time.deltaTime;
+
 		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
-			if ( m_Charges[i].active == true )
+			if ( m_Charges[i].isActive == true )
 			{
-				m_Charges[i].Follow( ChargePosition( i ) );
+				m_Charges[i].Position =  ChargePosition( i );
 			}
+			//Keep the trails reasonable based on the objects velocity. 
 			if ( Mathf.Abs(GetComponent<PhysicsController>().Velocity.magnitude) >= 2.0f )
 				m_Charges[i].GetTrail().time = 0.1f;
 			else
@@ -62,7 +66,7 @@ public class SpellCharges : MonoBehaviour
 	{
 		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
-			if ( m_Charges[i].active == true )
+			if ( m_Charges[i].isActive == true )
 			{
 				m_Charges[i].ConsumeCharge();
 				return true;
@@ -78,7 +82,7 @@ public class SpellCharges : MonoBehaviour
 	{
 		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
-			m_Charges[i].Default();
+			m_Charges[i].SetRechargeTime( chargeTime );
 		}
 	}
 
@@ -88,7 +92,7 @@ public class SpellCharges : MonoBehaviour
 	/// <param name="_index">Index of the charge in our array of charges.</param>
 	public void ResetCharge( int _index )
 	{
-		m_Charges[_index].Default();
+		m_Charges[_index].Refresh();
 	}
 
 	/// <summary>
@@ -103,18 +107,22 @@ public class SpellCharges : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Place the charges in a circular fashion around the transformation.
+	/// </summary>
+	/// <param name="_index">Index of the charge in the array.</param>
+	/// <returns>A modified position to place the charge at.</returns>
 	Vector3 ChargePosition( int _index )
 	{
+		_index++;
 		Vector3 position = this.transform.position;
 		float pi2 = ( 2 * 3.14f );
-		_index += 1;
 		position.y += 1.0f; //Offset upwards
 		float angle = pi2 / maxSpellCharges * _index;
 
-		position.x += chargeRadius * Mathf.Sin(  angle + internalTimer );
-		position.y += Mathf.Sin( internalTimer * 4.0f ) * 0.15f;
-		position.z += chargeRadius * Mathf.Cos( angle + internalTimer );
-
+		position.x += chargeRadius * Mathf.Sin( angle + m_internalTimer );
+		position.y += Mathf.Sin( m_internalTimer * 4.0f ) * 0.15f;
+		position.z += chargeRadius * Mathf.Cos( angle + m_internalTimer );
 		return position;
 	}
 }

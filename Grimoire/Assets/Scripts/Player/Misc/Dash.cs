@@ -10,10 +10,13 @@ public class Dash : MonoBehaviour
 	public float dashSpeed;
 	public float dashCooldown;
 
-	private PhysicsController	m_physicsController;
+
+	private PhysicsController			m_physicsController;
 	private MovementController	m_movementController;
-	private bool				m_dashComplete;
-	private bool				m_orientSelf;
+	private SpellCharges				m_spellCharges;
+	private float								m_cooldown;
+	private bool								m_dashComplete;
+	private bool								m_orientSelf;
 	
 
 	// Use this for initialization
@@ -21,34 +24,47 @@ public class Dash : MonoBehaviour
 	{
 		m_physicsController		= GetComponent<PhysicsController>();
 		m_movementController	= GetComponent<MovementController>();
+		m_spellCharges				= GetComponent<SpellCharges>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
+		if ( m_cooldown > 0.0f )
+		{
+			m_dashComplete = false;
+			m_cooldown -= Time.deltaTime;
+		}
+		else
+		{
+			m_dashComplete = true;
+		}
 	}
 
 	public IEnumerator StartDash(Vector2 _direction)
 	{
-		m_dashComplete		= false;
-		m_orientSelf		= false;
+		if ( m_dashComplete && m_spellCharges.UseCharge())
+		{
 
-		GetDiamondGateDirection( ref _direction, ref m_orientSelf );
+			m_orientSelf = false;
+			GetDiamondGateDirection( ref _direction, ref m_orientSelf );
 
-		if ( m_orientSelf )
-			m_movementController.OrientationCheck( _direction );
+			if ( m_orientSelf )
+				m_movementController.OrientationCheck( _direction );
 
-		//m_physicsController.applyGravity = false;
-		if(m_movementController.IsJumping() == false)
-			m_physicsController.Velocity = _direction * dashSpeed;
+			//m_physicsController.applyGravity = false;
+			if ( m_movementController.IsJumping() == false )
+				m_physicsController.Velocity = _direction * dashSpeed;
 
-		m_movementController.m_capAcceleration = false; //Remove the acceleration cap temporarily. 
-		yield return new WaitForSeconds( dashDuration + dashCooldown );
-		m_movementController.m_capAcceleration = true;
+			m_movementController.m_capAcceleration = false; //Remove the acceleration cap temporarily. 
+			yield return new WaitForSeconds( dashDuration );
+			m_movementController.m_capAcceleration = true;
+			m_cooldown = dashCooldown;
 
-		//m_physicsController.applyGravity = true;
-		m_dashComplete = true;
+			//m_physicsController.applyGravity = true;
+			m_dashComplete = true;
+		}
+		yield return null;
 	}
 
 	void GetDiamondGateDirection(ref Vector2 _direction, ref bool _orientationCheck)

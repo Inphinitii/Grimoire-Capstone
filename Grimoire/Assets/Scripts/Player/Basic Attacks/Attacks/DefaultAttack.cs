@@ -86,8 +86,13 @@ public class DefaultAttack : AbstractAttack {
 
 		//Freeze Physics
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
+		transform.parent.gameObject.GetComponent<SpellCharges>().freezeTime = true;
+
 
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
+		_collider.gameObject.GetComponent<SpellCharges>().freezeTime = true;
+
+		
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		//Instantiate Particle Systems -- Separate this.
@@ -100,6 +105,8 @@ public class DefaultAttack : AbstractAttack {
 
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
+		transform.parent.gameObject.GetComponent<SpellCharges>().freezeTime = false;
+		_collider.gameObject.gameObject.GetComponent<SpellCharges>().freezeTime = false;
 
 		_collider.GetComponent<Animator>().speed = 1.0f;
 		transform.parent.gameObject.GetComponent<Animator>().speed = 1.0f;

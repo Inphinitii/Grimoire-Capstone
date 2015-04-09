@@ -323,14 +323,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackList.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackNames.Array.size
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 497350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -367,83 +359,9 @@ Prefab:
       propertyPath: TestingObject
       value: 
       objectReference: {fileID: 2073125481}
-    - target: {fileID: 11470970, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: forceType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: forceType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: groundDampeningConstant
-      value: .920000017
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: groundTurningConstant
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: groundAccel
-      value: 125
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: airAccel
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: useActorForce
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11470970, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: actorName
-      value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackListID
-      value: Basic Attacks
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackNames.Array.data[5]
-      value: DownAir
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackList.Array.data[5]
-      value: 
-      objectReference: {fileID: 11488184, guid: 047cd90d0b8fe274bbb7f0d9d9f7c14a,
-        type: 2}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackList.Array.data[6]
-      value: 
-      objectReference: {fileID: 11435460, guid: 9974a71a6f177294b90bc3000390671a,
-        type: 2}
-    - target: {fileID: 11448172, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: attackNames.Array.data[6]
-      value: FrontAir
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497336, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: AssignNumber
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: airDampeningConstant
-      value: .939999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: maxGroundAccel
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: maxAirAccel
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: groundCheckLayerMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497332, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
-      propertyPath: platformLayerMask.m_Bits
-      value: 512
+    - target: {fileID: 11465848, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
+      propertyPath: chargeTime
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
@@ -1068,55 +986,6 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 197350, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   m_PrefabInternal: {fileID: 102718308}
---- !u!114 &1160207944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1160207930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc60ed5e9873fc4e8a749c332fe3927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  bounceThreshold: 15
-  bounceDampener: .75
---- !u!114 &1160207945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1160207930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b0969ecf0b0da45879b25a386de925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashDuration: .25
-  dashSpeed: 25
-  dashCooldown: .200000003
---- !u!114 &1160207946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1160207930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d28c2fb0dc52349a1319346fa777cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chargePrefab: {fileID: 11493386, guid: 2568bc91bfd09764881543243234a148, type: 2}
-  maxSpellCharges: 4
-  chargeTime: 1
-  chargeRadius: .75
-  internalTimer: 0
 --- !u!1 &1216500973
 GameObject:
   m_ObjectHideFlags: 0

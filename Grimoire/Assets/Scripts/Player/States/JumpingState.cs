@@ -63,6 +63,10 @@ namespace PlayerStates
 
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );		
 			}
+			else if(m_leftStick.y < 0)
+			{
+				GetFSM().GetMovement().ApplyFastFall();
+			}
 		}
 
 		public override void ExitConditions()

@@ -164,9 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12abb9869fed9804c84805525b8eeac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   resetTime: 1
-  active: 0
-  follow: {fileID: 0}
   onChargeUse: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

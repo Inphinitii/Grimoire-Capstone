@@ -158,10 +158,9 @@ public class MovementController : MonoBehaviour {
 	/// <summary>
 	/// Apply a force downwards when the player wants to 'fast fall'. This is used in the Jumping State. 
 	/// </summary>
-	/// <param name="_leftStick">The movement stick variable from an input source.</param>
-	public void ApplyFastFall(Vector2 _leftStick)
+	public void ApplyFastFall()
 	{
-		m_tempForce.y -= _leftStick.y < 0 ? fastFallRate : 0.0f;
+		m_tempForce.y -= fastFallRate;
 	}
 
 	/// <summary>

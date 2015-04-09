@@ -1,29 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//TODO
-//LIMIT X/Y MOVEMENT FOR CAMERA POSITION 
+/*========================================================
+ * Author: Tyler Remazki
+ *
+ * Class : Camera Script
+ *
+ * Description: Controls the movement and position of the camera based on the Foci passed to it.
+ =========================================================*/
+
 public class CameraScript : MonoBehaviour
 {
 
 	//Public Properties
-	public GameObject[] cameraFoci;
-	public float cameraFollowDelay;
-	public float cameraZoomDelay;
-	public bool cameraFollow;
-	public bool dynamicCameraZoom;
+	public GameObject[]	cameraFoci;
+	public float					cameraFollowDelay;
+	public float					cameraZoomDelay;
+	public bool					cameraFollow;
+	public bool					dynamicCameraZoom;
 
 	public float maximumZoom;
 	public float minimumZoom;
 
 	//Private Properties
-	private Camera m_cameraReference;
-	private Vector3 m_cameraPosition;
-	private Vector3 m_origCamOffset;
-	private Vector2 m_focalPoint;
-	private float m_cameraMagnification;
+	private Camera	m_cameraReference;
+	private Vector3	m_cameraPosition;
+	private Vector3	m_origCamOffset;
+	private Vector2	m_focalPoint;
+	private float			m_cameraMagnification;
 
-	private Vector3 velocity;
 
 
 
@@ -64,7 +69,7 @@ public class CameraScript : MonoBehaviour
 		m_focalPoint = Vector2.zero;
 		for ( int i = 0; i < cameraFoci.Length; i++ )
 		{
-			m_focalPoint += new Vector2( cameraFoci[i].transform.position.x,
+			m_focalPoint += new Vector2(	cameraFoci[i].transform.position.x,
 																cameraFoci[i].transform.position.y );
 		}
 		m_focalPoint = m_focalPoint / cameraFoci.Length;
@@ -75,8 +80,8 @@ public class CameraScript : MonoBehaviour
 	///  </Summary>
 	public void SetFocalPoint( Vector2 _focalPoint )
 	{
-		cameraFollow = false;
-		m_focalPoint = _focalPoint;
+		cameraFollow	= false;
+		m_focalPoint	= _focalPoint;
 	}
 
 	///  <Summary>
@@ -84,8 +89,8 @@ public class CameraScript : MonoBehaviour
 	///  </Summary>
 	public void SetCameraZoom( float _zoom )
 	{
-		dynamicCameraZoom = false;
-		m_cameraMagnification = _zoom;
+		dynamicCameraZoom	= false;
+		m_cameraMagnification	= _zoom;
 	}
 
 	///  <Summary>
