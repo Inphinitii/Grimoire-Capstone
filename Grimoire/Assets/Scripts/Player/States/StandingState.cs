@@ -21,12 +21,16 @@ namespace PlayerStates
 					GetFSM().GetMovement().OrientationCheck( _leftStick );
 				//Upwards Attack - Standing
 				if ( _leftStick.y > 0 )
+				{
 					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingUp" );
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+				}
 				//Neutral Attack - Standing
 				else
+				{
 					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingNeutral" );
-
-				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+				}
 			}
 		}
 

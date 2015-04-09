@@ -52,11 +52,11 @@ public class InputHandler : MonoBehaviour
 	public float comboInputWindow;
 
 	//Controller Information
-	public int		m_playerNumber = 1;
+	public int		m_playerNumber = 0;
 	private bool	m_freezeMovement,
-					m_freezeKeypress,
-					m_active,
-					m_combinationCheck;
+						m_freezeKeypress,
+						m_active,
+						m_combinationCheck;
 
 	#region Controller Inputs
 	private InputButton m_XButton,
@@ -192,7 +192,7 @@ public class InputHandler : MonoBehaviour
 		if ( !m_freezeMovement )
 		{
 			m_leftStick		= GamePad.GetAxis( GamePad.Axis.LeftStick, (GamePad.Index)m_playerNumber, true );
-			m_rightStick = GamePad.GetAxis( GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true );
+			m_rightStick	= GamePad.GetAxis( GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true );
 		}
 		else
 		{

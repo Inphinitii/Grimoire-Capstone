@@ -9,7 +9,7 @@ public class Dash : MonoBehaviour
 	public float dashDuration;
 	public float dashSpeed;
 	public float dashCooldown;
-
+	public ParticleSystem dashParticle;
 
 	private PhysicsController			m_physicsController;
 	private MovementController	m_movementController;
@@ -20,6 +20,7 @@ public class Dash : MonoBehaviour
 	private bool								m_onCooldown;
 	private bool								m_orientSelf;
 	private bool								m_forceCompletion;
+	private ParticleSystem _temp;
 	
 
 	// Use this for initialization
@@ -28,7 +29,17 @@ public class Dash : MonoBehaviour
 		m_physicsController		= GetComponent<PhysicsController>();
 		m_movementController	= GetComponent<MovementController>();
 		m_onCooldown				= false;
-		m_dashComplete			= true;	
+		m_dashComplete			= true;
+
+		Vector3 pos = this.transform.position;
+		pos.y += 1;
+		// dashParticle.startColor = GetComponent<Actor>().actorColor;
+		if ( dashParticle != null )
+		{
+			_temp = Instantiate( dashParticle, pos, Quaternion.identity ) as ParticleSystem;
+			_temp.transform.parent = this.transform;
+			_temp.enableEmission = false;
+		}
 	}
 
 	// Update is called once per frame
@@ -40,7 +51,9 @@ public class Dash : MonoBehaviour
 			{
 				m_physicsController.applyGravity = false;
 				m_physicsController.Forces = m_direction * dashSpeed;
-				
+
+				if ( dashParticle != null )
+					_temp.enableEmission = true;
 
 				m_dashTimer -= Time.deltaTime;
 
@@ -53,6 +66,9 @@ public class Dash : MonoBehaviour
 				m_dashComplete	= true;
 				m_onCooldown		= true;
 				m_physicsController.applyGravity = true;
+
+				if ( dashParticle != null )
+					_temp.enableEmission = false;
 			}
 		}
 		else if ( m_onCooldown )

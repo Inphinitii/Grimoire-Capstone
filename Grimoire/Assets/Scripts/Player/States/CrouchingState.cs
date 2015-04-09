@@ -18,9 +18,11 @@ namespace PlayerStates
 			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
 				if ( m_leftStick.y < 0.0f )
+				{
 					m_playerFSM.CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+				}
 
-				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 			}
 
 		}

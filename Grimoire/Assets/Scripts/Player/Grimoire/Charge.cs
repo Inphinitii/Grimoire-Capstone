@@ -56,6 +56,7 @@ public class Charge : MonoBehaviour {
 	/// </summary>
 	public void ConsumeCharge()
 	{
+		Instantiate(onChargeUse,this.transform.position,Quaternion.identity);
 		m_internalTime			= resetTime;
 		isActive						= false;
 		SetRenderers( false );

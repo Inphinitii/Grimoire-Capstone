@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   resetTime: 1
-  onChargeUse: {fileID: 0}
+  onChargeUse: {fileID: 19859040, guid: 6ef737e6282866f4881b7add2c9e38a5, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
