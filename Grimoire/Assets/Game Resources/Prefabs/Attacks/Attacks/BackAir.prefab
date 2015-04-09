@@ -51,12 +51,13 @@ MonoBehaviour:
   ableToCancel: 0
   hitDirection: {x: 1, y: 0}
   hitAlongDistanceVector: 0
-  hitForce: 10
+  hitForce: 20
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0
+  allowMovement: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

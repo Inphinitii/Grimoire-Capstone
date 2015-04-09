@@ -44,9 +44,9 @@ MonoBehaviour:
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
-  startupFrames: 5
+  startupFrames: 8
   durationFrames: 5
-  cooldownFrames: 2
+  cooldownFrames: 15
   onHitCooldownFrames: 2
   ableToCancel: 0
   hitDirection: {x: 1, y: -1}
@@ -57,6 +57,7 @@ MonoBehaviour:
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0
+  allowMovement: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

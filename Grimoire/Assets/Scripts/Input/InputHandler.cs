@@ -248,4 +248,32 @@ public class InputHandler : MonoBehaviour
 		_button.lastFrame = _button.thisFrame;
 		_button.thisFrame = GamePad.GetTrigger( _gamepadButton, _index, true );
 	}
+
+	bool startTap = false;
+	float time = 0.0f;
+
+	public bool GetDoubleTapStick( Vector2 _stick )
+	{
+		startTap = true;
+		Vector2 _stickDownFirst;
+
+		if(_stick.y < 0)
+			_stickDownFirst = _stick;
+
+		if(startTap)
+		{
+			Vector2 _stickUp = new Vector2( 1, -1 );
+			if ( _stick.y >= 0 )
+				_stickUp = _stick;
+
+			if ( _stick != _stickUp )
+				return true;
+
+
+			time += Time.deltaTime;
+			if ( time == 1.0f )
+				startTap = false;
+		}
+		return false;
+	}
 }

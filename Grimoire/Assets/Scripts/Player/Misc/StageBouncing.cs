@@ -8,21 +8,19 @@ public class StageBouncing : MonoBehaviour
 
 	public LayerMask	platformLayerMask;
 	public LayerMask	groundLayerMask;
-	public float		bounceThreshold = 10.0f;
-	public float		bounceDampener = 1.0f;
+	public float			bounceThreshold = 10.0f;
+	public float			bounceDampener = 1.0f;
 
 	private Actor				m_actorReference;
-	private PlayerFSM			m_fsmReference;
-	private MovementController	m_movementController;
+	private PlayerFSM		m_fsmReference;
 
 	private Vector2 _collisionNormal;
 	private bool bounce;
 	// Use this for initialization
 	void Start()
 	{
-		m_actorReference			= GetComponent<Actor>();
-		m_fsmReference				= GetComponent < PlayerFSM>();
-		m_movementController		= GetComponent<MovementController>();
+		m_actorReference	= GetComponent<Actor>();
+		m_fsmReference		= GetComponent < PlayerFSM>();
 	}
 
 	// Update is called once per frame

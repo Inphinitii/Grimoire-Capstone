@@ -39,6 +39,7 @@ namespace PlayerStates
 				else
 					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 			}
+
 			if ( GetFSM().GetInput().Jump().thisFrame )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 			if ( _leftStick.y < 0 )

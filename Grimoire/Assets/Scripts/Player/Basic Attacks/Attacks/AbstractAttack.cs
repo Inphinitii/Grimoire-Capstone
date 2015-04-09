@@ -40,6 +40,7 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
 	protected bool							m_duringAttack;
+	protected Actor						m_parentActor;
 	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
 
 	/// <summary>
@@ -62,6 +63,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void Start()
 	{
+		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
 		m_childHurtBoxes = new AbstractHurtBox[boxColliders.Length];
 		AbstractHurtBox _temp;
 		for ( int i = 0; i < boxColliders.Length; i++ )

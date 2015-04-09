@@ -27,6 +27,8 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
+			if ( GetFSM().GetInput().Jump().thisFrame )
+				GetFSM().GetMovement().FallThrough();
 			if ( m_leftStick.y >= 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
 

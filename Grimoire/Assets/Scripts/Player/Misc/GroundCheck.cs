@@ -8,6 +8,8 @@ public class GroundCheck : MonoBehaviour
 	public float					rayDistance;
 	public bool					drawDebug;
 
+	private int					m_colliderLayer;
+
 	void Start()
 	{
 	}
@@ -29,6 +31,7 @@ public class GroundCheck : MonoBehaviour
 		RaycastHit2D ray = Physics2D.Raycast( (Vector2)rayAnchor.position, rayDirection, rayDistance, _collisonMask );
 		if ( ray.collider != null )
 		{
+			m_colliderLayer = ray.collider.gameObject.layer;
 			return true;
 		}
 		else
@@ -62,6 +65,8 @@ public class GroundCheck : MonoBehaviour
 			return false;
 		}
 	}
+
+	public int GetCollisionLayer() { return m_colliderLayer; }
 
 
 

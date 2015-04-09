@@ -11,7 +11,9 @@ using System.Collections;
 
 public class DefaultAttack : AbstractAttack {
 
+	public bool	allowMovement;
 	private float m_onHitFreezeDuration = 0.25f;
+	
 
 	public override void Start () {
 		base.Start();
@@ -25,6 +27,11 @@ public class DefaultAttack : AbstractAttack {
 	public override void HandleInput (InputHandler _input)
 	{
 		base.HandleInput( _input );
+		if ( allowMovement )
+		{
+			m_parentActor.GetMovementController().MoveX( _input.LeftStick() );
+		}
+
 	}
 
 	public override void HitEnemy(Collider2D _collider)

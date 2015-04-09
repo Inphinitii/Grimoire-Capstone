@@ -35,6 +35,8 @@ public class MovementController : MonoBehaviour {
 
 	//Collision Variables
 	public	LayerMask groundCheckLayerMask;
+	public	LayerMask platformLayerMask;
+
 	private LayerMask	mCurrentMask;
 
 	//Reference Variables
@@ -47,7 +49,9 @@ public class MovementController : MonoBehaviour {
     private bool		m_isJumping;
     private bool		m_isMoving;
 	private bool		m_facingRight;
-	public bool			m_capAcceleration = true;
+	private bool		m_onPlatform;
+	private bool		m_fallThrough;
+	public bool		m_capAcceleration = true;
 
 	//Temporary forces to be added to the PhysicsController.
     private Vector2 m_tempForce;
@@ -71,7 +75,7 @@ public class MovementController : MonoBehaviour {
 
     void Start() {
         m_inputHandler				= GetComponent<InputHandler>();
-        m_physicsController			= GetComponent<PhysicsController>();
+        m_physicsController		= GetComponent<PhysicsController>();
 		m_groundCheck				= GetComponent<GroundCheck>();
 		m_actorReference			= GetComponent<Actor>();
         m_isJumping			= true;
@@ -83,7 +87,7 @@ public class MovementController : MonoBehaviour {
 	{
 		turningMultiplier = 1.0f;
 
-		turningSpeedType		= !m_isJumping ? groundTurningConstant : airTurningConstant;
+		turningSpeedType			= !m_isJumping ? groundTurningConstant : airTurningConstant;
 		movementSpeedType		= !m_isJumping ? groundAccel : airAccel;
 		dampeningConstant		= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
 
@@ -261,26 +265,56 @@ public class MovementController : MonoBehaviour {
 				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
 			}
         }
-
     }
+
+	public void FallThrough()
+	{
+		BoxCollider2D[] objects = TestingObject.GetPlatforms();
+		if (m_onPlatform )
+		{
+			for ( int i = 0; i < objects.Length; i++ )
+			{
+				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], true );
+				m_onPlatform = false;
+				m_fallThrough = true;
+			}
+		}
+		else if(!m_fallThrough)
+		{
+			for ( int i = 0; i < objects.Length; i++ )
+			{
+				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
+			}
+		}
+	}
 
 	/// <summary>
 	/// Check whether or not the player is grounded using a single raycast.
 	/// </summary>
 	/// TODO: Sliding on Slopes?
     void GroundCheck() {
-		if ( m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, groundCheckLayerMask ) )
-		{
-			m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, 0 );
-			m_isJumping = false;
-			jumpCount = 0;
-		}
-		else
+		bool _grounded = false;
+		_grounded		= m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, groundCheckLayerMask );
+
+		if(m_fallThrough)
+			m_fallThrough = !_grounded;
+
+		if(!m_fallThrough)
+		m_onPlatform = m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, platformLayerMask );
+
+		if ( !_grounded && !m_onPlatform )
 		{
 			if ( m_isJumping == false )
 				jumpCount++;
 
 			m_isJumping = true;
+			m_fallThrough = false;
+		}
+		else if ( _grounded || m_onPlatform )
+		{
+			m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, 0 );
+			m_isJumping = false;
+			jumpCount = 0;
 		}
     }
 
@@ -313,6 +347,12 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <returns>Facing Right Boolean</returns>
 	public bool IsFacingRight() { return m_facingRight; }
+
+	/// <summary>
+	/// Returns whether or not the character is currently on a platform. 
+	/// </summary>
+	/// <returns>On Platform Boolean</returns>
+	public bool IsOnPlatform() { return m_onPlatform;  }
 
 	/// <summary>
 	/// Returns the orientation sign of the previous frame.

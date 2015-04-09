@@ -16,9 +16,9 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			m_time				= GetFSM().CurrentAttack.attackRef.GetStateBlockTime();
+			m_time					= GetFSM().CurrentAttack.attackRef.GetStateBlockTime();
 			m_attackReference	= GetFSM().CurrentAttack.attackRef;
-			m_attackStart		= true;
+			m_attackStart			= true;
 		}
 		public override void ExecuteState()
 		{

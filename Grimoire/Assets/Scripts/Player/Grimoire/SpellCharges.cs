@@ -15,59 +15,39 @@ using System.Collections;
  * charges.
  =========================================================*/
 
+//HORRIBLY MESSY PLS DONT LOOK 
+[RequireComponent(typeof(MovementController))]
 public class SpellCharges : MonoBehaviour
 {
-
-	class Charge
-	{
-		public float	resetTime;
-		public bool		active;
-
-		private float	m_internalTime;
-
-		public void Default()
-		{
-			resetTime = 0.0f;
-			active = true;
-		}
-		public void SetRechargeTime(float _rechargeTime)
-		{
-			resetTime = _rechargeTime;
-		}
-		public void ConsumeCharge()
-		{
-			m_internalTime = resetTime;
-			active = false;
-		}
-		public void Update(float _time)
-		{
-			if ( !active )
-			{
-				if ( m_internalTime <= 0.0f )
-					active = true;
-				else
-					m_internalTime -= _time;
-			}
-		}
-	}
-
-	public int		maxSpellCharges;
-	public float	chargeTime;
+	public Charge chargePrefab;
+	public int maxSpellCharges;
+	public float chargeTime;
+	public float chargeRadius;
+	public float internalTimer;
 
 	private Charge[] m_Charges;
 
 	void Start()
 	{
 		m_Charges = new Charge[maxSpellCharges];
+		DisplayCharges();
 		ResetCharges();
 	}
-	
+
 
 	void Update()
 	{
+		internalTimer += Time.deltaTime;
 		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
-			m_Charges[i].Update( Time.deltaTime );
+			if ( m_Charges[i].active == true )
+			{
+				m_Charges[i].Follow( ChargePosition( i ) );
+			}
+			if ( Mathf.Abs(GetComponent<PhysicsController>().Velocity.magnitude) >= 2.0f )
+				m_Charges[i].GetTrail().time = 0.1f;
+			else
+				m_Charges[i].GetTrail().time = 1.0f;
 		}
 	}
 
@@ -80,13 +60,13 @@ public class SpellCharges : MonoBehaviour
 	///	</returns>
 	public bool UseCharge()
 	{
-		for(int i = 0; i < maxSpellCharges; i++)
+		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
 			if ( m_Charges[i].active == true )
 			{
 				m_Charges[i].ConsumeCharge();
 				return true;
-			} 
+			}
 		}
 		return false;
 	}
@@ -106,7 +86,7 @@ public class SpellCharges : MonoBehaviour
 	/// Reset the specific charge to default values.
 	/// </summary>
 	/// <param name="_index">Index of the charge in our array of charges.</param>
-	public void ResetCharge(int _index)
+	public void ResetCharge( int _index )
 	{
 		m_Charges[_index].Default();
 	}
@@ -117,9 +97,24 @@ public class SpellCharges : MonoBehaviour
 	/// </summary>
 	public void DisplayCharges()
 	{
-		//Display the charges in a circle around a transform.
-		// locationOfCharge = anchor.x + Mathf.sin(3.14/maxCharges * i) + radius;
-		// locationOfCharge = anchor.y + Mathf.cos(3.14/maxCharges * i) + radius;
-		
+		for ( int i = 0; i < maxSpellCharges; i++ )
+		{
+			m_Charges[i] = (Charge)Instantiate( chargePrefab, this.transform.position, Quaternion.identity ) as Charge;
+		}
+	}
+
+	Vector3 ChargePosition( int _index )
+	{
+		Vector3 position = this.transform.position;
+		float pi2 = ( 2 * 3.14f );
+		_index += 1;
+		position.y += 1.0f; //Offset upwards
+		float angle = pi2 / maxSpellCharges * _index;
+
+		position.x += chargeRadius * Mathf.Sin(  angle + internalTimer );
+		position.y += Mathf.Sin( internalTimer * 4.0f ) * 0.15f;
+		position.z += chargeRadius * Mathf.Cos( angle + internalTimer );
+
+		return position;
 	}
 }
