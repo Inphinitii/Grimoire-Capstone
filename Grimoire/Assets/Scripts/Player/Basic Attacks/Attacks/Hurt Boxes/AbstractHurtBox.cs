@@ -108,10 +108,14 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
+		int sign = m_parent.gameObject.transform.parent.GetComponent<MovementController>().IsFacingRight() ? 1 : -1;
+		Vector3 pos;
 
 		Gizmos.color = Color.red;
-		Gizmos.matrix = m_parent.transform.localToWorldMatrix;
-		Gizmos.DrawCube((Vector3)m_boxCollider.offset, (Vector3)m_boxCollider.size);
+		pos = new Vector3( m_boxCollider.offset.x * sign, m_boxCollider.offset.y );
+		pos += m_parent.gameObject.transform.position;
+
+		Gizmos.DrawCube( pos, (Vector3)m_boxCollider.size );
 		
 	}
 }

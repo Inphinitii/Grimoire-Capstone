@@ -16,6 +16,7 @@ public class Charge : MonoBehaviour {
 		m_trailRenderer		= GetComponent<TrailRenderer>();
 		m_renderer				= GetComponentInChildren<MeshRenderer>();
 		isActive = true;
+		SetRenderers( true );
 	}
 
 	void Update()
@@ -67,15 +68,20 @@ public class Charge : MonoBehaviour {
 	float time;
 	public void SetRenderers(bool _bool)
 	{
-		if ( !_bool )
-		{
-			time = m_trailRenderer.time;
-			m_trailRenderer.time = -1;
-		}
+		if (!_bool ) 
+			GetComponent<Animator>().SetBool( "Despawn", true );
+		else
+			GetComponent<Animator>().SetBool( "Despawn", false );
+
 
 		m_renderer.enabled		= _bool;
 		m_trailRenderer.enabled = _bool;
 
+	}
+
+	public void StartRotationAnimation()
+	{
+		//GetComponent<Animator>().SetBool( "Despawn", false);
 	}
 
 	/// <summary>

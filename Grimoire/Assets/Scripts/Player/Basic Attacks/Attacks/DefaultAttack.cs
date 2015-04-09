@@ -92,7 +92,6 @@ public class DefaultAttack : AbstractAttack {
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
 		_collider.gameObject.GetComponent<SpellCharges>().freezeTime = true;
 
-		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 		//_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		//Instantiate Particle Systems -- Separate this.
@@ -100,7 +99,7 @@ public class DefaultAttack : AbstractAttack {
 		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); 
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
-
+		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 		ApplyForce( _collider );
 
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );

@@ -191,7 +191,7 @@ public class InputHandler : MonoBehaviour
 		//------------GAMEPAD DIRECTIONAL INPUT ------------//
 		if ( !m_freezeMovement )
 		{
-			m_leftStick = GamePad.GetAxis( GamePad.Axis.LeftStick, (GamePad.Index)m_playerNumber, true );
+			m_leftStick		= GamePad.GetAxis( GamePad.Axis.LeftStick, (GamePad.Index)m_playerNumber, true );
 			m_rightStick = GamePad.GetAxis( GamePad.Axis.RightStick, (GamePad.Index)m_playerNumber, true );
 		}
 		else

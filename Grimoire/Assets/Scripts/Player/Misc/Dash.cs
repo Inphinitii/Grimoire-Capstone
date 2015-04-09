@@ -13,14 +13,13 @@ public class Dash : MonoBehaviour
 
 	private PhysicsController			m_physicsController;
 	private MovementController	m_movementController;
-	private SpellCharges				m_spellCharges;
 	private Vector2						m_direction;
 	private float								m_cooldown;
 	private float								m_dashTimer;
 	private bool								m_dashComplete;
 	private bool								m_onCooldown;
 	private bool								m_orientSelf;
-	private bool m_forceCompletion;
+	private bool								m_forceCompletion;
 	
 
 	// Use this for initialization
@@ -28,7 +27,6 @@ public class Dash : MonoBehaviour
 	{
 		m_physicsController		= GetComponent<PhysicsController>();
 		m_movementController	= GetComponent<MovementController>();
-		m_spellCharges				= GetComponent<SpellCharges>();
 		m_onCooldown				= false;
 		m_dashComplete			= true;	
 	}
@@ -40,8 +38,9 @@ public class Dash : MonoBehaviour
 		{
 			if ( m_dashTimer > 0.0f )
 			{
-				//if ( m_movementController.IsJumping() == false )
-					m_physicsController.Velocity = m_direction * dashSpeed;
+				m_physicsController.applyGravity = false;
+				m_physicsController.Forces = m_direction * dashSpeed;
+				
 
 				m_dashTimer -= Time.deltaTime;
 
@@ -53,6 +52,7 @@ public class Dash : MonoBehaviour
 				m_movementController.m_capAcceleration = true;
 				m_dashComplete	= true;
 				m_onCooldown		= true;
+				m_physicsController.applyGravity = true;
 			}
 		}
 		else if ( m_onCooldown )
@@ -67,14 +67,18 @@ public class Dash : MonoBehaviour
 
 	public void StartDash(Vector2 _direction)
 	{
-		if(m_dashComplete && m_spellCharges.UseCharge())
-		{
-			m_movementController.m_capAcceleration = false;
-			m_direction					= _direction;
-			m_forceCompletion		= false;
-			m_dashComplete		= false;
-			m_dashTimer				= dashDuration;
-		}
+		m_direction					= _direction;
+		GetDiamondGateDirection( ref m_direction, ref m_orientSelf);
+
+		if(m_direction.y <= 0)
+			if(m_dashComplete)
+			{
+				m_movementController.m_capAcceleration = false;
+				m_forceCompletion		= false;
+				m_dashComplete		= false;
+				m_dashTimer				= dashDuration;
+				m_physicsController.ClearValues();
+			}
 	}
 	void GetDiamondGateDirection(ref Vector2 _direction, ref bool _orientationCheck)
 	{
@@ -90,11 +94,11 @@ public class Dash : MonoBehaviour
 			_direction.y = 0.0f;
 			_orientationCheck = true;
 		}
-		//if ( _direction.y > 0.6f )
-		//{
-		//	_direction.x = 0.0f;
-		//	_direction.y = 1.0f;
-		//}
+		if ( _direction.y > 0.6f )
+		{
+			_direction.x = 0.0f;
+			_direction.y = 1.0f;
+		}
 		if ( _direction.y < -0.6f )
 		{
 			_direction.x = 0.0f;

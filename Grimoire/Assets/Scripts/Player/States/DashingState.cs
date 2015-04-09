@@ -32,19 +32,21 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
-			Debug.Log( "Dashing" );
 		}
 
 		public override void ExitConditions()
 		{
+			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
+			{
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+			}
+
 			if ( m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers().thisFrame > 0.5f && m_playerFSM.GetInput().Triggers().lastFrame < 0.5f )
 			{
 				m_dashComponent.ForceCompletion = true;
 				m_playerFSM.GoToPreviousState( true );
 			}
 
-			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
-				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
 		}
 	}
 }

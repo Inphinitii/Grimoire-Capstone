@@ -81,6 +81,11 @@ public class MovementController : MonoBehaviour {
         m_isJumping			= true;
 		groundCheck			= true;
 		m_capAcceleration	= true;
+
+		if ( transform.localRotation.y == 0.0f )
+			m_facingRight = true;
+		else
+			m_facingRight = false;
     }
 
 	void Update()
@@ -188,24 +193,28 @@ public class MovementController : MonoBehaviour {
             m_isMoving = true;
 			signLastFrame = sign;
             sign = 1;
+
             if (!m_isJumping)
-                if (transform.localRotation.y != 0.0f) 
+                if (!m_facingRight) 
 				{
 					m_facingRight = true;
-                    transform.Rotate(0, 180, 0, Space.Self);
+					transform.rotation = new Quaternion( 0, 0, 0, 1 );
 				}
+
         }
 		else if ( _stick.x < -deadZone )
         {
             m_isMoving = true;
 			signLastFrame = sign;
             sign = -1;
+
             if (!m_isJumping)
-                if (transform.localRotation.y == 0.0f) 
+				if ( m_facingRight ) 
 				{
 					m_facingRight = false;
-                    transform.Rotate(0, -180, 0, Space.Self);
+					transform.rotation = new Quaternion( 0, 180, 0, 1 );
                 }
+
         }
     }
 

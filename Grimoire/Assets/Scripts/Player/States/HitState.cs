@@ -52,8 +52,6 @@ namespace PlayerStates
 				GetFSM().GetActorReference().GetMovementController().SetJumping( true );
 
 			DisplayParticles();
-
-
 		}
 
 		public override void ExitConditions()

@@ -19,12 +19,12 @@ public class ComboCounter : MonoBehaviour {
 	void HitEnemy(Collider2D _collider)
 	{
 		PlayerFSM _temp = _collider.gameObject.GetComponent<PlayerFSM>();
-
-		if ( _temp.currentState == _temp.GetState( PlayerFSM.States.HIT ) )
+		if ( _temp.currentState == _temp.GetState( PlayerFSM.States.HIT ) || _temp.currentState == _temp.GetState( PlayerFSM.States.BOUNCE ) )
 			m_currentCombo++;
 		else
 			m_currentCombo = 1;
 
+		Debug.Log( m_currentCombo );
 		m_highestCombo = m_currentCombo > m_highestCombo ? m_currentCombo : m_highestCombo;
 	}
 
