@@ -41,7 +41,7 @@ public class DefaultAttack : AbstractAttack {
 
 		//Add the attack delay to the blocking timer. Do we want this?
 		transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( OnHitCooldown() );
-
+		base.HitEnemy( _collider );
 		//StartCoroutine( DashWindow( dashWindow ) );
 	}
 
@@ -92,8 +92,8 @@ public class DefaultAttack : AbstractAttack {
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
 		_collider.gameObject.GetComponent<SpellCharges>().freezeTime = true;
 
-		
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
+		//_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		//Instantiate Particle Systems -- Separate this.
 		Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
@@ -113,16 +113,4 @@ public class DefaultAttack : AbstractAttack {
 
 	}
 
-	/*
-	 * 	/// <summary>
-	/// The window of time that, when activated, allows the player to perform a dash. 
-	/// </summary>
-	/// <param name="_time">The window of opportunity in seconds.</param>
-	public IEnumerator DashWindow( float _time )
-	{
-		m_dashAvailable = true;
-		yield return new WaitForSeconds( _time );
-		m_dashAvailable = false;
-	}
-	 */
 }

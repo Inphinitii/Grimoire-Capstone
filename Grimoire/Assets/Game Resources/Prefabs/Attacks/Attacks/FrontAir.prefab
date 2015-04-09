@@ -55,7 +55,7 @@ MonoBehaviour:
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
-  groundKnockBack: 0
+  groundKnockBack: 7
   airKnockBack: 0
   allowMovement: 1
 --- !u!1001 &100100000

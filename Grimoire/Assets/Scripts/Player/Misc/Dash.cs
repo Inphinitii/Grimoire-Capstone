@@ -14,9 +14,13 @@ public class Dash : MonoBehaviour
 	private PhysicsController			m_physicsController;
 	private MovementController	m_movementController;
 	private SpellCharges				m_spellCharges;
+	private Vector2						m_direction;
 	private float								m_cooldown;
+	private float								m_dashTimer;
 	private bool								m_dashComplete;
+	private bool								m_onCooldown;
 	private bool								m_orientSelf;
+	private bool m_forceCompletion;
 	
 
 	// Use this for initialization
@@ -25,48 +29,53 @@ public class Dash : MonoBehaviour
 		m_physicsController		= GetComponent<PhysicsController>();
 		m_movementController	= GetComponent<MovementController>();
 		m_spellCharges				= GetComponent<SpellCharges>();
+		m_onCooldown				= false;
+		m_dashComplete			= true;	
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if ( m_cooldown > 0.0f )
+		if(!m_dashComplete)
 		{
-			m_dashComplete = false;
+			if ( m_dashTimer > 0.0f )
+			{
+				//if ( m_movementController.IsJumping() == false )
+					m_physicsController.Velocity = m_direction * dashSpeed;
+
+				m_dashTimer -= Time.deltaTime;
+
+				if ( m_forceCompletion )
+					m_dashTimer = 0.0f;
+			}
+			else
+			{
+				m_movementController.m_capAcceleration = true;
+				m_dashComplete	= true;
+				m_onCooldown		= true;
+			}
+		}
+		else if ( m_onCooldown )
+		{
+			if(m_cooldown > 0.0f)
 			m_cooldown -= Time.deltaTime;
-		}
-		else
-		{
-			m_dashComplete = true;
+
+			if(m_cooldown <= 0.0f)
+				m_onCooldown = false;
 		}
 	}
 
-	public IEnumerator StartDash(Vector2 _direction)
+	public void StartDash(Vector2 _direction)
 	{
-		if ( m_dashComplete && m_spellCharges.UseCharge())
+		if(m_dashComplete && m_spellCharges.UseCharge())
 		{
-
-			m_orientSelf = false;
-			GetDiamondGateDirection( ref _direction, ref m_orientSelf );
-
-			if ( m_orientSelf )
-				m_movementController.OrientationCheck( _direction );
-
-			//m_physicsController.applyGravity = false;
-			if ( m_movementController.IsJumping() == false )
-				m_physicsController.Velocity = _direction * dashSpeed;
-
-			m_movementController.m_capAcceleration = false; //Remove the acceleration cap temporarily. 
-			yield return new WaitForSeconds( dashDuration );
-			m_movementController.m_capAcceleration = true;
-			m_cooldown = dashCooldown;
-
-			//m_physicsController.applyGravity = true;
-			m_dashComplete = true;
+			m_movementController.m_capAcceleration = false;
+			m_direction					= _direction;
+			m_forceCompletion		= false;
+			m_dashComplete		= false;
+			m_dashTimer				= dashDuration;
 		}
-		yield return null;
 	}
-
 	void GetDiamondGateDirection(ref Vector2 _direction, ref bool _orientationCheck)
 	{
 		if ( _direction.x > 0.6f )
@@ -86,12 +95,13 @@ public class Dash : MonoBehaviour
 		//	_direction.x = 0.0f;
 		//	_direction.y = 1.0f;
 		//}
-		//if ( _direction.y < -0.6f )
-		//{
-		//	_direction.x = 0.0f;
-		//	_direction.y = -1.0f;
-		//}
+		if ( _direction.y < -0.6f )
+		{
+			_direction.x = 0.0f;
+			_direction.y = -1.0f;
+		}
 	}
 
 	public bool DashComplete() { return m_dashComplete; }
+	public bool ForceCompletion { get { return m_forceCompletion; } set { m_forceCompletion = value; } }
 }

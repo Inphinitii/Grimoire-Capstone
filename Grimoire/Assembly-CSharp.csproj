@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\ButtonHover.cs" />
      <Compile Include="Assets\ButtonTransition.cs" />
+     <Compile Include="Assets\ComboCounter.cs" />
      <Compile Include="Assets\Game Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Collision\ControllerCollider.cs" />

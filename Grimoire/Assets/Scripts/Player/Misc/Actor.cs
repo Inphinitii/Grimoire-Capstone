@@ -31,16 +31,18 @@ public class Actor : MonoBehaviour
 	InputHandler				m_inputHandler;
 	ParticleManager			m_particleManager;
 	Renderer						m_renderer;
+	SpellCharges				m_spellCharges;
 
 	void Start()
 	{
-		actorName = "Default";
-		m_actorProperties = new Properties();
-		m_boxCollider					= GetComponent( typeof( BoxCollider2D ) )						as BoxCollider2D;
-		m_movementController	= GetComponent( typeof( MovementController ) )				as MovementController;
-		m_componentAnimator	= GetComponent( typeof( Animator ) )								as Animator;
-		m_inputHandler				= GetComponent( typeof( InputHandler ) )							as InputHandler;
+		actorName						= "Default";
+		m_actorProperties			= new Properties();
 		m_physicsController		= GetComponent( typeof( PhysicsController ) )					as PhysicsController;
+		m_movementController	= GetComponent( typeof( MovementController ) )				as MovementController;
+		m_boxCollider					= GetComponent( typeof( BoxCollider2D ) )						as BoxCollider2D;
+		m_inputHandler				= GetComponent( typeof( InputHandler ) )							as InputHandler;
+		m_spellCharges				= GetComponent( typeof( SpellCharges ) )						as SpellCharges;
+		m_componentAnimator	= GetComponent( typeof( Animator ) )								as Animator;
 		m_particleManager			= GetComponentInChildren( typeof( ParticleManager ) )	as ParticleManager;
 		m_renderer						= GetComponentInChildren( typeof( Renderer ) )				as Renderer;
 		m_renderer.material.color = actorColor;
@@ -74,6 +76,8 @@ public class Actor : MonoBehaviour
 	public PhysicsController		GetPhysicsController()			{ return m_physicsController; }
 	public ParticleManager			GetParticleManager()			{ return m_particleManager; }
 	public Renderer					GetRenderer()						{ return m_renderer; }
+	public SpellCharges				GetSpellCharges()				{ return m_spellCharges; }
+
 
 	/// <summary>
 	/// This utility function allows the actor to view the currently viewed components in the ComponentCollection

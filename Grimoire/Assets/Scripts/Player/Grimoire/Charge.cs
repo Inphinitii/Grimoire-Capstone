@@ -24,8 +24,8 @@ public class Charge : MonoBehaviour {
 		{
 			if ( m_internalTime <= 0.0f )
 			{
-				SetRenderers( true );
 				isActive = true;
+				SetRenderers( true );
 			}
 			else
 				m_internalTime -= Time.deltaTime;
@@ -67,8 +67,15 @@ public class Charge : MonoBehaviour {
 	float time;
 	public void SetRenderers(bool _bool)
 	{
+		if ( !_bool )
+		{
+			time = m_trailRenderer.time;
+			m_trailRenderer.time = -1;
+		}
+
 		m_renderer.enabled		= _bool;
 		m_trailRenderer.enabled = _bool;
+
 	}
 
 	/// <summary>

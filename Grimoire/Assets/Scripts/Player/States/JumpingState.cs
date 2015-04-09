@@ -71,6 +71,8 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
+			if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )
+				GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 			if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
 			else if ( !GetFSM().GetMovement().IsJumping() )

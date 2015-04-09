@@ -30,7 +30,7 @@ public class PlayerFSM : MonoBehaviour {
     public IState currentState;
 
     private List<IState>	m_stateList;
-    private bool			m_block;
+    private bool					m_block;
 
     private IState			m_previousState;
 	private Actor			m_actorReference;
@@ -106,8 +106,9 @@ public class PlayerFSM : MonoBehaviour {
 		if ( !m_block || _force )
 		{
 			m_block = false;
+			currentState.OnExit();
 			currentState = m_previousState;
-			//currentState.OnSwitch();
+			currentState.OnSwitch();
 		}
 	}
 
