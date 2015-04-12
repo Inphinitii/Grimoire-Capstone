@@ -10,8 +10,8 @@ namespace UI
 	public class MainMenuScript : MonoBehaviour
 	{
 
-		private GameObject[] m_buttonList;
-		private GameObject m_currentSelection;
+		private Button[] m_buttonList;
+		private Button m_currentSelection;
 		private EventSystem m_eventSystem;
 		private int m_selectionIndex;
 		private float m_currentTime;
@@ -24,10 +24,10 @@ namespace UI
 		{
 			m_currentTime = 0.0f;
 			m_selectionIndex = 0;
-			m_buttonList = GetChildren();
+			m_buttonList = GetComponentsInChildren<Button>() ;
 			m_currentSelection = m_buttonList[m_selectionIndex];
 			m_eventSystem = transform.GetComponentInChildren<EventSystem>();
-			m_eventSystem.SetSelectedGameObject( m_currentSelection );
+			m_eventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
 		}
 
 		// Update is called once per frame
@@ -44,17 +44,6 @@ namespace UI
 				m_currentTime -= Time.deltaTime;
 		}
 
-		GameObject[] GetChildren()
-		{
-			GameObject[] _arrayChildren = new GameObject[transform.childCount];
-			for ( int i = 0; i < transform.childCount; i++ )
-			{
-				if ( transform.GetChild( i ).gameObject.layer == LayerMask.NameToLayer( "UI" ) )
-					_arrayChildren[i] = transform.GetChild( i ).gameObject;
-			}
-			return _arrayChildren;
-		}
-
 		void Scroll( float _upDown )
 		{
 			if ( _upDown < 0 )
@@ -62,11 +51,11 @@ namespace UI
 			else
 				m_selectionIndex--;
 
-			if ( m_selectionIndex >= m_buttonList.Length - 1 ) m_selectionIndex = 0;
+			if ( m_selectionIndex >= m_buttonList.Length ) m_selectionIndex = 0;
 			else if ( m_selectionIndex < 0 ) m_selectionIndex = m_buttonList.Length - 2;
 
 			m_currentSelection = m_buttonList[m_selectionIndex];
-			m_eventSystem.SetSelectedGameObject( m_currentSelection );
+			m_eventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
 		}
 
 		public void Test()

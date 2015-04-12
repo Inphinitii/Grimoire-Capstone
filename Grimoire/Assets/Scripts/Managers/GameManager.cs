@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*==================================================================================
+ * Author: Tyler Remazki
+ *
+ * Class : Game Manager
+ *
+ * Description: Used to carry necessary data across scenes.
+ =================================================================================*/
+
 public class GameManager : MonoBehaviour
 {
 	public AbstractStage stageObject;
 	public Actor[]		 playerActors;
-	// Use this for initialization
+
 	void Start()
 	{
-
+		DontDestroyOnLoad( this );
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 

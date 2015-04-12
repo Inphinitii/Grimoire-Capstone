@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Levels\AbstractStage.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ParticleManager.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Misc\CameraShake.cs" />
@@ -108,6 +109,7 @@
      <Compile Include="Assets\Scripts\UI\ButtonHover.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonTransition.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenuScript.cs" />
+     <Compile Include="Assets\Scripts\UI\Menus\AbstractMenu.cs" />
      <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />

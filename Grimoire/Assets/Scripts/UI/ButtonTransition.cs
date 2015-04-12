@@ -100,5 +100,10 @@ namespace UI
 			//Bounce in place - float ret = c * (1 - (t / d)) * t + b;
 
 		}
+
+		public void TestClick()
+		{
+			Debug.Log( this.gameObject.name );
+		}
 	}
 }
