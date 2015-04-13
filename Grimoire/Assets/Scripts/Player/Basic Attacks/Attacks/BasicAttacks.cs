@@ -34,11 +34,6 @@ public class BasicAttacks : MonoBehaviour
 	public AbstractAttack airDown;
 
 
-
-	[SerializeField]
-	public string[] attackNames;
-
-
 	[SerializeField]
 	private AbstractAttack[] attackList;
 	private AbstractAttack _tempAtk;

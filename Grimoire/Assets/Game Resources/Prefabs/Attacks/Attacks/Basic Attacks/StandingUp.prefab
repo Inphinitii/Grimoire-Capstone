@@ -1,64 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &115214
+--- !u!1 &140176
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 462656}
-  - 114: {fileID: 11409468}
+  - 4: {fileID: 493714}
+  - 114: {fileID: 11449236}
   m_Layer: 0
-  m_Name: TestStraightFall
+  m_Name: StandingUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &462656
+--- !u!4 &493714
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 115214}
+  m_GameObject: {fileID: 140176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.25999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11409468
+--- !u!114 &11449236
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 115214}
+  m_GameObject: {fileID: 140176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 977b08ae54088904788216864a07ebbb, type: 3}
+  m_Script: {fileID: 11500000, guid: daf06f1d19443be49b8649eb9ba5625d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxColliders:
-  - {fileID: 11481846, guid: 578430594d036194581d473e9dac8cde, type: 2}
+  - {fileID: 11467708, guid: 3e81f502280069244a8ac968a8236cef, type: 2}
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
-  startupFrames: 15
-  durationFrames: 100000
-  cooldownFrames: 3
+  startupFrames: 4
+  durationFrames: 10
+  cooldownFrames: 6
   onHitCooldownFrames: 3
   ableToCancel: 0
-  hitDirection: {x: .5, y: 1}
+  hitDirection: {x: 0, y: 1}
   hitAlongDistanceVector: 0
-  hitForce: 30
+  hitForce: 20
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0
-  fallSpeed: 5000
-  spellAnimation: {fileID: 161810, guid: 6610388b603e6914f893986c908b09fb, type: 2}
+  allowMovement: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -68,5 +67,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 115214}
+  m_RootGameObject: {fileID: 140176}
   m_IsPrefabParent: 1

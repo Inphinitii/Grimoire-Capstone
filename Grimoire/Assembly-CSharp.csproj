@@ -84,7 +84,9 @@
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\DefaultAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\AbstractHurtBox.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\DefaultHurtBox.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\Hurt Boxes\MineHurtBox.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\IncantationAttack.cs" />
+     <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\MineAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\SlowFallAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Basic Attacks\Attacks\StraightFallAttack.cs" />
      <Compile Include="Assets\Scripts\Player\Grimoire\Charges\Charge.cs" />

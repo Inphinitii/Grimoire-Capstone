@@ -1,41 +1,41 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &109266
+--- !u!1 &172962
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 489572}
-  - 61: {fileID: 6184778}
-  - 114: {fileID: 11467708}
-  - 50: {fileID: 5026228}
+  - 4: {fileID: 403128}
+  - 61: {fileID: 6167860}
+  - 114: {fileID: 11415544}
+  - 50: {fileID: 5060510}
   m_Layer: 0
-  m_Name: StandingUp
+  m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &489572
+  m_IsActive: 0
+--- !u!4 &403128
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109266}
+  m_GameObject: {fileID: 172962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5026228
+--- !u!50 &5060510
 Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109266}
+  m_GameObject: {fileID: 172962}
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
@@ -45,32 +45,35 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!61 &6184778
+--- !u!61 &6167860
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109266}
+  m_GameObject: {fileID: 172962}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 2.5}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
---- !u!114 &11467708
+  m_Size: {x: .75, y: .75}
+--- !u!114 &11415544
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109266}
+  m_GameObject: {fileID: 172962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633844c4937abfe4994913b7bdab18d9, type: 3}
+  m_Script: {fileID: 11500000, guid: e261569ea716f2e47991d015eb11b205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   forceType: 0
-  drawGizmo: 1
+  drawGizmo: 0
+  hitDirection: {x: 0, y: 0}
+  hitForce: 35
+  hitAlongDistanceVector: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -80,5 +83,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 109266}
+  m_RootGameObject: {fileID: 172962}
   m_IsPrefabParent: 1

@@ -24,8 +24,6 @@ public class ComboCounter : MonoBehaviour {
 			m_currentCombo++;
 		else
 			m_currentCombo = 1;
-
-		Debug.Log( m_currentCombo );
 	}
 
 	public int HighestCombo { get { return m_highestCombo; } set { m_highestCombo = value; } }

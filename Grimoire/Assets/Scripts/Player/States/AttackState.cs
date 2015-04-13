@@ -6,9 +6,9 @@ namespace PlayerStates
 	public class AttackState : IState
 	{
 
-		private bool			m_attackStart;
-		private float			m_time;
-		private AbstractAttack	m_attackReference;
+		private AbstractAttack		m_attackReference;
+		private float						m_time;
+		private bool						m_attackStart;
 
 		public AttackState()
 		{
@@ -24,10 +24,10 @@ namespace PlayerStates
 			m_time					= GetFSM().CurrentAttack.GetStateBlockTime();
 			m_attackReference	= GetFSM().CurrentAttack;
 			m_attackStart			= true;
+			GetFSM().BlockStateSwitch( m_attackReference.GetStateBlockTime() );
 		}
 		public override void ExecuteState()
 		{
-			GetFSM().BlockStateSwitch( m_attackReference.GetStateBlockTime() );
 			if ( m_time > 0.0f )
 			{
 				if ( m_attackStart )
@@ -44,15 +44,16 @@ namespace PlayerStates
 		{
 			if ( m_attackReference.GetExitFlag() || m_time < 0.0f )
 			{
-				m_attackReference.SetExitFlag( false );
-
 				if(GetFSM().GetMovement().IsJumping())
 					GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+
 				if (!GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0.0f )
 					GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
+
 				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x != 0.0f )
 					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, true );
-				//GetFSM().GoToPreviousState( true );
+
+				m_attackReference.SetExitFlag( false );
 			}
 
 			

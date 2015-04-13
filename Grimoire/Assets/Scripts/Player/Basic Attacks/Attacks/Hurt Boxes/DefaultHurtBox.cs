@@ -14,9 +14,9 @@ public class DefaultHurtBox : AbstractHurtBox
 		base.OnFriendlyHit( _collider );
     }
 
-	public override void OnEnemyHit( Collider2D _collider )
+	public override void OnEnemyHit( Collider2D _enemy)
     {
-        base.OnEnemyHit( _collider );
+		base.OnEnemyHit( _enemy);
     }
 
     public override void OnAnyHit()

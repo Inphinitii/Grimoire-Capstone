@@ -65,9 +65,9 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void Start()
 	{
-		m_exitFlag = false;
-		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
-		m_childHurtBoxes = new AbstractHurtBox[boxColliders.Length];
+		m_exitFlag				= false;
+		m_parentActor		= this.transform.parent.gameObject.GetComponent<Actor>();
+		m_childHurtBoxes	= new AbstractHurtBox[boxColliders.Length];
 		AbstractHurtBox _temp;
 		for ( int i = 0; i < boxColliders.Length; i++ )
 		{
@@ -118,6 +118,13 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// Called when an AbstractHurtBox makes contact with an enemy. 
 	/// </summary>
 	public virtual void HitEnemy( Collider2D _collider )
+	{
+	}
+
+	/// <summary>
+	/// Called when an AbstractHurtBox makes contact with an enemy. 
+	/// </summary>
+	public virtual void HitEnemyIndependent( Collider2D[]  _colliders )
 	{
 	}
 

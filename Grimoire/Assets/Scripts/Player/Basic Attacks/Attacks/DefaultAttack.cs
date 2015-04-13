@@ -34,7 +34,7 @@ public class DefaultAttack : AbstractAttack {
 
 	}
 
-	public override void HitEnemy(Collider2D _collider)
+	public override void HitEnemy( Collider2D _collider )
 	{
 		if ( !_collider.gameObject.GetComponent<Actor>().GetInvulnerable() )
 		{
@@ -77,40 +77,45 @@ public class DefaultAttack : AbstractAttack {
 	/// </summary>
 	/// <param name="_collider"></param>
 	/// <returns></returns>
-	/// 
-	//REFACTOR
 	public IEnumerator FreezePlayers( Collider2D _collider )
 	{
+		PhysicsController _thisPhys		= transform.parent.gameObject.GetComponent<PhysicsController>();
+		SpellCharges _thisCharge		= transform.parent.gameObject.GetComponent<SpellCharges>();
+		Animator _thisAnimator			= transform.parent.gameObject.GetComponent<Animator>();
 
-		//Freeze Animations
-		transform.parent.gameObject.GetComponent<Animator>().speed = 0.0f;
-		_collider.GetComponent<Animator>().speed									= 0.0f;
+		PhysicsController _otherPhys	= _collider.gameObject.GetComponent<PhysicsController>();
+		SpellCharges _otherCharge		= _collider.gameObject.GetComponent<SpellCharges>();
+		Animator _otherAnimator		= _collider.gameObject.GetComponent<Animator>();
 
-		//Freeze Physics
-		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
-		transform.parent.gameObject.GetComponent<SpellCharges>().freezeTime = true;
+		_thisPhys.PausePhysics( true );
+		_otherPhys.PausePhysics( true );
 
+		_thisCharge.SetFreezeTimer( true );
+		_otherCharge.SetFreezeTimer( true );
 
-		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
-		_collider.gameObject.GetComponent<SpellCharges>().freezeTime = true;
+		_thisAnimator.speed = 0.0f;
+		_otherAnimator.speed = 0.0f;
 
-		//_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-
-		//Instantiate Particle Systems -- Separate this.
+		//Instantiate Particle Systems
 		Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
 		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); 
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
+
+		_thisPhys.PausePhysics( false );
+		_otherPhys.PausePhysics( false );
+
+		_thisCharge.SetFreezeTimer( false );
+		_otherCharge.SetFreezeTimer( false );
+
+		_thisAnimator.speed = 1.0f;
+		_otherAnimator.speed = 1.0f;
+
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
-		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
-		transform.parent.gameObject.GetComponent<SpellCharges>().freezeTime = false;
-		_collider.gameObject.gameObject.GetComponent<SpellCharges>().freezeTime = false;
+
+
 		ApplyForce( _collider );
 
-
-		_collider.GetComponent<Animator>().speed = 1.0f;
-		transform.parent.gameObject.GetComponent<Animator>().speed = 1.0f;
 
 	}
 

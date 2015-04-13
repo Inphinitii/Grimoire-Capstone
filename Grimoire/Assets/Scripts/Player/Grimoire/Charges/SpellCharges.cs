@@ -19,7 +19,6 @@ using System.Collections;
 public class SpellCharges : MonoBehaviour
 {
 	public int			maxSpellCharges;
-	public bool		freezeTime;
 	public float		chargeTime;
 	public float		chargeRadius;
 	public Charge	chargePrefab;
@@ -27,6 +26,7 @@ public class SpellCharges : MonoBehaviour
 	private Charge[]	m_Charges;
 	private float			m_internalTimer;
 	private bool			m_chargesRemaining;
+	private bool			m_freezeTime;
 
 	void Start()
 	{
@@ -38,7 +38,7 @@ public class SpellCharges : MonoBehaviour
 
 	void Update()
 	{
-		if ( !freezeTime )
+		if ( !m_freezeTime )
 			m_internalTimer += Time.deltaTime;
 
 		for ( int i = 0; i < maxSpellCharges; i++ )
@@ -102,6 +102,14 @@ public class SpellCharges : MonoBehaviour
 		{
 			m_Charges[i] = (Charge)Instantiate( chargePrefab, this.transform.position, Quaternion.identity ) as Charge;
 		}
+	}
+
+	/// <summary>
+	/// Set the freeze timer boolean.
+	/// </summary>
+	public void SetFreezeTimer(bool _bool)
+	{
+		m_freezeTime = _bool;
 	}
 
 	/// <summary>

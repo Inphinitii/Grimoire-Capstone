@@ -69,8 +69,8 @@ public class PlayerFSM : MonoBehaviour {
 	
 	void Update () 
 	{
-		currentState.ExitConditions();
 		currentState.ExecuteState();
+		currentState.ExitConditions();
 	}
 
 
@@ -91,8 +91,10 @@ public class PlayerFSM : MonoBehaviour {
     public void SetCurrentState(States _states, bool _force){
         if (!m_block || _force)
         {
-			m_block = false;
-			m_previousState = currentState;
+			m_block					= false;
+			m_blockTimer			= 0.0f;
+			m_previousState		= currentState;
+
 			currentState.OnExit();
 			currentState = m_stateList[(int)_states];
 			currentState.OnSwitch();
@@ -107,7 +109,9 @@ public class PlayerFSM : MonoBehaviour {
 	{
 		if ( !m_block || _force )
 		{
-			m_block = false;
+			m_block				= false;
+			m_blockTimer		= 0.0f;
+
 			currentState.OnExit();
 			currentState = m_previousState;
 			currentState.OnSwitch();
@@ -130,30 +134,12 @@ public class PlayerFSM : MonoBehaviour {
 	public Actor GetActorReference() { return m_actorReference; }
 
 	/// <summary>
-	/// Get the Input Handler from the Actor Reference. 
-	/// </summary>
-	/// <returns>Input Handler Reference</returns>
-	public InputHandler GetInput()
-	{
-		return m_actorReference.GetInputHandler();
-	}
-
-	/// <summary>
 	/// Get the Movement Controller from the Actor Reference. 
 	/// </summary>
 	/// <returns>Movement Controller Reference</returns>
 	public MovementController GetMovement()
 	{
 		return m_actorReference.GetMovementController();
-	}
-
-	/// <summary>
-	/// Get the Physics Controller from the Actor Reference	
-	/// </summary>
-	/// <returns>Physics Controller Reference</returns>
-	public PhysicsController GetPhysics()
-	{
-		return m_actorReference.GetPhysicsController();
 	}
 
 	/// <summary>
@@ -165,6 +151,24 @@ public class PlayerFSM : MonoBehaviour {
     {
 		return m_attackList;
     }
+
+	/// <summary>
+	/// Get the Physics Controller from the Actor Reference	
+	/// </summary>
+	/// <returns>Physics Controller Reference</returns>
+	public PhysicsController GetPhysics()
+	{
+		return m_actorReference.GetPhysicsController();
+	}
+
+	/// <summary>
+	/// Get the Input Handler from the Actor Reference. 
+	/// </summary>
+	/// <returns>Input Handler Reference</returns>
+	public InputHandler GetInput()
+	{
+		return m_actorReference.GetInputHandler();
+	}
 
 	/// <summary>
 	/// Return the state instance held within the internal array of states. 
@@ -203,9 +207,14 @@ public class PlayerFSM : MonoBehaviour {
 			if ( m_blockTimer <= 0.0f )
 			{
 				m_block = false;
-				m_blockTimer = 0.0f;
 			}
 		}
+	}
+
+	public void InterruptBlocking()
+	{
+		m_blockTimer = 0.0f;
+		m_block = false;
 	}
 
 	/// <summary>

@@ -14,8 +14,10 @@ using System.Collections;
 public abstract class AbstractHurtBox : MonoBehaviour {
 
     public	Properties.ForceType forceType;
-	private BoxCollider2D	m_boxCollider;
-	private Transform			m_parent;
+	public bool drawGizmo = true;
+
+	protected BoxCollider2D	m_boxCollider;
+	protected Transform m_parent;
 
 	void Awake()
 	{
@@ -44,10 +46,10 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     /// Called when any object that has a different force type is colliding with the hurt box.
     /// </summary>
     /// <param name="_collider"> Collider2D Object </param>
-    public virtual void OnEnemyHit( Collider2D _collider )
+    public virtual void OnEnemyHit( Collider2D _enemy )
     {
-		SendMessageUpwards( "HitEnemy", _collider );			//Send a message to this object
-		_collider.SendMessage( "OnHit" );								//Send a message to the enemy
+		SendMessageUpwards( "HitEnemy", _enemy );			//Send a message to this object
+		_enemy.SendMessage( "OnHit" );								//Send a message to the enemy
     }
 
 	/// <summary>
@@ -88,14 +90,14 @@ public abstract class AbstractHurtBox : MonoBehaviour {
     /// Handles the 2D collision using Unity's default physics system.
     /// </summary>
     /// <param name="_collider"> Collider2D Object </param>
-    void OnTriggerEnter2D(Collider2D _collider)
+    public virtual void OnTriggerEnter2D(Collider2D _collider)
     {
         if ( _collider.gameObject.tag == "Player" )
         {
-            if ( _collider.gameObject.GetComponent<Actor>().Force == forceType )
-                OnFriendlyHit( _collider );
-            else
-                OnEnemyHit(_collider);
+			if ( _collider.gameObject.GetComponent<Actor>().Force == forceType )
+				OnFriendlyHit( _collider );
+			else
+				OnEnemyHit( _collider);
         }
 		else if (_collider.gameObject.tag == "HurtBox")
 		{
@@ -108,14 +110,17 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		int sign = m_parent.gameObject.transform.parent.GetComponent<MovementController>().IsFacingRight() ? 1 : -1;
-		Vector3 pos;
+		if ( drawGizmo )
+		{
+			int sign = m_parent.gameObject.transform.parent.GetComponent<MovementController>().IsFacingRight() ? 1 : -1;
+			Vector3 pos;
 
-		Gizmos.color = Color.red;
-		pos = new Vector3( m_boxCollider.offset.x * sign, m_boxCollider.offset.y );
-		pos += m_parent.gameObject.transform.position;
+			Gizmos.color = Color.red;
+			pos = new Vector3( m_boxCollider.offset.x * sign, m_boxCollider.offset.y );
+			pos += m_parent.gameObject.transform.position;
 
-		Gizmos.DrawCube( pos, (Vector3)m_boxCollider.size );
+			Gizmos.DrawCube( pos, (Vector3)m_boxCollider.size );
+		}
 		
 	}
 }

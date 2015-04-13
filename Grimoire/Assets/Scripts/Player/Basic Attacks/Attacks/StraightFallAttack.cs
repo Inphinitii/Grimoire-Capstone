@@ -38,15 +38,14 @@ public class StraightFallAttack : AbstractAttack
 		base.HandleInput( _input );
 	}
 
-	public override void HitEnemy( Collider2D _collider )
+	public override void HitEnemy( Collider2D _collider)
 	{
 		transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
 		Camera.main.GetComponent<CameraShake>().Shake();
 
 		//Add the attack delay to the blocking timer. Do we want this?
-		transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( OnHitCooldown() );
+		transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
 		base.HitEnemy( _collider );
-		//StartCoroutine( DashWindow( dashWindow ) );
 	}
 
 	public override void BeforeAttack()

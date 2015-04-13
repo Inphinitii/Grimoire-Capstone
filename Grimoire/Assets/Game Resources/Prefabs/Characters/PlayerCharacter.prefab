@@ -1,23 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &189610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 465526}
-  - 61: {fileID: 6120118}
-  - 114: {fileID: 11491812}
-  - 50: {fileID: 5037576}
-  m_Layer: 0
-  m_Name: RockSmash
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &197330
 GameObject:
   m_ObjectHideFlags: 1
@@ -380,18 +362,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &465526
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 497350}
-  m_RootOrder: 1
 --- !u!4 &497330
 Transform:
   m_ObjectHideFlags: 1
@@ -534,7 +504,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497358}
-  - {fileID: 465526}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &497352
@@ -691,21 +660,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 497358}
   m_RootOrder: 1
---- !u!50 &5037576
-Rigidbody2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189610}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_FixedAngle: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
 --- !u!50 &5097330
 Rigidbody2D:
   m_ObjectHideFlags: 1
@@ -721,19 +675,6 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!61 &6120118
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189610}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 3, y: .5}
 --- !u!61 &6147636
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -814,10 +755,10 @@ MonoBehaviour:
   attackListID: Basic Attacks
   useActorForce: 1
   forceType: 1
-  crouchingAttack: {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
+  crouchingAttack: {fileID: 11436934, guid: 405ee685611b64f4392ed1cf42ff07f6, type: 2}
   standingNeutral: {fileID: 11416324, guid: 183c5e1901351514ba4ec2a746a37cdb, type: 2}
   standingAir: {fileID: 11449236, guid: edb88a6a03360f94a9eb2973e0c94c25, type: 2}
-  airNeutral: {fileID: 11409468, guid: 6c9e4c58330a9534180e3161c6bcd830, type: 2}
+  airNeutral: {fileID: 11446226, guid: 6ef55ad70fc815246bc80f43e81910b4, type: 2}
   airBack: {fileID: 11475860, guid: 4584a291a3c8c5540a4b38c310dd6801, type: 2}
   airFront: {fileID: 11435460, guid: 9974a71a6f177294b90bc3000390671a, type: 2}
   airDown: {fileID: 11488184, guid: 047cd90d0b8fe274bbb7f0d9d9f7c14a, type: 2}
@@ -882,7 +823,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpellCharges: 4
-  freezeTime: 0
   chargeTime: 5
   chargeRadius: .75
   chargePrefab: {fileID: 11493386, guid: 2568bc91bfd09764881543243234a148, type: 2}
@@ -915,18 +855,6 @@ MonoBehaviour:
   actorName: Player 1
   actorColor: {r: 0, g: .793103218, b: 1, a: 0}
   forceType: 2
---- !u!114 &11491812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633844c4937abfe4994913b7bdab18d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forceType: 0
 --- !u!114 &11497330
 MonoBehaviour:
   m_ObjectHideFlags: 1

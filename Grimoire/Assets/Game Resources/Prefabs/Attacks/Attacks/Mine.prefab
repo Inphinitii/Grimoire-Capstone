@@ -1,62 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &187334
+--- !u!1 &177702
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 416990}
-  - 114: {fileID: 11435220}
+  - 4: {fileID: 469404}
+  - 114: {fileID: 11436934}
   m_Layer: 0
-  m_Name: CrouchingKick
+  m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &416990
+--- !u!4 &469404
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187334}
+  m_GameObject: {fileID: 177702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.25999999, y: 2.61999989, z: -.00999999978}
+  m_LocalPosition: {x: 0, y: 2.25999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11435220
+--- !u!114 &11436934
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187334}
+  m_GameObject: {fileID: 177702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf06f1d19443be49b8649eb9ba5625d, type: 3}
+  m_Script: {fileID: 11500000, guid: 280f3b2036becaa4caf37e85c6b07935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxColliders:
-  - {fileID: 11478416, guid: 664bcdb909bfc344ca0c62e2e77b7eb9, type: 2}
+  - {fileID: 11415544, guid: 5fad49e82ff25784fa1ad8b0ed572291, type: 2}
   forceType: 0
   particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
   particleOnUse: {fileID: 0}
   startupFrames: 5
   durationFrames: 10
-  cooldownFrames: 4
-  onHitCooldownFrames: 0
+  cooldownFrames: 3
+  onHitCooldownFrames: 2
   ableToCancel: 0
-  hitDirection: {x: 0, y: 1}
-  hitAlongDistanceVector: 0
-  hitForce: 20
+  hitDirection: {x: 0, y: 0}
+  hitAlongDistanceVector: 1
+  hitForce: 40
   hitDamage: 0
   staticForce: 0
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0
+  mineObject: {fileID: 106678, guid: 0251aa628f23353429c8d82e89e823c1, type: 2}
+  allowMovement: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -66,5 +68,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 187334}
+  m_RootGameObject: {fileID: 177702}
   m_IsPrefabParent: 1

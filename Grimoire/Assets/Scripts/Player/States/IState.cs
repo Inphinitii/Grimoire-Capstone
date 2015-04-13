@@ -15,7 +15,6 @@ namespace PlayerStates
 	{
 		protected PlayerFSM m_playerFSM;
 		protected bool		m_attacking;
-		private float		m_blockTimer;
 
 		/// <summary>
 		/// Set the FSM that contains this State so that we can have access to reference variables.
@@ -24,38 +23,6 @@ namespace PlayerStates
 		public void SetFSM( PlayerFSM _fsm )
 		{
 			m_playerFSM = _fsm;
-		}
-
-		/// <summary>
-		/// Block the state switch for X seconds.
-		/// </summary>
-		/// <param name="_time">Time to block the state switch for.</param>
-		/// <returns></returns>
-		public void BlockStateSwitch( float _time )
-		{
-			if ( !m_playerFSM.Blocking )
-			{
-				m_blockTimer = _time;
-				m_playerFSM.Blocking = true;
-			}
-			else
-			{
-				m_blockTimer -= Time.deltaTime;
-				if ( m_blockTimer <= 0.0f )
-				{
-					m_playerFSM.Blocking = false;
-					m_blockTimer = 0.0f;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Add more time to the current state blocking. 
-		/// </summary>
-		/// <param name="_time">Time to be added.</param>
-		public void AddBlockingTime( float _time)
-		{
-			m_blockTimer += _time;
 		}
 
 		/// <summary>
