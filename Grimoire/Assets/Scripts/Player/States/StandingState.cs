@@ -14,7 +14,7 @@ namespace PlayerStates
 		{
 			_leftStick = GetFSM().GetInput().LeftStick();
 
-			if ( GetFSM().GetInput().Attack().thisFrame )
+			if ( GetFSM().GetInput().Attack().thisFrame  )
 			{
 				//Directional Attack - Standing
 				if ( _leftStick.x != 0 )
@@ -22,13 +22,13 @@ namespace PlayerStates
 				//Upwards Attack - Standing
 				if ( _leftStick.y > 0 )
 				{
-					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingUp" );
+					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_AIR );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 				//Neutral Attack - Standing
 				else
 				{
-					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "StandingNeutral" );
+					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_NEUTRAL );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 			}
@@ -36,10 +36,11 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-			if ( _leftStick.x > 0 || _leftStick.x < 0 )
+			if ( _leftStick.x != 0 )
 			{
-				if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f && GetFSM().GetInput().Triggers().lastFrame <= 0.0f )
-					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+				if ( GetFSM().GetInput().LeftStick().y < 0.1f )
+					if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f)
+						GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 				else
 					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 			}

@@ -19,7 +19,7 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
-				Debug.Log( "Dash Attack" );
+
 			}
 
 			

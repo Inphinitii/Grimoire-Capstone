@@ -51,6 +51,7 @@ public class MovementController : MonoBehaviour {
 	private bool		m_facingRight;
 	private bool		m_onPlatform;
 	private bool		m_fallThrough;
+	private bool		m_onGround;
 	public bool		m_capAcceleration = true;
 
 	//Temporary forces to be added to the PhysicsController.
@@ -102,7 +103,7 @@ public class MovementController : MonoBehaviour {
 		DampenMovement();
 		ApplyTurningSpeed( ref turningMultiplier );
 
-		if ( m_physicsController.Velocity.y < 0 && groundCheck )
+		if ( m_physicsController.Velocity.y < 0 )
 			GroundCheck();
 
 		signLastFrame = sign;
@@ -301,16 +302,15 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// TODO: Sliding on Slopes?
     void GroundCheck() {
-		bool _grounded = false;
-		_grounded		= m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, groundCheckLayerMask );
+		m_onGround	= m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, groundCheckLayerMask );
 
 		if(m_fallThrough)
-			m_fallThrough = !_grounded;
+			m_fallThrough = !m_onGround;
 
 		if(!m_fallThrough)
 		m_onPlatform = m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, platformLayerMask );
 
-		if ( !_grounded && !m_onPlatform )
+		if ( !m_onGround && !m_onPlatform )
 		{
 			if ( m_isJumping == false )
 				jumpCount++;
@@ -318,7 +318,7 @@ public class MovementController : MonoBehaviour {
 			m_isJumping = true;
 			m_fallThrough = false;
 		}
-		else if ( _grounded || m_onPlatform )
+		else if ( m_onGround || m_onPlatform )
 		{
 			m_physicsController.Velocity = new Vector2( m_physicsController.Velocity.x, 0 );
 			m_isJumping = false;
@@ -361,6 +361,12 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	/// <returns>On Platform Boolean</returns>
 	public bool IsOnPlatform() { return m_onPlatform;  }
+
+	/// <summary>
+	/// Returns whether or not the character is currently on a platform. 
+	/// </summary>
+	/// <returns>On Platform Boolean</returns>
+	public bool IsOnGround() { return m_onGround; }
 
 	/// <summary>
 	/// Returns the orientation sign of the previous frame.

@@ -36,13 +36,15 @@ public class DefaultAttack : AbstractAttack {
 
 	public override void HitEnemy(Collider2D _collider)
 	{
-		transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
-		Camera.main.GetComponent<CameraShake>().Shake();
+		if ( !_collider.gameObject.GetComponent<Actor>().GetInvulnerable() )
+		{
+			transform.parent.gameObject.GetComponent<Actor>().StartChildCoroutine( FreezePlayers( _collider ) );
+			Camera.main.GetComponent<CameraShake>().Shake();
 
-		//Add the attack delay to the blocking timer. Do we want this?
-		transform.parent.gameObject.GetComponent<PlayerFSM>().currentState.AddBlockingTime( OnHitCooldown() );
-		base.HitEnemy( _collider );
-		//StartCoroutine( DashWindow( dashWindow ) );
+			//Add the attack delay to the blocking timer. Do we want this?
+			transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
+			base.HitEnemy( _collider );
+		}
 	}
 
 	public override void BeforeAttack()
@@ -100,12 +102,12 @@ public class DefaultAttack : AbstractAttack {
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-		ApplyForce( _collider );
-
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
 		_collider.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
 		transform.parent.gameObject.GetComponent<SpellCharges>().freezeTime = false;
 		_collider.gameObject.gameObject.GetComponent<SpellCharges>().freezeTime = false;
+		ApplyForce( _collider );
+
 
 		_collider.GetComponent<Animator>().speed = 1.0f;
 		transform.parent.gameObject.GetComponent<Animator>().speed = 1.0f;

@@ -33,6 +33,8 @@ public class Actor : MonoBehaviour
 	Renderer						m_renderer;
 	SpellCharges				m_spellCharges;
 
+	private bool m_invulnerable;
+
 	void Start()
 	{
 		actorName						= "Default";
@@ -46,6 +48,7 @@ public class Actor : MonoBehaviour
 		m_particleManager			= GetComponentInChildren( typeof( ParticleManager ) )	as ParticleManager;
 		m_renderer						= GetComponentInChildren( typeof( Renderer ) )				as Renderer;
 		m_renderer.material.color = actorColor;
+		m_invulnerable = false ;
 	}
 	void Update()
 	{
@@ -103,6 +106,16 @@ public class Actor : MonoBehaviour
 	public void StartChildCoroutine( IEnumerator _coroutine )
 	{
 		StartCoroutine( _coroutine );
+	}
+
+	public void SetInvulnerable(bool _state)
+	{
+		m_invulnerable = _state;
+	}
+
+	public bool GetInvulnerable()
+	{
+		return m_invulnerable;
 	}
 	#endregion
 }

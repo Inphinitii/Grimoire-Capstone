@@ -40,8 +40,10 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
 	protected bool							m_duringAttack;
+	protected bool							m_exitFlag;
 	protected Actor						m_parentActor;
 	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
+	
 
 	/// <summary>
 	/// Called to start the specific attack.
@@ -63,6 +65,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void Start()
 	{
+		m_exitFlag = false;
 		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
 		m_childHurtBoxes = new AbstractHurtBox[boxColliders.Length];
 		AbstractHurtBox _temp;
@@ -188,4 +191,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float Startup()				{ return startupFrames * FRAME_TIME;				}
 	public float Cooldown()			{ return cooldownFrames * FRAME_TIME;			}
 	public float OnHitCooldown()	{ return onHitCooldownFrames * FRAME_TIME;	}
+
+	public bool GetExitFlag() { return m_exitFlag; }
+	public void SetExitFlag( bool _bool ) { m_exitFlag = _bool; }
 }

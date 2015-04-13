@@ -38,11 +38,12 @@ namespace PlayerStates
 			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = true;
+			Debug.Log( "Hit Exit" );
 		}
 
 		public override void ExecuteState()
 		{
-			BlockStateSwitch( BLOCK_TIME );
+			GetFSM().BlockStateSwitch( BLOCK_TIME );
 			m_leftStick = GetFSM().GetInput().LeftStick();
 
 			if(m_leftStick.x != 0.0f)
@@ -56,19 +57,19 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-
-			if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f && GetFSM().GetInput().Triggers().lastFrame <= 0.0f )
-			{
-				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() )
-					GetFSM().GoToPreviousState( true );
-			}
-
-
 			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
-				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
 
 			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.x ) <= MIN_X_VEL_EXIT_VALUE && !GetFSM().GetMovement().IsJumping() )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
+
+			if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f && GetFSM().GetInput().Triggers().lastFrame < 0.0f )
+			{
+				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() && ( m_leftStick.x > 0.5f || m_leftStick.x < -0.5f ) )
+					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+				else if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() )
+					GetFSM().GoToPreviousState( true );
+			}
 
 		}
 

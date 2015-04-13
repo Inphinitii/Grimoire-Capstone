@@ -38,30 +38,37 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Attack().thisFrame )
 			{
-				if( m_leftStick.x != 0)
+				if( m_leftStick.x > 0.5f || m_leftStick.x < -0.5f)
 				{
 					//FIX DIS
 					GetFSM().GetMovement().OrientationCheck( m_leftStick );
 					if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f ||
 						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f)
 					{
-						GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "FrontAir" );
+						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_FRONT );
+						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
 					}
 					
-					if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f ||
-						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
+					else if ( GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f ||
+								!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
 					{
-						GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "BackAir" );
+						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_BACK );
+						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
+
 					}
 				}
 				//Downward Attack - Jumping
-				if ( m_leftStick.y < 0 )
-					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "DownAir" ); 
-				//Neutral Attack - Jumping
-				else if ( m_leftStick.x == 0 && m_leftStick.y == 0 )
-					GetFSM().CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "NeutralAir" );
+				else if ( m_leftStick.y < 0 )
+				{
+					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_DOWN );
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
+				}
 
-				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );		
+				else if ( m_leftStick == Vector2.zero )
+				{
+					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_NEUTRAL );
+					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
+				}
 			}
 			else if(m_leftStick.y < 0)
 			{
@@ -71,13 +78,16 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-			if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )
-				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() )
-						GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 			if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
 			else if ( !GetFSM().GetMovement().IsJumping() )
 				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+
+			if(GetFSM().GetInput().LeftStick().y < 0.1f)
+				if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )
+					if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge())
+							GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+
 		}
 	}
 }

@@ -15,11 +15,11 @@ namespace PlayerStates
 		{
 			m_leftStick = GetFSM().GetInput().LeftStick();
 
-			if ( GetFSM().GetInput().Attack().thisFrame )
+			if ( GetFSM().GetInput().Attack().thisFrame  )
 			{
 				if ( m_leftStick.y < 0.0f )
 				{
-					m_playerFSM.CurrentAttack = GetFSM().GetAttackList( "Basic Attacks" ).GetAttack( "CrouchingAttack" );
+					m_playerFSM.CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.CROUCHING_ATTACK );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 

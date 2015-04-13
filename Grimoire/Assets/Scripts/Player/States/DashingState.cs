@@ -15,12 +15,13 @@ namespace PlayerStates
 		public override void OnSwitch()
 		{
 			Physics2D.IgnoreLayerCollision( LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true );
+			GetFSM().StartChildCoroutine( DashInvulnerability() );
 			if(m_dashComponent == null)
 				m_dashComponent = m_playerFSM.gameObject.GetComponent<Dash>();
 
 
 			m_dashComponent.StartDash( m_playerFSM.GetInput().LeftStick() );
-			BlockStateSwitch( m_dashComponent.dashDuration );
+			GetFSM().BlockStateSwitch( m_dashComponent.dashDuration );
 
 		}
 
@@ -47,6 +48,13 @@ namespace PlayerStates
 				m_playerFSM.GoToPreviousState( true );
 			}
 
+		}
+
+		IEnumerator DashInvulnerability()
+		{
+			GetFSM().GetActorReference().SetInvulnerable(true);
+			yield return new WaitForSeconds( 0.16f );
+			GetFSM().GetActorReference().SetInvulnerable(false);
 		}
 	}
 }

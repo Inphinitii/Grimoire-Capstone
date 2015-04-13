@@ -5,6 +5,8 @@ namespace PlayerStates
 {
 	public class BounceState : IState
 	{
+		private const float MIN_X_VEL_EXIT_VALUE = 2.0f;
+
 		public BounceState()
 		{
 		}
@@ -19,12 +21,17 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
+			Debug.Log( "bounce" );
 			m_playerFSM.GetActorReference().GetMovementController().groundCheck = true;
 		}
 
 		public override void ExitConditions()
 		{
+			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
+				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
 
+			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.x ) <= MIN_X_VEL_EXIT_VALUE && !GetFSM().GetMovement().IsJumping() )
+				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
 		}
 
 		IEnumerator InterruptBounce()

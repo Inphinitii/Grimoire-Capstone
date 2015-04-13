@@ -34,15 +34,17 @@ public class PlayerFSM : MonoBehaviour {
 
     private IState			m_previousState;
 	private Actor			m_actorReference;
-    private AttackList[]	m_attackList;
+	private BasicAttacks m_attackList;
 
 	//For use in the AttackState class. 
-	private AttackList.AttackStruct m_currentAttack;
+	private AbstractAttack m_currentAttack;
+
+	private float m_blockTimer;
     
 	void Start () {
-        m_attackList		= gameObject.GetComponents<AttackList>();
+		m_attackList			= GetComponent<BasicAttacks>();
 		m_actorReference	= GetComponent<Actor>();
-        m_stateList			= new List<IState>();
+        m_stateList				= new List<IState>();
         
         // Pre-load the state objects into the state list. This is all done at compile time. 
         m_stateList.Add( new StandingState() );
@@ -67,8 +69,8 @@ public class PlayerFSM : MonoBehaviour {
 	
 	void Update () 
 	{
-		currentState.ExecuteState();
 		currentState.ExitConditions();
+		currentState.ExecuteState();
 	}
 
 
@@ -159,14 +161,9 @@ public class PlayerFSM : MonoBehaviour {
 	/// </summary>
 	/// <param name="ID">Attack List Identifier.</param>
 	/// <returns></returns>
-    public AttackList GetAttackList( string ID )
+	public BasicAttacks GetAttackList()
     {
-        for ( int i = 0; i < m_attackList.Length; i++ )
-        {
-            if ( m_attackList[i].GetID() == ID )
-                return m_attackList[i];
-        }
-        return default( AttackList );
+		return m_attackList;
     }
 
 	/// <summary>
@@ -182,10 +179,42 @@ public class PlayerFSM : MonoBehaviour {
 	/// <summary>
 	/// Getter/Setter for the current attack.
 	/// </summary>
-	public AttackList.AttackStruct CurrentAttack
+	public AbstractAttack CurrentAttack
 	{
 		get { return m_currentAttack; }
 		set { m_currentAttack = value; }
+	}
+
+	/// <summary>
+	/// Block the state switch for X seconds.
+	/// </summary>
+	/// <param name="_time">Time to block the state switch for.</param>
+	/// <returns></returns>
+	public void BlockStateSwitch( float _time )
+	{
+		if ( !m_block )
+		{
+			m_blockTimer = _time;
+			m_block = true;
+		}
+		else
+		{
+			m_blockTimer -= Time.deltaTime;
+			if ( m_blockTimer <= 0.0f )
+			{
+				m_block = false;
+				m_blockTimer = 0.0f;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Add more time to the current state blocking. 
+	/// </summary>
+	/// <param name="_time">Time to be added.</param>
+	public void AddBlockingTime( float _time )
+	{
+		m_blockTimer += _time;
 	}
 
 }
