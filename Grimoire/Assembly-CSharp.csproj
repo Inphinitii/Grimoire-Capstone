@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ParticleManager.cs" />
+     <Compile Include="Assets\Scripts\OnDestroyParticle.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\ColliderController.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\DestroyOverTime.cs" />

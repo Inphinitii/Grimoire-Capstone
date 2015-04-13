@@ -42,8 +42,8 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 11415544, guid: 5fad49e82ff25784fa1ad8b0ed572291, type: 2}
   forceType: 0
-  particleOnHit: {fileID: 19857684, guid: f9f33534202839447ad0150ff9fdbd61, type: 2}
-  particleOnUse: {fileID: 0}
+  particleOnHit: {fileID: 0}
+  particleOnUse: {fileID: 19879072, guid: 22258bad411197e4ab79331b50293c57, type: 2}
   startupFrames: 5
   durationFrames: 10
   cooldownFrames: 3
@@ -58,6 +58,7 @@ MonoBehaviour:
   groundKnockBack: 0
   airKnockBack: 0
   mineObject: {fileID: 106678, guid: 0251aa628f23353429c8d82e89e823c1, type: 2}
+  onDestroyParticle: {fileID: 19899996, guid: a6db01b734bc52046b2ba57ddccc89e7, type: 2}
   allowMovement: 0
 --- !u!1001 &100100000
 Prefab:

@@ -7,6 +7,15 @@ public class MineHurtBox : AbstractHurtBox
 	public float		hitForce;
 	public bool		hitAlongDistanceVector;
 
+	public override void Start()
+	{
+		transform.parent = null;
+	}
+	public override void Update()
+	{
+		this.transform.position = m_reference.transform.position;
+	}
+
 	public override void OnHurtboxHit( Collider2D _collider )
 	{
 		base.OnHurtboxHit( _collider );
@@ -21,7 +30,6 @@ public class MineHurtBox : AbstractHurtBox
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
 		StartCoroutine( FreezePlayers( _enemy ) );
-		//ApplyForce( _enemy );
 	}
 
 	public override void OnAnyHit()
@@ -50,7 +58,7 @@ public class MineHurtBox : AbstractHurtBox
 	public void ApplyForce( Collider2D _collider )
 	{
 
-		Vector2 direction = ( _collider.transform.position - this.gameObject.transform.position ).normalized;
+		Vector2 direction = ( _collider.transform.position + new Vector3(0.0f, 1.0f, 0.0f) - m_reference.transform.position ).normalized;
 
 		if ( !hitAlongDistanceVector )
 		{
@@ -71,10 +79,6 @@ public class MineHurtBox : AbstractHurtBox
 		_otherCharge.SetFreezeTimer( true );
 		_otherAnimator.speed = 0.0f;
 
-		////Instantiate Particle Systems
-		//Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
-		//Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity );
-
 		yield return new WaitForSeconds(0.2f );
 
 		_otherPhys.PausePhysics( false );
@@ -85,7 +89,11 @@ public class MineHurtBox : AbstractHurtBox
 
 
 		ApplyForce( _collider );
-		Destroy( this.transform.parent.gameObject );
+
+		Instantiate( m_reference.GetComponent<OnDestroyParticle>().particleToUse, m_reference.transform.position, Quaternion.identity );
+		Destroy( m_reference );
+		Destroy( this.gameObject );
+
 
 
 	}

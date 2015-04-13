@@ -17,18 +17,24 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 	public bool drawGizmo = true;
 
 	protected BoxCollider2D	m_boxCollider;
-	protected Transform m_parent;
+	protected Transform		m_parent;
+	protected GameObject	m_reference;
 
 	void Awake()
 	{
 		gameObject.tag = "HurtBox";
 	}
 
-	void Start()
+	public virtual void Start()
 	{
 		m_boxCollider = GetComponent<BoxCollider2D>();
 		m_boxCollider.isTrigger = true;
 		m_parent = transform.parent.transform;
+	}
+
+	public virtual void Update()
+	{
+
 	}
 
     /// <summary>
@@ -107,6 +113,11 @@ public abstract class AbstractHurtBox : MonoBehaviour {
         else
             OnAnyHit();
     }
+
+	public void SetReference(GameObject _obj)
+	{
+		m_reference = _obj;
+	}
 
 	void OnDrawGizmos()
 	{

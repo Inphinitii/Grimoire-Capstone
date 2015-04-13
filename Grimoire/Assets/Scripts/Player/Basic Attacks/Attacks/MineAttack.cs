@@ -13,6 +13,7 @@ public class MineAttack : AbstractAttack
 {
 
 	public GameObject mineObject;
+	public ParticleSystem onDestroyParticle;
 	public bool				allowMovement;
 	private float				m_onHitFreezeDuration = 0.25f;
 
@@ -57,13 +58,17 @@ public class MineAttack : AbstractAttack
 
 	private void SpawnMineObject()
 	{
-		AbstractHurtBox _temp;
 		GameObject _mine = (GameObject)Instantiate( mineObject, m_parentActor.gameObject.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ), Quaternion.identity );
+		_mine.AddComponent<OnDestroyParticle>().particleToUse = onDestroyParticle;
 
+		ParticleSystem _particles = (ParticleSystem)Instantiate( particleOnUse, _mine.transform.position, Quaternion.identity );
+		_particles.transform.parent = _mine.transform;
+
+		AbstractHurtBox _temp;
 		for ( int i = 0; i < boxColliders.Length; i++ )
 		{
 			_temp = (AbstractHurtBox)Instantiate( boxColliders[i], this.transform.position, transform.parent.transform.rotation );
-			_temp.transform.parent = _mine.transform;
+			_temp.SetReference( _mine );
 			_temp.SetForce( forceType );
 			_temp.EnableHurtBox();
 		}
