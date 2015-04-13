@@ -73,6 +73,28 @@ public class SpellCharges : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Check through the array of charges for an available charge to be consumed.
+	/// </summary>
+	/// <param name="_time"> Timer to use on the specific charge. </param>
+	/// <returns>
+	/// True if an available charge is found.
+	///	False if no available charge is found.
+	///	</returns>
+	public bool UseCharge(float _time)
+	{
+		for ( int i = 0; i < maxSpellCharges; i++ )
+		{
+			if ( m_Charges[i].isActive == true )
+			{
+				m_Charges[i].SetRechargeTime( _time );
+				m_Charges[i].ConsumeCharge();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/// <summary>
 	/// Reset all of the charges in the array of charges to their default values.
 	/// </summary>
 	public void ResetCharges()

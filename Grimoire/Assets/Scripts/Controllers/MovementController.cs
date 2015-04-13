@@ -300,8 +300,7 @@ public class MovementController : MonoBehaviour {
 	/// <summary>
 	/// Check whether or not the player is grounded using a single raycast.
 	/// </summary>
-	/// TODO: Sliding on Slopes?
-    void GroundCheck() {
+    public void GroundCheck() {
 		m_onGround	= m_groundCheck.CastRayVelocity( m_physicsController.Velocity.y, groundCheckLayerMask );
 
 		if(m_fallThrough)

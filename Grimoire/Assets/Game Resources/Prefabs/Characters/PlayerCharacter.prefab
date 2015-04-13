@@ -174,6 +174,7 @@ GameObject:
   - 114: {fileID: 11468194}
   - 114: {fileID: 11465848}
   - 114: {fileID: 11414414}
+  - 114: {fileID: 11487238}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -755,21 +756,13 @@ MonoBehaviour:
   attackListID: Basic Attacks
   useActorForce: 1
   forceType: 1
-  crouchingAttack: {fileID: 11436934, guid: 405ee685611b64f4392ed1cf42ff07f6, type: 2}
+  crouchingAttack: {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
   standingNeutral: {fileID: 11416324, guid: 183c5e1901351514ba4ec2a746a37cdb, type: 2}
   standingAir: {fileID: 11449236, guid: edb88a6a03360f94a9eb2973e0c94c25, type: 2}
   airNeutral: {fileID: 11446226, guid: 6ef55ad70fc815246bc80f43e81910b4, type: 2}
   airBack: {fileID: 11475860, guid: 4584a291a3c8c5540a4b38c310dd6801, type: 2}
   airFront: {fileID: 11435460, guid: 9974a71a6f177294b90bc3000390671a, type: 2}
   airDown: {fileID: 11488184, guid: 047cd90d0b8fe274bbb7f0d9d9f7c14a, type: 2}
-  attackNames:
-  - CrouchingAttack
-  - StandingNeutral
-  - StandingUp
-  - NeutralAir
-  - BackAir
-  - DownAir
-  - FrontAir
   attackList:
   - {fileID: 11435220, guid: 1bc14c275b6347c428b9bf36e36d7a90, type: 2}
   - {fileID: 11416324, guid: 183c5e1901351514ba4ec2a746a37cdb, type: 2}
@@ -855,6 +848,20 @@ MonoBehaviour:
   actorName: Player 1
   actorColor: {r: 0, g: .793103218, b: 1, a: 0}
   forceType: 2
+--- !u!114 &11487238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce17336f765a0245beced39e058fad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPages: 0
+  grimoirePages:
+  - {fileID: 11472558, guid: 7402acde57b989b4a962c1dfcc862ee8, type: 2}
 --- !u!114 &11497330
 MonoBehaviour:
   m_ObjectHideFlags: 1

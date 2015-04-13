@@ -8,6 +8,7 @@ TagManager:
   - SpawnPoint
   - RespawnPoint
   - HurtBox
+  - Floor
   layers:
   - Default
   - TransparentFX

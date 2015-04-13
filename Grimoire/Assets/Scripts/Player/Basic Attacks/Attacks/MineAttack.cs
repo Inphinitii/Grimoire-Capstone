@@ -12,16 +12,16 @@ using System.Collections;
 public class MineAttack : AbstractAttack
 {
 
-	public GameObject mineObject;
+	public GameObject		mineObject;
 	public ParticleSystem onDestroyParticle;
-	public bool				allowMovement;
-	private float				m_onHitFreezeDuration = 0.25f;
+	public float					mineLifetime;
+	public bool					allowMovement;
+
 
 
 	public override void Start()
 	{
 		m_exitFlag			= false;
-		m_parentActor	= this.transform.parent.gameObject.GetComponent<Actor>();
 	}
 
 	public override void Update()
@@ -31,6 +31,7 @@ public class MineAttack : AbstractAttack
 
 	public override IEnumerator StartAttack()
 	{
+		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
 		yield return new WaitForSeconds( Startup() );
 		SpawnMineObject();
 		yield return new WaitForSeconds( Cooldown() );
@@ -73,53 +74,4 @@ public class MineAttack : AbstractAttack
 			_temp.EnableHurtBox();
 		}
 	}
-
-	/// <summary>
-	/// Freeze the players for a set amount of time in their animator before resuming it. This is going to contribute to the 
-	/// feeling of force applied by an attack. 
-	/// </summary>
-	/// <param name="_collider"></param>
-	/// <returns></returns>
-	public IEnumerator FreezePlayers( Collider2D _collider )
-	{
-		PhysicsController _thisPhys = transform.parent.gameObject.GetComponent<PhysicsController>();
-		SpellCharges _thisCharge = transform.parent.gameObject.GetComponent<SpellCharges>();
-		Animator _thisAnimator = transform.parent.gameObject.GetComponent<Animator>();
-
-		PhysicsController _otherPhys = _collider.gameObject.GetComponent<PhysicsController>();
-		SpellCharges _otherCharge = _collider.gameObject.GetComponent<SpellCharges>();
-		Animator _otherAnimator = _collider.gameObject.GetComponent<Animator>();
-
-		_thisPhys.PausePhysics( true );
-		_otherPhys.PausePhysics( true );
-
-		_thisCharge.SetFreezeTimer( true );
-		_otherCharge.SetFreezeTimer( true );
-
-		_thisAnimator.speed = 0.0f;
-		_otherAnimator.speed = 0.0f;
-
-		//Instantiate Particle Systems
-		Vector3 offSet = new Vector3( 0.0f, 1.0f, 0.0f );
-		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity );
-
-		yield return new WaitForSeconds( m_onHitFreezeDuration );
-
-		_thisPhys.PausePhysics( false );
-		_otherPhys.PausePhysics( false );
-
-		_thisCharge.SetFreezeTimer( false );
-		_otherCharge.SetFreezeTimer( false );
-
-		_thisAnimator.speed = 1.0f;
-		_otherAnimator.speed = 1.0f;
-
-		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-
-
-		ApplyForce( _collider );
-
-
-	}
-
 }

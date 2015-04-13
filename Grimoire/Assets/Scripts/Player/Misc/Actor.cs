@@ -32,6 +32,7 @@ public class Actor : MonoBehaviour
 	ParticleManager			m_particleManager;
 	Renderer						m_renderer;
 	SpellCharges				m_spellCharges;
+	Grimoire						m_grimoire;
 
 	private bool m_invulnerable;
 
@@ -39,12 +40,13 @@ public class Actor : MonoBehaviour
 	{
 		actorName						= "Default";
 		m_actorProperties			= new Properties();
-		m_physicsController		= GetComponent( typeof( PhysicsController ) )					as PhysicsController;
 		m_movementController	= GetComponent( typeof( MovementController ) )				as MovementController;
+		m_physicsController		= GetComponent( typeof( PhysicsController ) )					as PhysicsController;
 		m_boxCollider					= GetComponent( typeof( BoxCollider2D ) )						as BoxCollider2D;
 		m_inputHandler				= GetComponent( typeof( InputHandler ) )							as InputHandler;
 		m_spellCharges				= GetComponent( typeof( SpellCharges ) )						as SpellCharges;
 		m_componentAnimator	= GetComponent( typeof( Animator ) )								as Animator;
+		m_grimoire						= GetComponent( typeof( Grimoire ) )								as Grimoire;
 		m_particleManager			= GetComponentInChildren( typeof( ParticleManager ) )	as ParticleManager;
 		m_renderer						= GetComponentInChildren( typeof( Renderer ) )				as Renderer;
 		m_renderer.material.color = actorColor;
@@ -72,14 +74,15 @@ public class Actor : MonoBehaviour
 		set { actorName = value; }
 	}
 
-	public BoxCollider2D			GetCollider()						{ return m_boxCollider; }
-	public Animator					GetAnimator()						{ return m_componentAnimator; }
 	public MovementController GetMovementController()	{ return m_movementController; }
-	public InputHandler				GetInputHandler()				{ return m_inputHandler; }
 	public PhysicsController		GetPhysicsController()			{ return m_physicsController; }
 	public ParticleManager			GetParticleManager()			{ return m_particleManager; }
-	public Renderer					GetRenderer()						{ return m_renderer; }
 	public SpellCharges				GetSpellCharges()				{ return m_spellCharges; }
+	public InputHandler				GetInputHandler()				{ return m_inputHandler; }
+	public Animator					GetAnimator()						{ return m_componentAnimator; }
+	public Renderer					GetRenderer()						{ return m_renderer; }
+	public Grimoire					GetGrimoire()						{ return m_grimoire; }
+	public BoxCollider2D			GetCollider()						{ return m_boxCollider; }
 
 
 	/// <summary>

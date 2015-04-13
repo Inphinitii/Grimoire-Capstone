@@ -54,7 +54,7 @@ public class GroundCheck : MonoBehaviour
 		RaycastHit2D ray			= Physics2D.Raycast( (Vector2)rayAnchor.position, rayDirection, rayDistance, _collisonMask );
 
 		if(drawDebug)
-			Debug.DrawRay( rayAnchor.position, rayDirection * rayDistance, Color.red );
+			Debug.DrawRay( rayAnchor.position, -rayDirection * rayDistance, Color.red );
 
 		if ( ray.collider != null )
 		{

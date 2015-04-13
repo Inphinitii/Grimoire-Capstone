@@ -9,17 +9,23 @@ using System.Collections;
  * Description: Default attack that uses the virtual implementation within the AbstractAttack. 
  =========================================================*/
 
+//NEEDS REDESIGNING
 public class StraightFallAttack : AbstractAttack
 {
-	public float fallSpeed = 5000f;
+	public float fallSpeed = 1000f;
 	public GameObject spellAnimation;
+	public bool onGroundJump;
+
 	private float m_onHitFreezeDuration = 0.25f;
+
+
 	GameObject _temp;
 
 	public override IEnumerator StartAttack()
 	{
-		BeforeAttack();
+		m_beginAttack = true;
 		yield return new WaitForSeconds( Startup() );
+		m_beginAttack = false;
 		m_duringAttack = true;
 	}
 
@@ -28,6 +34,12 @@ public class StraightFallAttack : AbstractAttack
 		base.Start();
 	}
 
+	void FixedUpdate()
+	{
+		if ( m_beginAttack )
+			BeforeAttack();
+
+	}
 	public override void Update()
 	{
 		base.Update();
@@ -50,24 +62,43 @@ public class StraightFallAttack : AbstractAttack
 
 	public override void BeforeAttack()
 	{
-		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( true );
-		m_parentActor.GetPhysicsController().applyGravity = false;
-		m_parentActor.GetPhysicsController().ClearValues();
+		if ( onGroundJump )
+		{
+			m_parentActor.GetPhysicsController().Velocity = new Vector2( m_parentActor.GetPhysicsController().Velocity.x, 50.0f );
+			m_parentActor.GetMovementController().SetJumping( true );
+			m_parentActor.GetPhysicsController().applyGravity = true;
+			m_parentActor.GetMovementController().MoveX( m_parentActor.GetInputHandler().LeftStick() * 0.80f );
+		}
+		else 
+		{
+			m_parentActor.GetPhysicsController().ClearValues();
+			m_parentActor.GetPhysicsController().PausePhysics( true );
+			m_parentActor.GetPhysicsController().applyGravity = true;
+		}
+
 	}
 
 	public override void DuringAttack()
 	{
 		transform.parent.gameObject.GetComponent<PhysicsController>().PausePhysics( false );
+
 		if ( m_parentActor.GetMovementController().IsJumping() )
 		{
 			m_parentActor.GetMovementController().m_capAcceleration = false;
-			m_parentActor.GetPhysicsController().Forces = -Vector2.up * fallSpeed;
+			m_parentActor.GetPhysicsController().Forces = -Vector2.up * 100.0f;
+
+			RaycastHit2D ray	 = Physics2D.Raycast( m_parentActor.transform.position, -Vector2.up);
+			if ( ray.collider.tag == "Floor" || ray.collider.tag == "Platform" )
+				m_parentActor.transform.position = (Vector2)ray.point + new Vector2( 0.0f, 0.1f );
+
+
 		}
 		else
 		{
 			Camera.main.GetComponent<CameraShake>().Shake();
 			if(m_parentActor.GetMovementController().IsOnGround())
 				_temp = (GameObject)Instantiate( spellAnimation, m_parentActor.gameObject.transform.position, Quaternion.identity );
+
 			m_parentActor.GetMovementController().m_capAcceleration = true;
 			m_parentActor.GetPhysicsController().applyGravity = true;
 			m_duringAttack = false;

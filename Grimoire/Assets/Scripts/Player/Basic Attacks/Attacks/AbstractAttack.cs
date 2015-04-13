@@ -39,7 +39,10 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float	airKnockBack;
 
 	protected AbstractHurtBox[]	m_childHurtBoxes;
+	protected bool							m_beginAttack;
 	protected bool							m_duringAttack;
+	protected bool							m_afterAttack;
+
 	protected bool							m_exitFlag;
 	protected Actor						m_parentActor;
 	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
@@ -51,12 +54,16 @@ public abstract class AbstractAttack : MonoBehaviour
 	public virtual IEnumerator StartAttack()
 	{
 		BeforeAttack();
+		m_beginAttack	= true;
 		yield return new WaitForSeconds( Startup() );
-		m_duringAttack = true;
+		m_beginAttack	= false;
+		m_duringAttack	= true;
 		yield return new WaitForSeconds( Duration() );
-		m_duringAttack = false;
+		m_duringAttack	= false;
+		m_afterAttack		= true;
 		AfterAttack();
 		yield return new WaitForSeconds( Cooldown() );
+		m_afterAttack		= false;
 	}
 
 	/// <summary>

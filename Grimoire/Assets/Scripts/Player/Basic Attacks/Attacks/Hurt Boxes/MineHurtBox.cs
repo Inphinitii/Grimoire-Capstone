@@ -7,6 +7,8 @@ public class MineHurtBox : AbstractHurtBox
 	public float		hitForce;
 	public bool		hitAlongDistanceVector;
 
+	private float lifetime = 5.0f;
+
 	public override void Start()
 	{
 		transform.parent = null;
@@ -14,10 +16,25 @@ public class MineHurtBox : AbstractHurtBox
 	public override void Update()
 	{
 		this.transform.position = m_reference.transform.position;
+
+		if ( m_reference.GetComponent<PhysicsController>().Velocity != Vector2.zero )
+		{
+			Vector3 temp = m_reference.GetComponent<PhysicsController>().Velocity;
+			temp.x *= 0.95f;
+			temp.y *= 0.95f;
+			m_reference.GetComponent<PhysicsController>().Velocity = temp;
+		}
+
+		if ( lifetime > 0.0f )
+			lifetime -= Time.deltaTime;
+		else
+			DestroyObject();
 	}
 
 	public override void OnHurtboxHit( Collider2D _collider )
 	{
+		Vector3 direction = (_collider.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ) - m_reference.transform.position).normalized;
+		m_reference.GetComponent<PhysicsController>().Velocity = -direction * 35.0f;
 		base.OnHurtboxHit( _collider );
 	}
 
@@ -29,12 +46,20 @@ public class MineHurtBox : AbstractHurtBox
 	public override void OnEnemyHit( Collider2D _enemy )
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
+		m_reference.GetComponent<PhysicsController>().ClearValues();
+		m_reference.GetComponent<PhysicsController>().PausePhysics(true);
 		StartCoroutine( FreezePlayers( _enemy ) );
 	}
 
 	public override void OnAnyHit()
 	{
 		base.OnAnyHit();
+	}
+
+	private void FloorHit(Collider2D _collider)
+	{
+		if ( m_reference.gameObject.GetComponent<PhysicsController>().Velocity != Vector2.zero )
+			DestroyObject();
 	}
 
 	public override void OnTriggerEnter2D(Collider2D _collider)
@@ -48,10 +73,12 @@ public class MineHurtBox : AbstractHurtBox
         }
 		else if (_collider.gameObject.tag == "HurtBox")
 		{
-			if ( _collider.gameObject.GetComponent<AbstractHurtBox>().forceType != forceType )
+			if ( _collider.gameObject.GetComponent<AbstractHurtBox>().forceType == forceType )
 				OnHurtboxHit( _collider );
 		}
-        else
+        else if(_collider.gameObject.tag == "Floor" || _collider.gameObject.tag == "Platform" )
+			 FloorHit(_collider);
+		else
             OnAnyHit();
 	}
 
@@ -90,11 +117,13 @@ public class MineHurtBox : AbstractHurtBox
 
 		ApplyForce( _collider );
 
+		DestroyObject();
+	}
+
+	public void DestroyObject()
+	{
 		Instantiate( m_reference.GetComponent<OnDestroyParticle>().particleToUse, m_reference.transform.position, Quaternion.identity );
 		Destroy( m_reference );
 		Destroy( this.gameObject );
-
-
-
 	}
 }
