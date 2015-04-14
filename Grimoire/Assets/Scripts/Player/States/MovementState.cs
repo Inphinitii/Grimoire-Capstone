@@ -27,7 +27,7 @@ namespace PlayerStates
 		public override void ExitConditions()
 		{
 			if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )
-				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() )
+				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge(1.0f) )
 					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 
 			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )

@@ -63,7 +63,6 @@ public class AbstractMenu : MonoBehaviour
 		{
 			if(GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.A, (GamepadInput.GamePad.Index)controllerNumber))
 			{
-				Debug.Log( "Ding" );
 				//GOLDEN PIECE OF UI CODE
 				ExecuteEvents.Execute<ISubmitHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.submitHandler);
 			}

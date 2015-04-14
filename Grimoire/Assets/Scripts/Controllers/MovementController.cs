@@ -9,20 +9,22 @@ public class MovementController : MonoBehaviour {
 	//TODO NEEDS REFACTORING 
     //Acceleration
     public float groundAccel	= 100.0f;
-    public float airAccel			= 25.0f;
+    public float airAccel		= 25.0f;
     public float jumpAccel		= 12.0f;
 
     //Maximum Accelerations
     public float maxGroundAccel	= 12.0f;
-    public float maxAirAccel			= 12.0f;
+    public float maxAirAccel	= 12.0f;
 
     //Dampeners
+    [Range( 0, 1)]
     public float groundDampeningConstant	= 0.88f;
-    public float airDampeningConstant			= 0.98f;
+    [Range( 0, 1 )]
+    public float airDampeningConstant		= 0.98f;
 
     //Turning Modifiers
-    public float groundTurningConstant = 3.0f;
-    public float airTurningConstant			= 0.1f;
+    public float groundTurningConstant	= 3.0f;
+    public float airTurningConstant		= 0.1f;
 
 	//Fast Fall Variables
     public float fastFallRate = 100.0f;
@@ -30,20 +32,20 @@ public class MovementController : MonoBehaviour {
 	public bool groundCheck;
 
 	//Jumping Variables
-    public int	  totalJumps	= 2;
+    public int	 totalJumps = 2;
     private int  jumpCount	= 0;
 
 	//Collision Variables
 	public	LayerMask groundCheckLayerMask;
 	public	LayerMask platformLayerMask;
 
-	private LayerMask	mCurrentMask;
+	private LayerMask   mCurrentMask;
 
 	//Reference Variables
-	private Actor					m_actorReference;
+	private Actor				m_actorReference;
     private PhysicsController	m_physicsController;
     private InputHandler		m_inputHandler;
-	private GroundCheck		m_groundCheck;
+	private GroundCheck		    m_groundCheck;
 
 	//Movement Booleans
     private bool		m_isJumping;
@@ -75,10 +77,10 @@ public class MovementController : MonoBehaviour {
     //TODO FALLING THROUGH PLATFORMS 
 
     void Start() {
-        m_inputHandler				= GetComponent<InputHandler>();
-        m_physicsController		= GetComponent<PhysicsController>();
-		m_groundCheck				= GetComponent<GroundCheck>();
-		m_actorReference			= GetComponent<Actor>();
+        m_inputHandler		= GetComponent<InputHandler>();
+        m_physicsController	= GetComponent<PhysicsController>();
+		m_groundCheck		= GetComponent<GroundCheck>();
+		m_actorReference	= GetComponent<Actor>();
         m_isJumping			= true;
 		groundCheck			= true;
 		m_capAcceleration	= true;
@@ -93,7 +95,7 @@ public class MovementController : MonoBehaviour {
 	{
 		turningMultiplier = 1.0f;
 
-		turningSpeedType			= !m_isJumping ? groundTurningConstant : airTurningConstant;
+		turningSpeedType		= !m_isJumping ? groundTurningConstant : airTurningConstant;
 		movementSpeedType		= !m_isJumping ? groundAccel : airAccel;
 		dampeningConstant		= !m_isJumping ? groundDampeningConstant : airDampeningConstant;
 

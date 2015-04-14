@@ -54,9 +54,9 @@ public class InputHandler : MonoBehaviour
 	//Controller Information
 	public int		m_playerNumber = 0;
 	private bool	m_freezeMovement,
-						m_freezeKeypress,
-						m_active,
-						m_combinationCheck;
+					m_freezeKeypress,
+					m_active,
+					m_combinationCheck;
 
 	#region Controller Inputs
 	private InputButton m_XButton,
@@ -124,14 +124,14 @@ public class InputHandler : MonoBehaviour
 		}
 	}
 
-	public InputButton Attack() { return m_XButton; }
-	public InputButton Jump() { return m_AButton; }
-	public InputButton SpellSwap() { return m_YButton; }
-	public InputButton Special() { return m_BButton; }
-	public InputButton LB() { return m_leftShoulder; }
-	public InputButton RB() { return m_rightShoulder; }
-	public InputTrigger LT() { return m_leftTrigger; }
-	public InputTrigger RT() { return m_rightTrigger; }
+	public InputButton Attack()     { return m_XButton; }
+	public InputButton Jump()       { return m_AButton; }
+	public InputButton SpellSwap()  { return m_YButton; }
+	public InputButton Special()    { return m_BButton; }
+	public InputButton LB()         { return m_leftShoulder; }
+	public InputButton RB()         { return m_rightShoulder; }
+	public InputTrigger LT()        { return m_leftTrigger; }
+	public InputTrigger RT()        { return m_rightTrigger; }
 	public InputTrigger Triggers()
 	{
 		m_rightTrigger.lastFrame += m_leftTrigger.lastFrame;
