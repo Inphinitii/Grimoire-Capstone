@@ -56,7 +56,7 @@ public class StraightFallAttack : AbstractAttack
 		Camera.main.GetComponent<CameraShake>().Shake();
 
 		//Add the attack delay to the blocking timer. Do we want this?
-		transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
+		//transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
 		base.HitEnemy( _collider );
 	}
 

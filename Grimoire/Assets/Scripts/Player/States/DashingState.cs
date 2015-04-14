@@ -14,11 +14,10 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			Physics2D.IgnoreLayerCollision( LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true );
 			GetFSM().StartChildCoroutine( DashInvulnerability() );
+			Physics2D.IgnoreLayerCollision( LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true );
 			if(m_dashComponent == null)
 				m_dashComponent = m_playerFSM.gameObject.GetComponent<Dash>();
-
 
 			m_dashComponent.StartDash( m_playerFSM.GetInput().LeftStick() );
 			GetFSM().BlockStateSwitch( m_dashComponent.dashDuration );
@@ -38,14 +37,17 @@ namespace PlayerStates
 		public override void ExitConditions()
 		{
 			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
-			{
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
-			}
 
 			if ( m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers().thisFrame > 0.5f && m_playerFSM.GetInput().Triggers().lastFrame < 0.5f )
 			{
 				m_dashComponent.ForceCompletion = true;
-				m_playerFSM.GoToPreviousState( true );
+				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
+					GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
+				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x != 0)
+					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, true );
+				if ( GetFSM().GetMovement().IsJumping() )
+					GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
 			}
 
 		}

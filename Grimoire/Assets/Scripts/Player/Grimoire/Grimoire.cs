@@ -1,76 +1,120 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*========================================================
+ * Author: Tyler Remazki
+ *
+ * Class : Grimoire
+ *
+ * Description: Data structure that keeps track of the current Pages equipped in the Grimoire.
+ * Handles the use of spell charges when a page is used. 
+ =========================================================*/
+
+[RequireComponent(typeof(SpellCharges))]
 public class Grimoire : MonoBehaviour
 {
 
-	public int maxPages;
 	public Page[]	grimoirePages;
+	public int			maxPages;
 
 
-	private int m_PageAmount;
-	private int m_SelectedPageIndex;
+	private SpellCharges	m_spellCharges;
+	private Page[]				m_internalPages;
+	private Page					m_SelectedPage	= null;
+	private int					m_PageAmount	= 0;
 
-	private Page[] internalPages;
-	private Page		m_SelectedPage;
+
 
 	void Start()
 	{
+		m_PageAmount	= 0;
+		m_SelectedPage = null;
+		m_spellCharges	= GetComponent<SpellCharges>();
+
 		if ( grimoirePages.Length > 0 )
 		{
 			m_PageAmount	= grimoirePages.Length;
-			internalPages		= new Page[m_PageAmount];
+			m_internalPages = new Page[m_PageAmount];
 
 			for ( int i = 0; i < m_PageAmount; i++ )
 			{
-				internalPages[i]								= Instantiate( grimoirePages[i], this.gameObject.transform.position, Quaternion.identity ) as Page;
-				internalPages[i].transform.parent	= this.gameObject.transform;
-				internalPages[i].parent					= this.gameObject;
+				grimoirePages[i].enabled = false;
+				m_internalPages[i] = Instantiate( grimoirePages[i], this.gameObject.transform.position, Quaternion.identity ) as Page;
+				m_internalPages[i].transform.parent = this.gameObject.transform;
+				m_internalPages[i].parent = this.gameObject;
 			}
-
-			m_SelectedPage = internalPages[0];
-		}
-		else
-		{
-			m_PageAmount	= 0;
-			m_SelectedPage = null;
+			PostStart();
+			m_SelectedPage = m_internalPages[0];
 		}
 	}
 
+	/// <summary>
+	/// Run after the initial Start method to ensure the objects are initialized in the correct order. 
+	/// </summary>
+	void PostStart()
+	{
+		for ( int i = 0; i < m_PageAmount; i++ )
+			m_internalPages[i].Init();
+	}
+
+	/// <summary>
+	/// Use the page currently set as selected. Requires a SpellCharge to use.
+	/// </summary>
+	/// <param name="_type">Which type of attack to use on the given page.</param>
+	/// <returns>The AbstractAttack reference.</returns>
 	public AbstractAttack UseCurrentPage(Page.Type _type)
 	{
-		return m_SelectedPage.UsePage( _type );
+		if(m_spellCharges.UseCharge(GetRefreshRate()))
+			return m_SelectedPage.UsePage( _type );
+		return null;
 	}
 
+	/// <summary>
+	/// Returns the refresh rate for this page.
+	/// </summary>
+	/// <returns>Currently selected page refresh rate.</returns>
 	public float GetRefreshRate()
 	{
-		return m_SelectedPage.ChargeRefresh;
+		return m_SelectedPage.chargeRefresh;
 	}
 
+	/// <summary>
+	/// Add a page to the Grimoire
+	/// </summary>
+	/// <param name="_page">Page Object</param>
 	public void AddPage( Page _page )
 	{
-		internalPages[m_PageAmount] = _page;
+		m_internalPages[m_PageAmount] = _page;
 		m_PageAmount++;
 	}
 
+	/// <summary>
+	/// Remove a page from the Grimoire
+	/// </summary>
+	/// <param name="_page">Page Object</param>
 	public void RemovePage( int _index )
 	{
-		internalPages[_index] = null;
+		m_internalPages[_index] = null;
 		m_PageAmount--;
 	}
 
+	/// <summary>
+	/// Set a page at the index
+	/// </summary>
+	///<param name="_index">Index in the array</param>
+	///<param name="_page">Page Object</param>
 	public void SetPage( int _index, Page _page )
 	{
-		internalPages[_index] = _page;
+		m_internalPages[_index] = _page;
 	}
 
+	/// <summary>
+	/// Return the page at the given index
+	/// </summary>
+	/// <param name="_index">Index in the array</param>
+	/// <returns>Page object</returns>
 	public Page GetPage( int _index )
 	{
-		return internalPages[_index];
-	}
-
-	void Update()
-	{
-
+		return m_internalPages[_index];
 	}
 }

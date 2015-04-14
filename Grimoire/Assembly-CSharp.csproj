@@ -100,6 +100,7 @@
      <Compile Include="Assets\Scripts\Player\Misc\StageBouncing.cs" />
      <Compile Include="Assets\Scripts\Player\States\AttackState.cs" />
      <Compile Include="Assets\Scripts\Player\States\BounceState.cs" />
+     <Compile Include="Assets\Scripts\Player\States\CancelState.cs" />
      <Compile Include="Assets\Scripts\Player\States\CrouchingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\DashingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\HitState.cs" />

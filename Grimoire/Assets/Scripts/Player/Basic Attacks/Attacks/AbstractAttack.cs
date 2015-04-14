@@ -13,8 +13,6 @@ using System.Collections;
 [System.Serializable]
 public abstract class AbstractAttack : MonoBehaviour
 {
-	//Add a way of altering the way that the player reacts when they're hit
-	//Interface of an OnHit would work well. Call it from within this class.
 	public AbstractHurtBox[]		boxColliders;
 	public Properties.ForceType	forceType;
 
@@ -24,15 +22,11 @@ public abstract class AbstractAttack : MonoBehaviour
 	public int startupFrames;
 	public int durationFrames;
 	public int cooldownFrames;
-	public int onHitCooldownFrames;
-
-	public bool ableToCancel;
 
 	public Vector2	hitDirection;
 	public bool		hitAlongDistanceVector;
 	public float		hitForce;
 	public int			hitDamage;
-	public bool		staticForce;
 	public bool		freezeMovementOnUse;
 
 	public float	groundKnockBack;
@@ -175,6 +169,9 @@ public abstract class AbstractAttack : MonoBehaviour
 			direction.y   = hitDirection.y;
 		}
 
+		_collider.gameObject.GetComponent<PhysicsController>().ClearValues();
+		transform.parent.gameObject.GetComponent<PhysicsController>().ClearValues();
+
 		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
 		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * groundKnockBack;
 	}
@@ -204,7 +201,6 @@ public abstract class AbstractAttack : MonoBehaviour
 	public float Duration()				{ return durationFrames * FRAME_TIME;				}
 	public float Startup()				{ return startupFrames * FRAME_TIME;				}
 	public float Cooldown()			{ return cooldownFrames * FRAME_TIME;			}
-	public float OnHitCooldown()	{ return onHitCooldownFrames * FRAME_TIME;	}
 
 	public bool GetExitFlag() { return m_exitFlag; }
 	public void SetExitFlag( bool _bool ) { m_exitFlag = _bool; }

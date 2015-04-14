@@ -19,28 +19,16 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
-				float _recharge = GetFSM().GetActorReference().GetGrimoire().GetRefreshRate();
-				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge( _recharge ) )
-				{
-					GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
-
-			}
-
-			if ( GetFSM().GetInput().Attack().thisFrame )
-			{
-
-			}
-
-			
+				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
+				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+			}			
 		}
 
 		public override void ExitConditions()
 		{
 			if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )
 				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge() )
-						GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
+					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 
 			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );

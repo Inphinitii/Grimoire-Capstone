@@ -21,7 +21,6 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
-			Debug.Log( "bounce" );
 			m_playerFSM.GetActorReference().GetMovementController().groundCheck = true;
 		}
 

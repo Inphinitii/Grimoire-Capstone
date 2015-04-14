@@ -38,13 +38,8 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
-				float _recharge = GetFSM().GetActorReference().GetGrimoire().GetRefreshRate();
-				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge( _recharge ) )
-				{
-					GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.AIR_NEUTRAL );
-					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
-				}
-
+				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.AIR_NEUTRAL );
+				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 			}
 
 			if ( GetFSM().GetInput().Attack().thisFrame )

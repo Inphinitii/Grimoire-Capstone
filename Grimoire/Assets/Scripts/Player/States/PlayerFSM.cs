@@ -24,6 +24,7 @@ public class PlayerFSM : MonoBehaviour {
         HIT,
 		BOUNCE,
         DASHING,
+		CANCEL,
         FALLING,
 		LANDING
     };
@@ -55,6 +56,7 @@ public class PlayerFSM : MonoBehaviour {
 		m_stateList.Add( new HitState() );
 		m_stateList.Add( new BounceState() );
 		m_stateList.Add( new DashingState() );
+		m_stateList.Add( new CancelState() );
 
 
         foreach (IState item in m_stateList)

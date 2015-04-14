@@ -11,16 +11,37 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-	public AbstractStage stageObject;
-	public Actor[]		 playerActors;
+	public static GameManager instance = null;
+	public static AbstractStage stageObject;
+	public static Actor[]				playerActors;
 
+	void Awake()
+	{
+		if ( instance == null )
+			instance = this;
+		else if ( instance != this )
+			Destroy( gameObject );
+
+		DontDestroyOnLoad( this );
+	}
 	void Start()
 	{
-		DontDestroyOnLoad( this );
+		//Temporary hook up
+		playerActors = FindObjectsOfType<Actor>();
 	}
 
 	void Update()
 	{
 
+	}
+
+	public static Actor[] GetAllActors()
+	{
+		return playerActors;
+	}
+
+	public static AbstractStage GetStageObject()
+	{
+		return stageObject;
 	}
 }

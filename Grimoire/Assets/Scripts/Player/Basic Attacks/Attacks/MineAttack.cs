@@ -57,6 +57,11 @@ public class MineAttack : AbstractAttack
 		throw new System.NotImplementedException();
 	}
 
+	public override void HitHurtBox( Collider2D _collider )
+	{
+		base.HitHurtBox( _collider );
+	}
+
 	private void SpawnMineObject()
 	{
 		GameObject _mine = (GameObject)Instantiate( mineObject, m_parentActor.gameObject.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ), Quaternion.identity );

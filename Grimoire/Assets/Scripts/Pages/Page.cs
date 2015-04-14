@@ -20,20 +20,23 @@ public class Page : MonoBehaviour
 		AIR_DIRECTIONAL
 	};
 
-	public bool useActorForce;
-	public GameObject parent;
 	public Properties.ForceType forceType;
-	public float ChargeRefresh;
+	public GameObject				parent;
+	public bool							useActorForce;
+	public float							chargeRefresh;
 
 	public AbstractAttack standingNeutral;
 	public AbstractAttack standingDirectional;
 	public AbstractAttack airNeutral;
 	public AbstractAttack airDirectional;
 
-	private AbstractAttack[] m_attacks;
-	private AbstractAttack _tempAtk;
+	private AbstractAttack[]	m_attacks;
 
-	void Start()
+	/// <summary>
+	/// Initialize the page. Used instead of the default MonoBehaviour Start() to ensure that things
+	/// are created in a particular order.
+	/// </summary>
+	public virtual void Init()
 	{
 		m_attacks = new AbstractAttack[4];
 		m_attacks[0] = standingNeutral;
@@ -44,6 +47,7 @@ public class Page : MonoBehaviour
 		if(useActorForce)
 			forceType = parent.GetComponent<Actor>().forceType;
 
+		AbstractAttack _tempAtk;
 		for ( int i = 0; i < m_attacks.Length; i++ )
 		{
 			_tempAtk									= (AbstractAttack)Instantiate( m_attacks[i], this.transform.position, Quaternion.identity ) as AbstractAttack;
@@ -53,17 +57,21 @@ public class Page : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Use the page and return the AbstractAttack to the PlayerFSM.
+	/// </summary>
+	/// <param name="_type">Type of attack.</param>
+	/// <returns>AbstractAttack Reference.</returns>
 	public virtual AbstractAttack UsePage( Type _type )
 	{
+		OnPageUse();
 		return m_attacks[(int)_type];
 	}
 
+	/// <summary>
+	/// Called when the page is used.
+	/// </summary>
     public virtual void OnPageUse()
-    {
-
-    }
-
-    public virtual void OnPageRelease()
     {
 
     }

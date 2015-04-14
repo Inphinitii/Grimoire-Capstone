@@ -42,7 +42,7 @@ public class DefaultAttack : AbstractAttack {
 			Camera.main.GetComponent<CameraShake>().Shake();
 
 			//Add the attack delay to the blocking timer. Do we want this?
-			transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
+		//	transform.parent.gameObject.GetComponent<PlayerFSM>().AddBlockingTime( OnHitCooldown() );
 			base.HitEnemy( _collider );
 		}
 	}
@@ -101,6 +101,7 @@ public class DefaultAttack : AbstractAttack {
 		Instantiate( particleOnHit, _collider.transform.localPosition + offSet, Quaternion.identity ); 
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
+		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		_thisPhys.PausePhysics( false );
 		_otherPhys.PausePhysics( false );
@@ -111,7 +112,7 @@ public class DefaultAttack : AbstractAttack {
 		_thisAnimator.speed = 1.0f;
 		_otherAnimator.speed = 1.0f;
 
-		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
+
 
 
 		ApplyForce( _collider );

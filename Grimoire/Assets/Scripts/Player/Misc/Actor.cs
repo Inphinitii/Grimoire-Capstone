@@ -120,5 +120,10 @@ public class Actor : MonoBehaviour
 	{
 		return m_invulnerable;
 	}
+
+	public void OnHit()
+	{
+		//Deal with being hit
+	}
 	#endregion
 }

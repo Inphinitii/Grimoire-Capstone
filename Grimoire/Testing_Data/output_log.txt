@@ -16,7 +16,7 @@ Platform assembly: C:\Users\Tyler Remazki\Documents\Git Repositories\GrimoireGam
 Loading C:\Users\Tyler Remazki\Documents\Git Repositories\GrimoireGame\Grimoire\Testing_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\Tyler Remazki\Documents\Git Repositories\GrimoireGame\Grimoire\Testing_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Tyler Remazki\Documents\Git Repositories\GrimoireGame\Grimoire\Testing_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.081 seconds
+- Completed reload, in  0.091 seconds
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at -1920,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -28,75 +28,109 @@ NullReferenceException: Object reference not set to an instance of an object
  
 (Filename:  Line: -1)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
 bounce
  
@@ -202,207 +236,283 @@ bounce
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-Mine(Clone) (MineAttack)
+bounce
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at MineHurtBox.OnEnemyHit (UnityEngine.Collider2D _enemy) [0x00000] in <filename unknown>:0 
-  at MineHurtBox.OnTriggerEnter2D (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-Mine(Clone) (MineAttack)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at MineHurtBox.OnEnemyHit (UnityEngine.Collider2D _enemy) [0x00000] in <filename unknown>:0 
-  at MineHurtBox.OnTriggerEnter2D (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at MineHurtBox.OnEnemyHit (UnityEngine.Collider2D _enemy) [0x00000] in <filename unknown>:0 
-  at MineHurtBox.OnTriggerEnter2D (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Mine(Clone) (MineAttack)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-Mine(Clone) (MineAttack)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at MineHurtBox.OnEnemyHit (UnityEngine.Collider2D _enemy) [0x00000] in <filename unknown>:0 
-  at MineHurtBox.OnTriggerEnter2D (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
 
 bounce
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DefaultAttack.HitEnemy (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
-UnityEngine.Component:SendMessageUpwards(String, Object, SendMessageOptions)
-UnityEngine.Component:SendMessageUpwards(String, Object)
-AbstractHurtBox:OnEnemyHit(Collider2D)
-DefaultHurtBox:OnEnemyHit(Collider2D)
-AbstractHurtBox:OnTriggerEnter2D(Collider2D)
- 
-(Filename:  Line: -1)
-
-Mine(Clone) (MineAttack)
+bounce
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at MineHurtBox.OnEnemyHit (UnityEngine.Collider2D _enemy) [0x00000] in <filename unknown>:0 
-  at MineHurtBox.OnTriggerEnter2D (UnityEngine.Collider2D _collider) [0x00000] in <filename unknown>:0 
+bounce
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+bounce
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 

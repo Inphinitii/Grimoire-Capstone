@@ -33,9 +33,9 @@ public class MineHurtBox : AbstractHurtBox
 
 	public override void OnHurtboxHit( Collider2D _collider )
 	{
+		Camera.main.GetComponent<CameraShake>().Shake();
 		Vector3 direction = (_collider.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ) - m_reference.transform.position).normalized;
 		m_reference.GetComponent<PhysicsController>().Velocity = -direction * 35.0f;
-		base.OnHurtboxHit( _collider );
 	}
 
 	public override void OnFriendlyHit( Collider2D _collider )
