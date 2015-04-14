@@ -114,6 +114,14 @@ public class InputHandler : MonoBehaviour
 						ProcessGamepadInput();
 			#endif
 		}
+
+		if(GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any))
+		{
+			if ( FindObjectOfType<MenuManager>().isPaused)
+				FindObjectOfType<MenuManager>().PauseMenu( true );
+			else
+				FindObjectOfType<MenuManager>().PauseMenu( false );
+		}
 	}
 
 	public InputButton Attack() { return m_XButton; }

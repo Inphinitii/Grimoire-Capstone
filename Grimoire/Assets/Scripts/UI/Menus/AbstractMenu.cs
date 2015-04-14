@@ -14,22 +14,23 @@ using System.Collections;
  =================================================================================*/
 
 //TODO FIX ALPHA PROBLEM 
+//MENU STACK FOR THE MENUS AND GOING BACK TO WORK PROPERLY 
 
 [RequireComponent(typeof(CanvasGroup))]
 public class AbstractMenu : MonoBehaviour
 {
 	public int			controllerNumber;	//Which controller number will effect this menu 
-	public bool			verticalMovement;
-	public bool			isActive;
+	public bool		verticalMovement;
+	public bool		isActive;
 
-	private Button[]		m_buttonList;
-	private Button			m_currentSelection;
-	private EventSystem		m_panelEventSystem;
-	private CanvasGroup		m_canvasGroup;
+	private Button[]			m_buttonList;
+	private Button				m_currentSelection;
+	private EventSystem	m_panelEventSystem;
+	private CanvasGroup	m_canvasGroup;
 
-	private int			m_selectionIndex	= 0;
-	private float		m_currentTime		= 0.0f;
-	private const float SCROLL_DELAY		= 0.15f;
+	private int					m_selectionIndex	= 0;
+	private float					m_currentTime		= 0.0f;
+	private const float		SCROLL_DELAY		= 0.15f;
 
 	void Start()
 	{
@@ -60,6 +61,12 @@ public class AbstractMenu : MonoBehaviour
 
 		if ( isActive )
 		{
+			if(GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.A, (GamepadInput.GamePad.Index)controllerNumber))
+			{
+				Debug.Log( "Ding" );
+				//GOLDEN PIECE OF UI CODE
+				ExecuteEvents.Execute<ISubmitHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.submitHandler);
+			}
 			if ( m_buttonList.Length > 0 )
 			{
 				Vector2 input = GamePad.GetAxis( GamepadInput.GamePad.Axis.LeftStick, (GamePad.Index)controllerNumber, true );
@@ -83,9 +90,9 @@ public class AbstractMenu : MonoBehaviour
 		float direction;
 		direction = !_vertical ? -_stick.x : _stick.y;
 
-		if ( direction <= -0.6f )
+		if ( direction < 0.0f)
 			m_selectionIndex++;
-		else if(direction >= 0.6f)
+		else if(direction > 0.0f)
 			m_selectionIndex--;
 
 		if ( m_selectionIndex >= m_buttonList.Length)		

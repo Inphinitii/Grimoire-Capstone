@@ -27,7 +27,7 @@ namespace PlayerStates
 						if ( _distance < 5.0f )
 						{
 							_actors[i].GetPhysicsController().ClearValues();
-							//_actors[i].GetPhysicsController().Velocity = _direction.normalized * 100.0f;
+							_actors[i].GetPhysicsController().Velocity = _direction.normalized * 100.0f; //Push
 						}
 					}
 				}

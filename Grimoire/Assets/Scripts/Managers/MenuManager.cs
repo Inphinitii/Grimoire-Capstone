@@ -7,78 +7,114 @@ public class MenuManager : MonoBehaviour
 	{
 		MAINMENU,
 		OPTIONS,
-		CHARACTERSELECT
+		CHARACTERSELECT,
+		GAMEOPTIONS,
+		STAGESELECT
 	}
 
 	public class MenuGroup
 	{
 		public AbstractMenu[] menus;
-		public MenuGroup( AbstractMenu[] _menus )
-		{
-			menus = _menus;
-		}
+		public MenuGroup( AbstractMenu[] _menus ){menus = _menus;	}
 	}
 
-	public AbstractMenu mainMenu;
-	public AbstractMenu optionsMenu;
+	public AbstractMenu[] mainMenus;
+	public AbstractMenu[] optionsMenus;
+	public AbstractMenu[] characterSelectionMenus;
+	public AbstractMenu[] pauseMenus;
+	public bool					isPaused = false;
 
-	public AbstractMenu characterSelectionMenu1;
-	public AbstractMenu characterSelectionMenu2;
+	private MenuGroup m_characterSelection;
+	private MenuGroup m_mainMenu;
+	private MenuGroup m_options;
+	private MenuGroup m_pauseMenu;
 
-	private MenuGroup _characterSelection;
-	private MenuGroup _mainMenu;
-	private MenuGroup _options;
+	//REWORK THIS TOMORROW
+	private MenuGroup m_currentMenu;
+	private MenuGroup m_previousMenu;
+	private float				m_menuDeltaTime,
+									m_timeThisFrame,
+									m_timeLastFrame;
+	private bool				m_transitioning;
 
 
 
-	MenuGroup currentMenu;
-	MenuGroup previousMenu;
+	void Awake()
+	{
+		DontDestroyOnLoad( this );
+	}
 
-	private bool transitioning;
-
-
-	// Use this for initialization
 	void Start()
 	{
 
-		_mainMenu = new MenuGroup( new AbstractMenu[1] { mainMenu } );
-		_options = new MenuGroup( new AbstractMenu[1] { optionsMenu } );
-
-		_characterSelection = new MenuGroup(new AbstractMenu[2] {characterSelectionMenu1, characterSelectionMenu2});
-
-		currentMenu = _mainMenu;
-		transitioning = false;
+		m_mainMenu				= new MenuGroup( mainMenus );
+		m_options					= new MenuGroup( optionsMenus );
+		m_characterSelection = new MenuGroup( characterSelectionMenus );
+		m_pauseMenu				= new MenuGroup( pauseMenus );
+		m_currentMenu			= m_mainMenu;
+		m_transitioning			= false;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
+		m_timeLastFrame		= m_timeThisFrame;
+		m_timeThisFrame		= Time.realtimeSinceStartup;
+		m_menuDeltaTime		= m_timeThisFrame - m_timeLastFrame;
 	}
 
 	public void SwitchPlayerCustomization()
 	{
-		if ( !transitioning )
+		if ( !m_transitioning )
 		{
-			previousMenu = currentMenu;
-			StartCoroutine( FadeInOut( currentMenu, _characterSelection, 1.0f, 0.0f ) );
+			m_previousMenu = m_currentMenu;
+			StartCoroutine( FadeInOut( m_previousMenu, m_characterSelection, 1.0f, 0.0f ) );
 		}
 	}
 
 	public void SwitchOptions()
 	{
-		if ( !transitioning )
+		if ( !m_transitioning )
 		{
-			previousMenu = currentMenu;
-			StartCoroutine( FadeInOut( currentMenu, _options, 1.0f, 0.0f ) );
+			m_previousMenu = m_currentMenu;
+			StartCoroutine( FadeInOut( m_currentMenu, m_options, 1.0f, 0.0f ) );
+		}
+	}
+
+	public void LoadGameScene()
+	{
+		Application.LoadLevel( 0 );
+	}
+
+	public void PauseMenu(bool _open)
+	{
+		isPaused = _open;
+		if(_open)
+		{
+			for ( int i = 0; i < m_currentMenu.menus.Length; i++ )
+				m_currentMenu.menus[i].Active( false );
+
+			Time.timeScale = 0.0f;
+			m_pauseMenu.menus[0].GetComponent<CanvasGroup>().alpha = 1.0f;
+			m_pauseMenu.menus[0].Active( true );
+		}
+		else
+		{
+			for ( int i = 0; i < m_currentMenu.menus.Length; i++ )
+				m_currentMenu.menus[i].Active( true );
+
+			Time.timeScale = 1.0f;
+			m_pauseMenu.menus[0].GetComponent<CanvasGroup>().alpha = 0.0f;
+			m_pauseMenu.menus[0].Active( false );
 		}
 	}
 
 	public void GoBack()
 	{
-		if ( previousMenu != null && !transitioning )
-			StartCoroutine( FadeInOut( currentMenu, previousMenu, 1.0f, 0.0f ) );
+		if ( m_previousMenu != null && !m_transitioning )
+			StartCoroutine( FadeInOut( m_currentMenu, m_previousMenu, 1.0f, 0.0f ) );
 	}
 
+	#region Transitions
 	IEnumerator FadeIn( AbstractMenu _menuObject, float _speed, float delay)
 	{
 		yield return new WaitForSeconds( delay );
@@ -86,7 +122,7 @@ public class MenuManager : MonoBehaviour
 		CanvasGroup _canvasGroup = _menuObject.GetComponent<CanvasGroup>();
 		while ( _canvasGroup.alpha < 1 )
 		{
-			increment = _speed * Time.deltaTime;
+			increment = _speed *	m_menuDeltaTime;
 			if ( _canvasGroup.alpha + increment > 1 ) _canvasGroup.alpha = 1;
 			else _canvasGroup.alpha += increment;
 			yield return null;
@@ -101,7 +137,7 @@ public class MenuManager : MonoBehaviour
 		CanvasGroup _canvasGroup = _menuObject.GetComponent<CanvasGroup>();
 		while ( _canvasGroup.alpha > 0 )
 		{
-			increment = _speed * Time.deltaTime;
+			increment = _speed * m_menuDeltaTime;
 			if ( _canvasGroup.alpha - increment < 0 ) _canvasGroup.alpha = 0;
 			else _canvasGroup.alpha -= increment;
 			yield return null;
@@ -111,13 +147,12 @@ public class MenuManager : MonoBehaviour
 
 	IEnumerator FadeInOut( MenuGroup _first, MenuGroup _second, float _speed, float _delay )
 	{
-		transitioning = true;
-		float increment;
+		m_transitioning		= true;
+		float increment		= _speed * m_menuDeltaTime;
 
 		CanvasGroup _canvasGroup = _first.menus[0].GetComponent<CanvasGroup>();
 		while ( _canvasGroup.alpha > 0 )
 		{
-			increment = _speed * Time.deltaTime;
 			if ( _canvasGroup.alpha - increment < 0 ) _canvasGroup.alpha = 0;
 			else _canvasGroup.alpha -= increment;
 
@@ -131,11 +166,10 @@ public class MenuManager : MonoBehaviour
 
 		yield return new WaitForSeconds( _delay );
 
-		currentMenu = _second;
+		m_currentMenu = _second;
 		_canvasGroup = _second.menus[0].GetComponent<CanvasGroup>();
 		while ( _canvasGroup.alpha < 1 )
 		{
-			increment = _speed * Time.deltaTime;
 			if ( _canvasGroup.alpha + increment > 1 ) _canvasGroup.alpha = 1;
 			else _canvasGroup.alpha += increment;
 
@@ -144,11 +178,12 @@ public class MenuManager : MonoBehaviour
 
 			yield return null;
 		}
-		for ( int i = 0; i < _second.menus.Length; i++ )
-			currentMenu.menus[i].Active( true );
+		for ( int i = 0; i < m_currentMenu.menus.Length; i++ )
+			m_currentMenu.menus[i].Active( true );
 
-		transitioning = false;
+		m_transitioning = false;
 
 
 	}
+	#endregion
 }
