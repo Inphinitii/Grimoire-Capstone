@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 	public static AbstractStage stageObject;
 	public static Actor[]				playerActors;
 
+	//Audio Options
+	public static int sfxVolume = 100;
+	public static int musicVolume;
+
 	void Awake()
 	{
 		if ( instance == null )

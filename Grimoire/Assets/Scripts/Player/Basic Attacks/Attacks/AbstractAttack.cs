@@ -97,7 +97,7 @@ public abstract class AbstractAttack : MonoBehaviour
 
 			if ( playSound )
 			{
-				m_audioSource.PlayOneShot( SFXManager.GetWhooshEffect() );
+				SFXManager.PlayOneShot( m_audioSource.GetComponent<AudioSource>(), SFXManager.GetWhooshEffect() );
 				playSound = false;
 			}
 		}
@@ -149,7 +149,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	{
 		Vector2 direction = ( _collider.transform.position - this.transform.position ).normalized;
 		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * (hitForce * 0.5f);
-		m_audioSource.PlayOneShot( SFXManager.GetHitEffect() );
+		SFXManager.PlayOneShot( m_audioSource.GetComponent<AudioSource>(), SFXManager.GetHitEffect() );
 	}
 
 	/// <summary>

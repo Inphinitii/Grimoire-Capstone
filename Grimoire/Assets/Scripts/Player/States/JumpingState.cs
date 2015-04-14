@@ -53,7 +53,7 @@ namespace PlayerStates
 
 				if ( m_jumpStart )
 				{
-					GetFSM().GetComponent<AudioSource>().PlayOneShot( SFXManager.GetJump() );
+					SFXManager.PlayOneShot(GetFSM().GetComponent<AudioSource>(),  SFXManager.GetJump() );
 					m_jumpStart = false;
 				}
 
