@@ -7,6 +7,7 @@ public class ParticleManager : MonoBehaviour
 	public ParticleSystem jumpingParticle;
 	public ParticleSystem skidParticle;
 	public ParticleSystem smokeOnHitParticle;
+	public ParticleSystem cancelParticle;
 
 	//Internally kept particle systems that don't need constant recreating.
 	private ParticleSystem m_skidParticle;
@@ -47,5 +48,10 @@ public class ParticleManager : MonoBehaviour
 	public void JumpParticle()
 	{
 		Instantiate( jumpingParticle, this.transform.position, jumpingParticle.gameObject.transform.rotation );
+	}
+
+	public void CancelParticle()
+	{
+		Instantiate( cancelParticle, this.transform.position + new Vector3(0.0f, 1.0f, 0.0f), cancelParticle.gameObject.transform.rotation );
 	}
 }

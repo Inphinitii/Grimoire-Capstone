@@ -28,31 +28,32 @@ public class CameraShake : MonoBehaviour {
 	void Start()
 	{
 		shaking = false;
+		m_originalRot = transform.rotation;
 	}
 
 
 	void Update()
 	{
-		//if ( m_shakeIntensity > 0 )
-		//{
-		//	//Randomize the position of the camera by the shake intensity.
-		//	transform.position = m_originalPosition + Random.insideUnitSphere * m_shakeIntensity;
+		if ( m_shakeIntensity > 0 )
+		{
+			//Randomize the position of the camera by the shake intensity.
+			transform.position = m_originalPosition + Random.insideUnitSphere * m_shakeIntensity;
 
-		//	//Randomize the rotation of the camera by the shake intensity. 
-		//	transform.rotation = new Quaternion(	m_originalRot.x + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-		//																	m_originalRot.y + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-		//																	m_originalRot.z + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-		//																	1.0f );
+			//Randomize the rotation of the camera by the shake intensity. 
+			transform.rotation = new Quaternion(	m_originalRot.x + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
+																			m_originalRot.y + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
+																			m_originalRot.z + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
+																			1.0f );
 
-		//	m_shakeIntensity -= m_shakeDecay;
-		//}
-		//else if ( shaking )
-		//{
-		//	shaking = false;
-		//	//Reset to the original values to avoid the camera from being permanently rotated/positioned incorrectly. 
-		//	transform.rotation = m_originalRot;
-		//	transform.position = m_originalPosition;
-		//}
+			m_shakeIntensity -= m_shakeDecay;
+		}
+		else if ( shaking )
+		{
+			shaking = false;
+			//Reset to the original values to avoid the camera from being permanently rotated/positioned incorrectly. 
+			transform.rotation = m_originalRot;
+			transform.position = m_originalPosition;
+		}
 	}
 
 	/// <summary>
@@ -61,37 +62,8 @@ public class CameraShake : MonoBehaviour {
 	public void Shake()
 	{
 		m_originalPosition	= transform.position;
-		m_originalRot			= transform.rotation;
-
 		m_shakeIntensity	= SHAKE_INTENSITY;
 		m_shakeDecay		= SHAKE_DECAY;
 		shaking = true;
-		StartCoroutine( ShakeCamera() );
-	}
-
-	IEnumerator ShakeCamera()
-	{
-		while ( m_shakeIntensity > 0 )
-		{
-			if ( m_shakeIntensity > 0 )
-			{
-				//Randomize the position of the camera by the shake intensity.
-				transform.position = m_originalPosition + Random.insideUnitSphere * m_shakeIntensity;
-
-				//Randomize the rotation of the camera by the shake intensity. 
-				transform.rotation = new Quaternion( m_originalRot.x + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-																				m_originalRot.y + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-																				m_originalRot.z + Random.Range( -m_shakeIntensity, m_shakeIntensity ) * .2f,
-																				1.0f );
-
-				m_shakeIntensity -= m_shakeDecay;
-			}
-			yield return null;
-		}
-		shaking = false;
-		//Reset to the original values to avoid the camera from being permanently rotated/positioned incorrectly. 
-		transform.rotation = m_originalRot;
-		transform.position = m_originalPosition;
-		yield return null;
 	}
 }

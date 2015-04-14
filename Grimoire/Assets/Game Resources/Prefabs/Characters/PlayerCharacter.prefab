@@ -785,6 +785,7 @@ MonoBehaviour:
   jumpingParticle: {fileID: 19853036, guid: 0eae7afc91861a14298c06fdca644785, type: 2}
   skidParticle: {fileID: 19857530, guid: 0cbb32790e3be9843a452531dee57bd8, type: 2}
   smokeOnHitParticle: {fileID: 19803602, guid: 98fc463e51d3d28428a3452235096e9e, type: 2}
+  cancelParticle: {fileID: 19874110, guid: 759b705fa337cbd42888eb8c97bfd444, type: 2}
 --- !u!114 &11461502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -859,9 +860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce17336f765a0245beced39e058fad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPages: 0
   grimoirePages:
   - {fileID: 11472558, guid: 7402acde57b989b4a962c1dfcc862ee8, type: 2}
+  maxPages: 1
 --- !u!114 &11497330
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,10 +39,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c217a9c42abb054496016844935c302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useActorForce: 1
-  parent: {fileID: 0}
   forceType: 0
-  ChargeRefresh: 6
+  parent: {fileID: 0}
+  useActorForce: 1
+  chargeRefresh: 6
   standingNeutral: {fileID: 11436934, guid: 405ee685611b64f4392ed1cf42ff07f6, type: 2}
   standingDirectional: {fileID: 11436934, guid: 405ee685611b64f4392ed1cf42ff07f6,
     type: 2}

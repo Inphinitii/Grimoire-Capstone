@@ -13,18 +13,22 @@ namespace PlayerStates
 		public override void OnSwitch()
 		{
 			GetFSM().StartChildCoroutine( Invulnerable() );
+			GetFSM().GetActorReference().GetParticleManager().CancelParticle();
 			Actor[] _actors = GameManager.GetAllActors();
 			for ( int i = 0; i < _actors.Length; i++ )
 			{
-				if ( _actors[i].gameObject != GetFSM().gameObject )
+				if ( _actors[i].gameObject.name != GetFSM().gameObject.name )
 				{
-					Vector3 _direction = _actors[i].transform.position - GetFSM().gameObject.transform.position;
-					float _distance = ( _actors[i].transform.position - GetFSM().gameObject.transform.position ).magnitude;
+					Vector3 _direction	= _actors[i].transform.position - GetFSM().gameObject.transform.position;
+					float _distance			= ( _actors[i].transform.position - GetFSM().gameObject.transform.position ).magnitude;
 
 					if ( GetFSM().GetInput().LeftStick().y < 0 )
 					{
 						if ( _distance < 5.0f )
-							_actors[i].GetPhysicsController().Velocity = _direction.normalized * 50.0f;
+						{
+							_actors[i].GetPhysicsController().ClearValues();
+							//_actors[i].GetPhysicsController().Velocity = _direction.normalized * 100.0f;
+						}
 					}
 				}
 			}
