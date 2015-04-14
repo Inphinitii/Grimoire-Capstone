@@ -21,10 +21,13 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
-			m_time					= GetFSM().CurrentAttack.GetStateBlockTime();
-			m_attackReference	= GetFSM().CurrentAttack;
-			m_attackStart			= true;
-			GetFSM().BlockStateSwitch( m_attackReference.GetStateBlockTime() );
+			if ( GetFSM().CurrentAttack != null )
+			{
+				m_time = GetFSM().CurrentAttack.GetStateBlockTime();
+				m_attackReference = GetFSM().CurrentAttack;
+				m_attackStart = true;
+				GetFSM().BlockStateSwitch( m_attackReference.GetStateBlockTime() );
+			}
 		}
 		public override void ExecuteState()
 		{

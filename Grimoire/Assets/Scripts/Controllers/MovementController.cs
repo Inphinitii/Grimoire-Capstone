@@ -384,4 +384,14 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
 	public void SetJumping( bool _jumping ) { m_isJumping = _jumping; }
 
+	public int JumpCount()
+	{
+		return jumpCount;
+	}
+
+	public int JumpTotal()
+	{
+		return totalJumps-1;
+	}
+
 }

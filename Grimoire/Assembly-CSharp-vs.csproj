@@ -58,9 +58,11 @@
      <Compile Include="Assets\Scripts\Controllers\PhysicsController.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Levels\AbstractStage.cs" />
+     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ParticleManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\SFXManager.cs" />
      <Compile Include="Assets\Scripts\OnDestroyParticle.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Effects\AOEDamage.cs" />
      <Compile Include="Assets\Scripts\Pages\Incantation Modifiers\Misc\ColliderController.cs" />

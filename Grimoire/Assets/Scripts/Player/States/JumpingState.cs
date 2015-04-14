@@ -7,6 +7,8 @@ namespace PlayerStates
 	{
 		bool	m_lastJump;
 		bool	m_getJump;
+		bool m_jumpStart;
+		bool m_jumping;
 		Vector2 m_leftStick;
 
 		public JumpingState()
@@ -19,8 +21,6 @@ namespace PlayerStates
 
 		public override void ExecuteState()
 		{
-
-
 			m_lastJump		= m_getJump;
 			m_leftStick		= GetFSM().GetInput().LeftStick();
 			m_getJump		= GetFSM().GetInput().Jump().thisFrame;
@@ -28,12 +28,36 @@ namespace PlayerStates
 			if ( m_leftStick.x != 0.0f )
 				GetFSM().GetMovement().MoveX( m_leftStick );
 
-
+			if ( GetFSM().GetInput().Jump().thisFrame && !GetFSM().GetInput().Jump().lastFrame )
+			{
+				if ( GetFSM().GetMovement().JumpCount() < GetFSM().GetMovement().JumpTotal())
+					GetFSM().GetComponent<AudioSource>().PlayOneShot( SFXManager.GetJump() );
+			}
 			//Jumping behaviour differs whether or not the button was let go or pressed.
-			if ( m_getJump )
-				GetFSM().GetMovement().ApplyJump( true, m_leftStick );
-			else if ( m_getJump != m_lastJump )
-				GetFSM().GetMovement().ApplyJump( false, m_leftStick );
+			if ( GetFSM().GetMovement().JumpCount() <= GetFSM().GetMovement().JumpTotal() )
+			{
+				if ( m_getJump )
+				{
+					GetFSM().GetMovement().ApplyJump( true, m_leftStick );
+
+					if(!m_jumping)
+						m_jumpStart = true;
+
+					m_jumping = true;
+				}
+				else if ( m_getJump != m_lastJump )
+				{
+					GetFSM().GetMovement().ApplyJump( false, m_leftStick );
+					m_jumping = false;
+				}
+
+				if ( m_jumpStart )
+				{
+					GetFSM().GetComponent<AudioSource>().PlayOneShot( SFXManager.GetJump() );
+					m_jumpStart = false;
+				}
+
+			}
 
 
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )

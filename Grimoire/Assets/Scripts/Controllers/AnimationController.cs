@@ -46,12 +46,12 @@ public class AnimationController : MonoBehaviour
 
     void JumpingAnimations()
     {
-        if (m_physicsController.Velocity.y > 0)
+        if (m_movementController.IsJumping())
         {
             m_Animator.SetBool("Jumping", true);
             m_Animator.SetBool("Falling", false);
         }
-        else if (m_physicsController.Velocity.y < 0)
+        if (m_physicsController.Velocity.y < 0)
         {
             m_Animator.SetBool("Jumping", false);
             m_Animator.SetBool("Falling", true);

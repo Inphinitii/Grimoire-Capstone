@@ -46,8 +46,8 @@ namespace PlayerStates
 				if ( GetFSM().GetInput().LeftStick().y < 0.1f )
 					if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f)
 						GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
-				else
-					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+
+				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 			}
 
 			if ( GetFSM().GetInput().Jump().thisFrame )

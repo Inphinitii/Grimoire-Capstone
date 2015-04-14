@@ -71,6 +71,7 @@ public class PlayerFSM : MonoBehaviour {
 	
 	void Update () 
 	{
+		Debug.Log( currentState );
 		currentState.ExecuteState();
 		currentState.ExitConditions();
 	}

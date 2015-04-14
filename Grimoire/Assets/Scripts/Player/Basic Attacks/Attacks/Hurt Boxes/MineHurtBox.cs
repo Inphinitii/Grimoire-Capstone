@@ -12,6 +12,7 @@ public class MineHurtBox : AbstractHurtBox
 	public override void Start()
 	{
 		transform.parent = null;
+		m_reference.GetComponent<AudioSource>().PlayOneShot( SFXManager.GetMinePlace() );
 	}
 	public override void Update()
 	{
@@ -105,15 +106,15 @@ public class MineHurtBox : AbstractHurtBox
 		_otherPhys.PausePhysics( true );
 		_otherCharge.SetFreezeTimer( true );
 		_otherAnimator.speed = 0.0f;
-
+		m_reference.GetComponent<AudioSource>().PlayOneShot( SFXManager.GetHitEffect() );
 		yield return new WaitForSeconds(0.2f );
 
 		_otherPhys.PausePhysics( false );
 		_otherCharge.SetFreezeTimer( false );
 		_otherAnimator.speed = 1.0f;
+		m_reference.GetComponent<AudioSource>().PlayOneShot( SFXManager.GetMineExplode() );
 
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-
 
 		ApplyForce( _collider );
 
@@ -123,7 +124,11 @@ public class MineHurtBox : AbstractHurtBox
 	public void DestroyObject()
 	{
 		Instantiate( m_reference.GetComponent<OnDestroyParticle>().particleToUse, m_reference.transform.position, Quaternion.identity );
-		Destroy( m_reference );
+
+		m_reference.GetComponentInChildren<Renderer>().enabled = false;
+		m_reference.GetComponentInChildren<ParticleSystem>().enableEmission = false;
+
+		m_reference.GetComponent<DestroyOverTime>().enabled = true;
 		Destroy( this.gameObject );
 	}
 }

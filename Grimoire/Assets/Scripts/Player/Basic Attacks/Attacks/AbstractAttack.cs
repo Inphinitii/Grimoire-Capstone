@@ -40,6 +40,9 @@ public abstract class AbstractAttack : MonoBehaviour
 	protected bool							m_exitFlag;
 	protected Actor						m_parentActor;
 	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
+
+	private bool playSound;
+	private AudioSource m_audioSource;
 	
 
 	/// <summary>
@@ -58,6 +61,7 @@ public abstract class AbstractAttack : MonoBehaviour
 		AfterAttack();
 		yield return new WaitForSeconds( Cooldown() );
 		m_afterAttack		= false;
+		playSound = true;
 	}
 
 	/// <summary>
@@ -66,8 +70,10 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void Start()
 	{
+		playSound				= true;
 		m_exitFlag				= false;
 		m_parentActor		= this.transform.parent.gameObject.GetComponent<Actor>();
+		m_audioSource		= this.transform.parent.gameObject.GetComponent<AudioSource>();
 		m_childHurtBoxes	= new AbstractHurtBox[boxColliders.Length];
 		AbstractHurtBox _temp;
 		for ( int i = 0; i < boxColliders.Length; i++ )
@@ -88,6 +94,12 @@ public abstract class AbstractAttack : MonoBehaviour
 		if ( m_duringAttack )
 		{
 			DuringAttack();
+
+			if ( playSound )
+			{
+				m_audioSource.PlayOneShot( SFXManager.GetWhooshEffect() );
+				playSound = false;
+			}
 		}
 	}
 
@@ -120,6 +132,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void HitEnemy( Collider2D _collider )
 	{
+		m_audioSource.PlayOneShot( SFXManager.GetHitEffect() );
 	}
 
 	/// <summary>
@@ -136,6 +149,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	{
 		Vector2 direction = ( _collider.transform.position - this.transform.position ).normalized;
 		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * (hitForce * 0.5f);
+		m_audioSource.PlayOneShot( SFXManager.GetHitEffect() );
 	}
 
 	/// <summary>

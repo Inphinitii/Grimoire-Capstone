@@ -67,6 +67,10 @@ public class MineAttack : AbstractAttack
 		GameObject _mine = (GameObject)Instantiate( mineObject, m_parentActor.gameObject.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ), Quaternion.identity );
 		_mine.AddComponent<OnDestroyParticle>().particleToUse = onDestroyParticle;
 
+		//Auto cleanup
+		_mine.AddComponent<DestroyOverTime>().enabled = false;
+		_mine.GetComponent<DestroyOverTime>().timer = 4.0f;
+
 		ParticleSystem _particles = (ParticleSystem)Instantiate( particleOnUse, _mine.transform.position, Quaternion.identity );
 		_particles.transform.parent = _mine.transform;
 
