@@ -71,8 +71,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceType: 0
   drawGizmo: 0
+  inheritPosition: 1
+  inheritRotation: 0
+  inheritScale: 1
   hitDirection: {x: 0, y: 0}
   hitForce: 35
+  lifetime: 0
   hitAlongDistanceVector: 1
 --- !u!1001 &100100000
 Prefab:

@@ -44,11 +44,15 @@ public class SpellCharges : MonoBehaviour
 		for ( int i = 0; i < maxSpellCharges; i++ )
 		{
 			m_Charges[i].Position =  ChargePosition( i );
+
 			//Keep the trails reasonable based on the objects velocity. 
-			if ( Mathf.Abs(GetComponent<PhysicsController>().Velocity.magnitude) >= 1.0f )
-				m_Charges[i].GetTrail().time = 0.1f;
-			else
-				m_Charges[i].GetTrail().time = 1.0f;
+			if ( m_Charges[i].GetTrail() != null )
+			{
+				if ( Mathf.Abs( GetComponent<PhysicsController>().Velocity.magnitude ) >= 1.0f )
+					m_Charges[i].GetTrail().time = 0.1f;
+				else
+					m_Charges[i].GetTrail().time = 1.0f;
+			}
 		}
 	}
 

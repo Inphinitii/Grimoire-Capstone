@@ -69,8 +69,6 @@ public class MovementController : MonoBehaviour {
     private float movementSpeedType;
 	private float dampeningConstant;
 
-	public AbstractStage TestingObject;
-
 
 	private float temp;
 
@@ -260,8 +258,7 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
     public void OneWayPlatform()
     {
-		//CHANGE THIS
-		BoxCollider2D[] objects = TestingObject.GetPlatforms();
+		BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
 		if ( m_isJumping || m_physicsController.Velocity.y > 0.0f )
         {
 			for(int i = 0; i < objects.Length; i++)
@@ -280,7 +277,7 @@ public class MovementController : MonoBehaviour {
 
 	public void FallThrough()
 	{
-		BoxCollider2D[] objects = TestingObject.GetPlatforms();
+		BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
 		if (m_onPlatform )
 		{
 			for ( int i = 0; i < objects.Length; i++ )

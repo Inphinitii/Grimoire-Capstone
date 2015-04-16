@@ -27,6 +27,7 @@ namespace PlayerStates
 
 			GetFSM().BlockStateSwitch( BLOCK_TIME );
 			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", true );
+			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = false;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = GROUND_ACCEL_DAMPENER;
 			GetFSM().StartChildCoroutine( Flash(Color.white) );
@@ -35,7 +36,6 @@ namespace PlayerStates
 
 		public override void OnExit()
 		{
-			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = true;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
 		}
@@ -77,7 +77,7 @@ namespace PlayerStates
 
 		private void DisplayParticles()
 		{
-			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.y ) > SMOKE_THRESHOLD )
+			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.magnitude ) > SMOKE_THRESHOLD )
 				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( true );
 			else
 				GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );

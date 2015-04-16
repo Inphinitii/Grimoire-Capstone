@@ -14,11 +14,17 @@ using System.Collections;
 public abstract class AbstractHurtBox : MonoBehaviour {
 
     public	Properties.ForceType forceType;
+
 	public bool drawGizmo = true;
 
-	protected BoxCollider2D	m_boxCollider;
-	protected Transform		m_parent;
-	protected GameObject	m_reference;
+	public bool inheritPosition = true;
+	public bool inheritRotation = true;
+	public bool inheritScale = true;
+
+	protected AbstractAttack	m_parentAttack;
+	protected BoxCollider2D		m_boxCollider;
+	protected Transform			m_parent;
+	protected GameObject		m_reference;
 
 	void Awake()
 	{
@@ -34,7 +40,10 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 
 	public virtual void Update()
 	{
-
+		if ( !inheritRotation )
+			transform.rotation = Quaternion.identity;
+		if ( !inheritScale )
+			transform.localScale = new Vector3( 1.0f, 1.0f, 1.0f );
 	}
 
     /// <summary>
@@ -118,6 +127,7 @@ public abstract class AbstractHurtBox : MonoBehaviour {
 	{
 		m_reference = _obj;
 	}
+	public AbstractAttack SetGetAttackParent { get { return m_parentAttack; } set { m_parentAttack = value; } }
 
 	void OnDrawGizmos()
 	{

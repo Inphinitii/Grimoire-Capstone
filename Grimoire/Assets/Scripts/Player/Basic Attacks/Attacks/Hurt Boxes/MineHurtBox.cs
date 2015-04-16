@@ -5,36 +5,32 @@ public class MineHurtBox : AbstractHurtBox
 {
 	public Vector2 hitDirection;
 	public float		hitForce;
+	public float		lifetime;
 	public bool		hitAlongDistanceVector;
 
-	private float lifetime = 5.0f;
 
 	public override void Start()
 	{
-		transform.parent = null;
 		SFXManager.PlayOneShot( m_reference.GetComponent<AudioSource>(), SFXManager.GetMinePlace() );
+		lifetime = m_parentAttack.cleanupTimer;
+		//cleanupTimer;
 	}
 	public override void Update()
 	{
 		this.transform.position = m_reference.transform.position;
 
-		if ( m_reference.GetComponent<PhysicsController>().Velocity != Vector2.zero )
-		{
-			Vector3 temp = m_reference.GetComponent<PhysicsController>().Velocity;
-			temp.x *= 0.95f;
-			temp.y *= 0.95f;
-			m_reference.GetComponent<PhysicsController>().Velocity = temp;
-		}
+		//if ( lifetime > 0.0f )
+		//	lifetime -= Time.deltaTime;
+		//else
+		//	DestroyObject();
 
-		if ( lifetime > 0.0f )
-			lifetime -= Time.deltaTime;
-		else
-			DestroyObject();
+		base.Update();
 	}
 
 	public override void OnHurtboxHit( Collider2D _collider )
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
+
 		Vector3 direction = (_collider.transform.position + new Vector3( 0.0f, 1.0f, 0.0f ) - m_reference.transform.position).normalized;
 		m_reference.GetComponent<PhysicsController>().Velocity = -direction * 35.0f;
 	}
@@ -90,7 +86,8 @@ public class MineHurtBox : AbstractHurtBox
 
 		if ( !hitAlongDistanceVector )
 		{
-			direction.x *= hitDirection.x;
+			hitDirection.Normalize();
+			direction.x = hitDirection.x;
 			direction.y = hitDirection.y;
 		}
 
@@ -110,15 +107,14 @@ public class MineHurtBox : AbstractHurtBox
 		SFXManager.PlayOneShot( m_reference.GetComponent<AudioSource>(), SFXManager.GetHitEffect() );
 
 		yield return new WaitForSeconds(0.2f );
+		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
+		_otherPhys.ClearValues();
 		_otherPhys.PausePhysics( false );
 		_otherCharge.SetFreezeTimer( false );
 		_otherAnimator.speed = 1.0f;
 
-		SFXManager.PlayOneShot( m_reference.GetComponent<AudioSource>(), SFXManager.GetMineExplode() );
 
-
-		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
 
 		ApplyForce( _collider );
 
@@ -127,9 +123,17 @@ public class MineHurtBox : AbstractHurtBox
 
 	public void DestroyObject()
 	{
-		Instantiate( m_reference.GetComponent<OnDestroyParticle>().particleToUse, m_reference.transform.position, Quaternion.identity );
+		SFXManager.PlayOneShot( m_reference.GetComponent<AudioSource>(), SFXManager.GetMineExplode() );
 
-		m_reference.GetComponentInChildren<Renderer>().enabled = false;
+		if ( m_parentAttack.GetParticleSystem( AbstractAttack.ParticleType.ON_HIT ) != null )
+		{
+			ParticleSystem system = (ParticleSystem)Instantiate( m_parentAttack.GetParticleSystem( AbstractAttack.ParticleType.ON_HIT ), this.transform.position, Quaternion.identity );
+			system.startColor = m_reference.GetComponentInChildren<Renderer>().material.GetColor( "_TintColor" );
+		}
+
+		foreach(Renderer obj in m_reference.GetComponentsInChildren<Renderer>())
+			obj.enabled = false;
+
 		m_reference.GetComponentInChildren<ParticleSystem>().enableEmission = false;
 
 		m_reference.GetComponent<DestroyOverTime>().enabled = true;

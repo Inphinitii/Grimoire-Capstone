@@ -42,18 +42,16 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 11415544, guid: 5fad49e82ff25784fa1ad8b0ed572291, type: 2}
   forceType: 0
-  particleOnHit: {fileID: 0}
+  particleOnHit: {fileID: 19899996, guid: a6db01b734bc52046b2ba57ddccc89e7, type: 2}
   particleOnUse: {fileID: 19879072, guid: 22258bad411197e4ab79331b50293c57, type: 2}
   startupFrames: 1
   durationFrames: 0
   cooldownFrames: 0
-  onHitCooldownFrames: 2
-  ableToCancel: 0
+  cleanupTimer: 0
   hitDirection: {x: 0, y: 0}
   hitAlongDistanceVector: 1
   hitForce: 40
   hitDamage: 0
-  staticForce: 0
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0

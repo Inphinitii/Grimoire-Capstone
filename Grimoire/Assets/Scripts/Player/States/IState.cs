@@ -36,6 +36,11 @@ namespace PlayerStates
 		public virtual void OnExit() { }
 
 		/// <summary>
+		/// Called when the state is changed by force.
+		/// </summary>
+		public virtual void OnForcedExit() { }
+
+		/// <summary>
 		/// Called when this state is the FSM's current state. 
 		/// </summary>
 		public abstract void ExecuteState();

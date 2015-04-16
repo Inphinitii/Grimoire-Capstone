@@ -20,7 +20,7 @@ namespace PlayerStates
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
 				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
-				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
+				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
 			}			
 		}
 

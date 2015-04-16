@@ -38,6 +38,7 @@ public class AnimationController : MonoBehaviour
         AttackAnimations();
     }
 
+	//SEPERATE THSI INTO THE STATE MACHINE 
     void WalkingAnimations()
     {
         m_Animator.SetBool("Moving", m_movementController.IsMoving());

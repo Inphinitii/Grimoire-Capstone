@@ -13,6 +13,12 @@ using System.Collections;
 [System.Serializable]
 public abstract class AbstractAttack : MonoBehaviour
 {
+	public enum ParticleType
+	{
+		ON_HIT,
+		ON_USE
+	};
+
 	public AbstractHurtBox[]		boxColliders;
 	public Properties.ForceType	forceType;
 
@@ -23,12 +29,16 @@ public abstract class AbstractAttack : MonoBehaviour
 	public int durationFrames;
 	public int cooldownFrames;
 
+	public float cleanupTimer;
+
+	//Attack Values
 	public Vector2	hitDirection;
 	public bool		hitAlongDistanceVector;
 	public float		hitForce;
 	public int			hitDamage;
 	public bool		freezeMovementOnUse;
 
+	//Knockback applied to the issuer of the attack, on hit. 
 	public float	groundKnockBack;
 	public float	airKnockBack;
 
@@ -36,9 +46,11 @@ public abstract class AbstractAttack : MonoBehaviour
 	protected bool							m_beginAttack;
 	protected bool							m_duringAttack;
 	protected bool							m_afterAttack;
+	protected bool							m_forceExit; //Clean up when hit and doing something like charging. 
 
 	protected bool							m_exitFlag;
 	protected Actor						m_parentActor;
+
 	protected const float				FRAME_TIME = 1.0f / 60.0f; //Assuming we run at 60 frames per second. 
 
 	private bool playSound;
@@ -50,6 +62,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual IEnumerator StartAttack()
 	{
+		m_forceExit = false;
 		BeforeAttack();
 		m_beginAttack	= true;
 		yield return new WaitForSeconds( Startup() );
@@ -168,6 +181,11 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public abstract void AfterAttack();
 
+	public virtual void ForcedExitCleanup()
+	{
+
+	}
+
 	/// <summary>
 	/// Apply a force to the given collider object along the given direction with the given force.
 	/// </summary>
@@ -218,4 +236,22 @@ public abstract class AbstractAttack : MonoBehaviour
 
 	public bool GetExitFlag() { return m_exitFlag; }
 	public void SetExitFlag( bool _bool ) { m_exitFlag = _bool; }
+
+
+	public ParticleSystem GetParticleSystem( ParticleType _type )
+	{
+		switch(_type)
+		{
+			case ParticleType.ON_HIT:
+				if ( particleOnHit != null )
+					return particleOnHit;
+				else return null;
+			case ParticleType.ON_USE:
+				if ( particleOnUse != null )
+					return particleOnUse;
+				else return null;
+			default:
+				return null;
+		}
+	}
 }

@@ -46,14 +46,11 @@ MonoBehaviour:
   particleOnUse: {fileID: 0}
   startupFrames: 7
   durationFrames: 5
-  cooldownFrames: 3
-  onHitCooldownFrames: 3
-  ableToCancel: 0
+  cooldownFrames: 13
   hitDirection: {x: 0, y: 0}
   hitAlongDistanceVector: 1
   hitForce: 15
   hitDamage: 0
-  staticForce: 0
   freezeMovementOnUse: 0
   groundKnockBack: 0
   airKnockBack: 0

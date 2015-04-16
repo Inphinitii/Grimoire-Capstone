@@ -34,8 +34,8 @@ public class AbstractMenu : MonoBehaviour
 
 	void Start()
 	{
-		m_canvasGroup		= GetComponent<CanvasGroup>();
-		m_buttonList		= GetComponentsInChildren<Button>();
+		m_canvasGroup			= GetComponent<CanvasGroup>();
+		m_buttonList				= GetComponentsInChildren<Button>();
 		m_panelEventSystem	= GameObject.FindObjectOfType<EventSystem>();
 
 		if ( m_buttonList.Length != 0 )

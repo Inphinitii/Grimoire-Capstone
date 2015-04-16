@@ -98,7 +98,6 @@ namespace UI
 			return ret;
 
 			//Bounce in place - float ret = c * (1 - (t / d)) * t + b;
-
 		}
 
 		public void TestClick()

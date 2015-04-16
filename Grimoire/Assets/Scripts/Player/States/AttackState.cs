@@ -9,6 +9,7 @@ namespace PlayerStates
 		private AbstractAttack		m_attackReference;
 		private float						m_time;
 		private bool						m_attackStart;
+		private bool						m_noTimer;
 
 		public AttackState()
 		{
@@ -16,8 +17,26 @@ namespace PlayerStates
 
 		public override void OnExit()
 		{
+
+			if ( m_playerFSM.CurrentAttack != null )
+			{
+				m_playerFSM.CurrentAttack.SetExitFlag( false );
+			}
 			m_playerFSM.CurrentAttack = null;
+			m_time		= 0.0f;
+			m_noTimer	= false;
+
 		}
+
+		public override void OnForcedExit()
+		{
+			if ( m_playerFSM.CurrentAttack != null )
+			{
+				m_playerFSM.CurrentAttack.ForcedExitCleanup();
+				m_playerFSM.CurrentAttack.SetExitFlag( false );
+			}
+		}
+
 
 		public override void OnSwitch()
 		{
@@ -26,12 +45,19 @@ namespace PlayerStates
 				m_time = GetFSM().CurrentAttack.GetStateBlockTime();
 				m_attackReference = GetFSM().CurrentAttack;
 				m_attackStart = true;
-				GetFSM().BlockStateSwitch( m_attackReference.GetStateBlockTime() );
+
+				if ( m_time == 0.0f )
+					m_noTimer = true;
+				else
+					GetFSM().BlockStateSwitch( m_time );
+
 			}
+			else
+				GetFSM().GoToPreviousState( true );
 		}
 		public override void ExecuteState()
 		{
-			if ( m_time > 0.0f )
+			if ( m_time > 0.0f || m_noTimer)
 			{
 				if ( m_attackStart )
 				{
@@ -39,7 +65,9 @@ namespace PlayerStates
 					m_attackStart = false;
 				}
 				m_attackReference.HandleInput( GetFSM().GetActorReference().GetInputHandler() );
-				m_time -= Time.deltaTime;
+
+				if(!m_noTimer)
+					m_time -= Time.deltaTime;
 			}
 		}
 
@@ -47,16 +75,19 @@ namespace PlayerStates
 		{
 			if ( m_attackReference.GetExitFlag() || m_time < 0.0f )
 			{
-				if(GetFSM().GetMovement().IsJumping())
-					GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
-
-				if (!GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0.0f )
-					GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
-
+				if ( GetFSM().GetMovement().IsJumping() )
+				{
+					GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
+				}
+				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0.0f )
+				{
+					GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+				}
 				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x != 0.0f )
-					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, true );
+				{
+					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+				}
 
-				m_attackReference.SetExitFlag( false );
 			}
 
 			

@@ -11,16 +11,19 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+	public	 AbstractStage stage;
+
 	public static GameManager instance = null;
 	public static AbstractStage stageObject;
 	public static Actor[]				playerActors;
 
 	//Audio Options
-	public static int sfxVolume = 100;
+	public static int sfxVolume = 0;
 	public static int musicVolume;
 
 	void Awake()
 	{
+		stageObject = stage;
 		if ( instance == null )
 			instance = this;
 		else if ( instance != this )

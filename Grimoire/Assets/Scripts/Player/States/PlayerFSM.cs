@@ -73,6 +73,13 @@ public class PlayerFSM : MonoBehaviour {
 	{
 		currentState.ExecuteState();
 		currentState.ExitConditions();
+
+		if ( m_block )
+			m_blockTimer -= Time.deltaTime;
+		if ( m_blockTimer <= 0.0f )
+		{
+			m_block = false;
+		}
 	}
 
 
@@ -91,11 +98,15 @@ public class PlayerFSM : MonoBehaviour {
 	/// <param name="_states">The desired state.</param>
 	/// <param name="_force">  Force the state change regardless of the block </param>
     public void SetCurrentState(States _states, bool _force){
+		Debug.Log( m_block );
         if (!m_block || _force)
         {
 			m_block					= false;
 			m_blockTimer			= 0.0f;
 			m_previousState		= currentState;
+
+			if ( _force )
+				currentState.OnForcedExit();
 
 			currentState.OnExit();
 			currentState = m_stateList[(int)_states];
@@ -113,6 +124,9 @@ public class PlayerFSM : MonoBehaviour {
 		{
 			m_block				= false;
 			m_blockTimer		= 0.0f;
+
+			if ( _force )
+				currentState.OnForcedExit();
 
 			currentState.OnExit();
 			currentState = m_previousState;
@@ -202,14 +216,6 @@ public class PlayerFSM : MonoBehaviour {
 		{
 			m_blockTimer = _time;
 			m_block = true;
-		}
-		else
-		{
-			m_blockTimer -= Time.deltaTime;
-			if ( m_blockTimer <= 0.0f )
-			{
-				m_block = false;
-			}
 		}
 	}
 

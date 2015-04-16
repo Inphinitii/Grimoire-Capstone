@@ -8,11 +8,14 @@ public class SFXManager : MonoBehaviour
 	public AudioClip[] hitEffects;
 	public AudioClip[] mineSfx;
 	public AudioClip jumpSFX;
+	public AudioClip pageFlipSFX;
+
 
 	private static AudioClip[] whoosh;
 	private static AudioClip[] hits;
 	private static AudioClip[] mineSFX;
 	private static AudioClip jumpClip;
+	private static AudioClip pageFlip;
 
 
 
@@ -32,6 +35,7 @@ public class SFXManager : MonoBehaviour
 		hits				= hitEffects;
 		mineSFX		= mineSfx;
 		jumpClip		= jumpSFX;
+		pageFlip		= pageFlipSFX;
 	}
 
 
@@ -80,5 +84,11 @@ public class SFXManager : MonoBehaviour
 	/// </summary>
 	/// <returns>AudioClip</returns>
 	public static AudioClip GetJump() { return jumpClip; }
+
+	/// <summary>
+	/// Returns the given sound from the static equivilent of the Jumping clip.
+	/// </summary>
+	/// <returns>AudioClip</returns>
+	public static AudioClip GetPageFlip() { return pageFlip; }
 
 }

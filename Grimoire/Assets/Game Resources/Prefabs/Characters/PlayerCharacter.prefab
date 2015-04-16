@@ -974,7 +974,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   m_capAcceleration: 1
-  TestingObject: {fileID: 0}
 --- !u!114 &11497334
 MonoBehaviour:
   m_ObjectHideFlags: 1
