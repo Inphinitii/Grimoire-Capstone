@@ -88,6 +88,7 @@ public abstract class AbstractAttack : MonoBehaviour
 		m_parentActor		= this.transform.parent.gameObject.GetComponent<Actor>();
 		m_audioSource		= this.transform.parent.gameObject.GetComponent<AudioSource>();
 		m_childHurtBoxes	= new AbstractHurtBox[boxColliders.Length];
+
 		AbstractHurtBox _temp;
 		for ( int i = 0; i < boxColliders.Length; i++ )
 		{
@@ -145,6 +146,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// </summary>
 	public virtual void HitEnemy( Collider2D _collider )
 	{
+		if(m_audioSource != null)
 		m_audioSource.PlayOneShot( SFXManager.GetHitEffect() );
 	}
 
@@ -190,7 +192,7 @@ public abstract class AbstractAttack : MonoBehaviour
 	/// Apply a force to the given collider object along the given direction with the given force.
 	/// </summary>
 	/// <param name="_collider"> Collider object </param>
-	public void ApplyForce( Collider2D _collider )
+	public void ApplyForce( Collider2D _collider, bool _applyKnockback)
 	{
 	
 		Vector2 direction = ( _collider.transform.position - this.transform.position ).normalized;
@@ -202,10 +204,14 @@ public abstract class AbstractAttack : MonoBehaviour
 		}
 
 		_collider.gameObject.GetComponent<PhysicsController>().ClearValues();
-		transform.parent.gameObject.GetComponent<PhysicsController>().ClearValues();
 
 		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
-		transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * groundKnockBack;
+
+		if ( _applyKnockback )
+		{
+			transform.parent.gameObject.GetComponent<PhysicsController>().ClearValues();
+			transform.parent.gameObject.GetComponent<PhysicsController>().Velocity = -direction * groundKnockBack;
+		}
 	}
 
 	/// <summary>

@@ -19,12 +19,15 @@ namespace PlayerStates
 		{
 
 			if ( m_playerFSM.CurrentAttack != null )
-			{
 				m_playerFSM.CurrentAttack.SetExitFlag( false );
-			}
+
 			m_playerFSM.CurrentAttack = null;
 			m_time		= 0.0f;
 			m_noTimer	= false;
+
+			GetFSM().GetComponent<Animator>().SetBool( "Attacking", false );
+			GetFSM().GetComponent<Animator>().SetBool( "Casting", false );
+
 
 		}
 
@@ -32,7 +35,7 @@ namespace PlayerStates
 		{
 			if ( m_playerFSM.CurrentAttack != null )
 			{
-				m_playerFSM.CurrentAttack.ForcedExitCleanup();
+				//m_playerFSM.CurrentAttack.ForcedExitCleanup();
 				m_playerFSM.CurrentAttack.SetExitFlag( false );
 			}
 		}
@@ -40,6 +43,7 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
+			GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 			if ( GetFSM().CurrentAttack != null )
 			{
 				m_time = GetFSM().CurrentAttack.GetStateBlockTime();
@@ -75,18 +79,21 @@ namespace PlayerStates
 		{
 			if ( m_attackReference.GetExitFlag() || m_time < 0.0f )
 			{
-				if ( GetFSM().GetMovement().IsJumping() )
-				{
-					GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
-				}
-				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0.0f )
-				{
-					GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-				}
-				if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x != 0.0f )
-				{
-					GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
-				}
+				GetFSM().GoToPreviousState( false );
+
+
+				//if ( GetFSM().GetMovement().IsJumping() )
+				//{
+				//	GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
+				//}
+				//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0.0f )
+				//{
+				//	GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+				//}
+				//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x != 0.0f )
+				//{
+				//	GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+				//}
 
 			}
 

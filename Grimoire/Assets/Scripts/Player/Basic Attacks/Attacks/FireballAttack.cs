@@ -15,11 +15,27 @@ public class FireballAttack : AbstractAttack
 	public float fireballLifetime;
 	public GameObject fireballObject;
 
+	public float Level1Threshhold;
+	public float Level1Force;
+
+	public float Level2Threshhold;
+	public float Level2Force;
+
+	public float Level3Threshhold;
+	public float Level3Force;
+
+	public float Level4Threshhold;
+	public float Level4Force;
+
+	public bool ignoreMovementCap = false;
+
+
 	private bool	m_begin;
 	private float m_holdTime;
 	private float m_attackSpeed;
 	private Vector2 m_direction;
 	private Vector2 m_shotDirection;
+	private bool m_facingRight;
 
 	private GameObject m_fireballReference;
 
@@ -27,6 +43,7 @@ public class FireballAttack : AbstractAttack
 
 	public override void Start()
 	{
+		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
 		m_exitFlag = false;
 	}
 
@@ -38,12 +55,11 @@ public class FireballAttack : AbstractAttack
 	{
 
 		m_forceExit = false;
-		m_parentActor = this.transform.parent.gameObject.GetComponent<Actor>();
 		m_begin = true;
 		m_fireballReference = (GameObject)Instantiate( fireballObject, m_parentActor.gameObject.transform.position, Quaternion.identity );
 
 		Color _col = m_parentActor.actorColor;
-		//_col.g -= 5.0f;
+		_col.g -= 0.55f;
 
 		foreach(Renderer obj in m_fireballReference.GetComponentsInChildren<Renderer>())
 			obj.material.SetColor( "_TintColor", _col );
@@ -54,9 +70,21 @@ public class FireballAttack : AbstractAttack
 	{
 		if ( m_begin )
 		{
+			m_facingRight = m_parentActor.GetMovementController().IsFacingRight();
 			if ( _input.Special().thisFrame || _input.Special().lastFrame )
 			{
-				m_direction = _input.LeftStick();
+				if ( _input.LeftStick() != Vector2.zero )
+					m_direction = _input.LeftStick();
+				else
+				{
+					if ( m_facingRight )
+						m_direction = new Vector2( 1.0f, 0.0f );
+					else
+					{
+						Debug.Log( "Left" );
+						m_direction = new Vector2( -1.0f, 0.0f );
+					}
+				}
 				DuringAttack();
 				m_holdTime += Time.deltaTime;
 			}
@@ -89,8 +117,8 @@ public class FireballAttack : AbstractAttack
 	/// </summary>
 	public override void DuringAttack()
 	{
-		float angle = Mathf.Atan2( m_direction.x, m_direction.y );
 		bool facingRight = m_parentActor.GetMovementController().IsFacingRight();
+		float angle = Mathf.Atan2( m_direction.x, m_direction.y );
 
 
 		if ( !facingRight )
@@ -114,9 +142,9 @@ public class FireballAttack : AbstractAttack
 		//throw new System.NotImplementedException();
 	}
 
-	public override void HitHurtBox( Collider2D _collider )
+	public override void HitEnemy( Collider2D _collider )
 	{
-		base.HitHurtBox( _collider );
+		Camera.main.GetComponent<CameraShake>().Shake();
 	}
 
 	private void SpawnFireball()
@@ -147,25 +175,30 @@ public class FireballAttack : AbstractAttack
 
 	private void AdjustAttackPower()
 	{
-		if ( m_holdTime >= 0.0f  && m_holdTime < 1.5f )
+		if ( m_holdTime >= 0.0f && m_holdTime < Level1Threshhold )
 		{
-			m_attackSpeed = 75.0f;
-			m_fireballReference.transform.localScale = new Vector3 (0.25f, 0.25f, 0.25f);
+			m_attackSpeed = 45.0f;
+			m_fireballReference.transform.localScale = Vector3.Slerp( m_fireballReference.transform.localScale, new Vector3( 0.25f, 0.25f, 0.25f ), Level1Threshhold );
+
+			hitForce = -Level1Force;
 		}
-		else if ( m_holdTime > 1.5f && m_holdTime < 3.0f )
+		else if ( m_holdTime > Level1Threshhold && m_holdTime < Level2Threshhold )
 		{
-			m_attackSpeed = 50.0f;
-			m_fireballReference.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+			m_attackSpeed = 35.0f;
+			m_fireballReference.transform.localScale = Vector3.Slerp( m_fireballReference.transform.localScale, new Vector3( 0.5f, 0.5f, 0.5f ), Level2Threshhold );
+			hitForce = -Level2Force;
 		}
-		else if ( m_holdTime > 3.0 && m_holdTime < 4.5f )
+		else if ( m_holdTime > Level2Threshhold && m_holdTime < Level3Threshhold )
 		{
 			m_attackSpeed = 25.0f;
 			m_fireballReference.transform.localScale = new Vector3( 1.0f, 1.0f, 1.0f );
+			hitForce = -Level3Force;
 		}
-		else if(m_holdTime > 5.0f)
+		else if ( m_holdTime > Level3Threshhold )
 		{
 			m_attackSpeed = 15.0f;
 			m_fireballReference.transform.localScale = new Vector3( 1.5f, 1.5f, 1.5f );
+			hitForce = -Level4Force;
 		}
 	}
 }

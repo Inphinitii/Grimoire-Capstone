@@ -35,7 +35,12 @@ public class PageUI : MonoBehaviour
 
 	public void Exit()
 	{
-		m_imageReference.color = Color.gray;
+		Color col = Color.gray;
+		col.r -= 0.25f;
+		col.g -= 0.25f;
+		col.b-= 0.25f;
+
+		m_imageReference.color = col;
 		m_localPosition = m_origPosition;
 		GetComponent<RectTransform>().localPosition = m_localPosition;
 	}

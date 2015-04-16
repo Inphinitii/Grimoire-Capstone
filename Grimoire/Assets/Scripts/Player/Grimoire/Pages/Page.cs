@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 /*========================================================
@@ -22,6 +23,7 @@ public class Page : MonoBehaviour
 
 	public Properties.ForceType forceType;
 	public GameObject				parent;
+	public Sprite							imageForUI; //100x150
 	public bool							useActorForce;
 	public float							chargeRefresh;
 	public float							pageCooldown;

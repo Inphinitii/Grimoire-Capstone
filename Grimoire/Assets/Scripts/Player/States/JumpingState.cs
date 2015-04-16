@@ -17,6 +17,15 @@ namespace PlayerStates
 
 		public override void OnSwitch()
 		{
+			GetFSM().GetComponent<Animator>().SetBool( "Jumping", true );
+		}
+
+		public override void OnExit()
+		{
+			GetFSM().GetComponent<Animator>().SetBool( "Jumping", false );
+			GetFSM().GetComponent<Animator>().SetBool( "Falling", false );
+			GetFSM().GetComponent<Animator>().SetBool( "HoldingForward", false );
+			GetFSM().GetComponent<Animator>().SetBool( "HoldingBack", false );
 		}
 
 		public override void ExecuteState()
@@ -59,6 +68,16 @@ namespace PlayerStates
 
 			}
 
+			if ( GetFSM().GetPhysics().Velocity.y < 0 )
+			{
+				GetFSM().GetComponent<Animator>().SetBool( "Jumping", false );
+				GetFSM().GetComponent<Animator>().SetBool( "Falling", true );
+			}
+			else if ( GetFSM().GetPhysics().Velocity.y == 0 )
+			{
+				GetFSM().GetComponent<Animator>().SetBool( "Falling", false );
+			}
+
 
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
@@ -76,6 +95,7 @@ namespace PlayerStates
 						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f)
 					{
 						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_FRONT );
+						GetFSM().GetComponent<Animator>().SetBool( "HoldingForward", true );
 						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
 					}
 					
@@ -83,6 +103,7 @@ namespace PlayerStates
 								!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
 					{
 						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_BACK );
+						GetFSM().GetComponent<Animator>().SetBool( "HoldingBack", true );
 						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
 
 					}
@@ -102,16 +123,23 @@ namespace PlayerStates
 			}
 			else if(m_leftStick.y < 0)
 			{
+				GetFSM().GetComponent<Animator>().SetBool( "HoldingDown", true );
 				GetFSM().GetMovement().ApplyFastFall();
+			}
+			else
+			{
+				GetFSM().GetComponent<Animator>().SetBool( "HoldingDown", false );
 			}
 		}
 
 		public override void ExitConditions()
 		{
-			if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-			else if ( !GetFSM().GetMovement().IsJumping() )
-				GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+			if ( !GetFSM().GetMovement().IsJumping() )
+				GetFSM().GoToPreviousState( true );
+			//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
+			//	GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+			//else if ( !GetFSM().GetMovement().IsJumping() )
+			//	GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
 
 			if(GetFSM().GetInput().LeftStick().y < 0.1f)
 				if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )

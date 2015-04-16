@@ -41,9 +41,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceType: 0
   parent: {fileID: 0}
+  imageForUI: {fileID: 21300000, guid: 3cdd5c202f1876e4c9d19b1ba48914ff, type: 3}
   useActorForce: 1
-  chargeRefresh: 6
-  pageCooldown: 2
+  chargeRefresh: 5
+  pageCooldown: 5
   standingNeutral: {fileID: 11468974, guid: fa8d90cf6a606d941a90f1e5c6b108a7, type: 2}
   standingDirectional: {fileID: 11468974, guid: fa8d90cf6a606d941a90f1e5c6b108a7,
     type: 2}

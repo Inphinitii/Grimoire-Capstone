@@ -33,12 +33,13 @@ public class PlayerFSM : MonoBehaviour {
     private List<IState>	m_stateList;
     private bool					m_block;
 
-    private IState			m_previousState;
-	private Actor			m_actorReference;
-	private BasicAttacks m_attackList;
+    private IState				m_previousState;
+	private Actor				m_actorReference;
+	private BasicAttacks	m_attackList;
 
 	//For use in the AttackState class. 
-	private AbstractAttack m_currentAttack;
+	private AbstractAttack		m_currentAttack;
+	private Stack<IState>	m_stateQueue;
 
 	private float m_blockTimer;
     
@@ -46,6 +47,8 @@ public class PlayerFSM : MonoBehaviour {
 		m_attackList			= GetComponent<BasicAttacks>();
 		m_actorReference	= GetComponent<Actor>();
         m_stateList				= new List<IState>();
+
+		m_stateQueue = new Stack<IState>( 15 );
         
         // Pre-load the state objects into the state list. This is all done at compile time. 
         m_stateList.Add( new StandingState() );
@@ -74,6 +77,7 @@ public class PlayerFSM : MonoBehaviour {
 		currentState.ExecuteState();
 		currentState.ExitConditions();
 
+		Debug.Log( currentState );
 		if ( m_block )
 			m_blockTimer -= Time.deltaTime;
 		if ( m_blockTimer <= 0.0f )
@@ -97,8 +101,8 @@ public class PlayerFSM : MonoBehaviour {
 	/// </summary>
 	/// <param name="_states">The desired state.</param>
 	/// <param name="_force">  Force the state change regardless of the block </param>
-    public void SetCurrentState(States _states, bool _force){
-		Debug.Log( m_block );
+    public void SetCurrentState(States _states, bool _force)
+	{
         if (!m_block || _force)
         {
 			m_block					= false;
@@ -108,7 +112,7 @@ public class PlayerFSM : MonoBehaviour {
 			if ( _force )
 				currentState.OnForcedExit();
 
-			currentState.OnExit();
+			m_stateQueue.Push( currentState );
 			currentState = m_stateList[(int)_states];
 			currentState.OnSwitch();
         }
@@ -129,7 +133,7 @@ public class PlayerFSM : MonoBehaviour {
 				currentState.OnForcedExit();
 
 			currentState.OnExit();
-			currentState = m_previousState;
+			currentState = m_stateQueue.Pop();
 			currentState.OnSwitch();
 		}
 	}

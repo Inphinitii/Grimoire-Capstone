@@ -47,11 +47,12 @@ MonoBehaviour:
   startupFrames: 4
   durationFrames: 7
   cooldownFrames: 8
+  cleanupTimer: 0
   hitDirection: {x: 1, y: 0}
   hitAlongDistanceVector: 0
   hitForce: 23
   hitDamage: 0
-  freezeMovementOnUse: 1
+  freezeMovementOnUse: 0
   groundKnockBack: 12
   airKnockBack: 0
   allowMovement: 0

@@ -162,7 +162,7 @@ public class StraightFallAttack : AbstractAttack
 
 		yield return new WaitForSeconds( m_onHitFreezeDuration );
 		_collider.gameObject.GetComponent<PlayerFSM>().SetCurrentState( PlayerFSM.States.HIT, true );
-		ApplyForce( _collider );
+		ApplyForce( _collider , false);
 
 		_collider.GetComponent<Animator>().speed = 1.0f;
 		transform.parent.gameObject.GetComponent<Animator>().speed = 1.0f;

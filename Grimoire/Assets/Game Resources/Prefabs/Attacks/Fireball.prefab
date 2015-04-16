@@ -42,7 +42,7 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 11415544, guid: 5fad49e82ff25784fa1ad8b0ed572291, type: 2}
   forceType: 0
-  particleOnHit: {fileID: 0}
+  particleOnHit: {fileID: 19899996, guid: a6db01b734bc52046b2ba57ddccc89e7, type: 2}
   particleOnUse: {fileID: 19879072, guid: 22258bad411197e4ab79331b50293c57, type: 2}
   startupFrames: 0
   durationFrames: 0
@@ -57,6 +57,15 @@ MonoBehaviour:
   airKnockBack: 0
   fireballLifetime: 10
   fireballObject: {fileID: 180902, guid: 860cd8efdc0b4e448b9284690d7ca8eb, type: 2}
+  Level1Threshhold: .75
+  Level1Force: 15
+  Level2Threshhold: 1.5
+  Level2Force: 25
+  Level3Threshhold: 2.25
+  Level3Force: 40
+  Level4Threshhold: 3
+  Level4Force: 50
+  ignoreMovementCap: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

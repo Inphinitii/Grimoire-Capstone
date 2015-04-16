@@ -27,7 +27,6 @@ namespace PlayerStates
 
 			GetFSM().BlockStateSwitch( BLOCK_TIME );
 			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", true );
-			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = false;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = GROUND_ACCEL_DAMPENER;
 			GetFSM().StartChildCoroutine( Flash(Color.white) );
@@ -36,12 +35,14 @@ namespace PlayerStates
 
 		public override void OnExit()
 		{
+			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = true;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
 		}
 
 		public override void ExecuteState()
 		{
+			Debug.Log( "hit" );
 			m_leftStick = GetFSM().GetInput().LeftStick();
 
 			if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f )
@@ -67,11 +68,12 @@ namespace PlayerStates
 
 			//At the peak of the velocity upwards..
 			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
-				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+				GetFSM().GoToPreviousState( true );
 
 			//Velocity approaches zero..
 			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.x ) <= MIN_X_VEL_EXIT_VALUE && !GetFSM().GetMovement().IsJumping() )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
+				GetFSM().GoToPreviousState( true );
+				//GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
 
 		}
 

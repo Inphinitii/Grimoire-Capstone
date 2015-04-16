@@ -10,6 +10,16 @@ namespace PlayerStates
 		{
 		}
 
+		public override void OnSwitch()
+		{
+			GetFSM().GetComponent<Animator>().SetBool( "Moving", true );
+		}
+
+		public override void OnExit()
+		{
+			GetFSM().GetComponent<Animator>().SetBool( "Moving", false );			
+		}
+
 		public override void ExecuteState()
 		{
 			m_leftStick = GetFSM().GetActorReference().GetInputHandler().LeftStick();
@@ -19,6 +29,7 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
+				GetFSM().GetComponent<Animator>().SetBool( "Casting", true );			
 				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
 			}			
@@ -39,7 +50,7 @@ namespace PlayerStates
 			if ( m_leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
 			if ( m_leftStick.x == 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+				GetFSM().GoToPreviousState( true );
 		}
 	}
 }

@@ -3,10 +3,7 @@ using System.Collections;
 
 public class MineHurtBox : AbstractHurtBox
 {
-	public Vector2 hitDirection;
-	public float		hitForce;
 	public float		lifetime;
-	public bool		hitAlongDistanceVector;
 
 
 	public override void Start()
@@ -42,10 +39,12 @@ public class MineHurtBox : AbstractHurtBox
 
 	public override void OnEnemyHit( Collider2D _enemy )
 	{
-		Camera.main.GetComponent<CameraShake>().Shake();
 		m_reference.GetComponent<PhysicsController>().ClearValues();
 		m_reference.GetComponent<PhysicsController>().PausePhysics(true);
+
+		m_parentAttack.SendMessage( "HitEnemy", _enemy );
 		StartCoroutine( FreezePlayers( _enemy ) );
+
 	}
 
 	public override void OnAnyHit()
@@ -83,15 +82,7 @@ public class MineHurtBox : AbstractHurtBox
 	{
 
 		Vector2 direction = ( _collider.transform.position + new Vector3(0.0f, 1.0f, 0.0f) - m_reference.transform.position ).normalized;
-
-		if ( !hitAlongDistanceVector )
-		{
-			hitDirection.Normalize();
-			direction.x = hitDirection.x;
-			direction.y = hitDirection.y;
-		}
-
-		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * hitForce;
+		_collider.gameObject.GetComponent<PhysicsController>().Velocity = direction * m_parentAttack.hitForce;
 	}
 
 	public IEnumerator FreezePlayers( Collider2D _collider )

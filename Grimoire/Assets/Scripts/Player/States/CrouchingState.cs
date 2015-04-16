@@ -11,6 +11,17 @@ namespace PlayerStates
 		{
 		}
 
+		public override void OnSwitch()
+		{
+			GetFSM().GetComponent<Animator>().SetBool( "Crouching", true );
+			base.OnSwitch();
+		}
+
+		public override void OnExit()
+		{
+			GetFSM().GetComponent<Animator>().SetBool( "Crouching", false );
+			base.OnExit();
+		}
 		public override void ExecuteState()
 		{
 			m_leftStick = GetFSM().GetInput().LeftStick();
@@ -20,6 +31,7 @@ namespace PlayerStates
 				if ( m_leftStick.y < 0.0f )
 				{
 					m_playerFSM.CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.CROUCHING_ATTACK );
+					GetFSM().GetComponent<Animator>().SetBool( "CrouchingKick", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 
@@ -32,7 +44,7 @@ namespace PlayerStates
 			if ( GetFSM().GetInput().Jump().thisFrame )
 				GetFSM().GetMovement().FallThrough();
 			if ( m_leftStick.y >= 0 )
-				GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
+				GetFSM().GoToPreviousState( true );
 
 		}
 	}

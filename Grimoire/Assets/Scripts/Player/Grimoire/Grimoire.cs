@@ -23,6 +23,7 @@ public class Grimoire : MonoBehaviour
 	private Page					m_SelectedPage	= null;
 	private int					m_PageAmount	= 0;
 	private int					m_pageIndex;
+	public bool loaded;
 
 
 
@@ -57,6 +58,7 @@ public class Grimoire : MonoBehaviour
 	{
 		for ( int i = 0; i < m_PageAmount; i++ )
 			m_internalPages[i].Init();
+		loaded = true;
 	}
 
 	void Update()

@@ -115,7 +115,7 @@ public class DefaultAttack : AbstractAttack {
 
 
 
-		ApplyForce( _collider );
+		ApplyForce( _collider , true);
 
 
 	}

@@ -16,6 +16,7 @@ namespace PlayerStates
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
 					GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
+					GetFSM().GetComponent<Animator>().SetBool( "Casting", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 			}
 
@@ -27,12 +28,14 @@ namespace PlayerStates
 				//Upwards Attack - Standing
 				if ( _leftStick.y > 0 )
 				{
+					GetFSM().GetComponent<Animator>().SetBool( "HoldingUp", true );
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_AIR );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 				//Neutral Attack - Standing
 				else
 				{
+					GetFSM().GetComponent<Animator>().SetBool( "HoldingUp", false );
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_NEUTRAL );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
