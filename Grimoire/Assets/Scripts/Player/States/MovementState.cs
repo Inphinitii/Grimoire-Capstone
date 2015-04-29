@@ -31,6 +31,7 @@ namespace PlayerStates
 			{
 				GetFSM().GetComponent<Animator>().SetBool( "Casting", true );			
 				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.STANDING_NEUTRAL );
+                GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
 			}			
 		}
@@ -41,7 +42,7 @@ namespace PlayerStates
 				if ( GetFSM().GetActorReference().GetSpellCharges().UseCharge(1.0f) )
 					GetFSM().SetCurrentState( PlayerFSM.States.DASHING, true );
 
-			if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame )
+            if ( GetFSM().GetActorReference().GetInputHandler().Jump().thisFrame && !GetFSM().GetActorReference().GetInputHandler().Jump().lastFrame)
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 
 			if ( GetFSM().GetActorReference().GetMovementController().IsJumping() )
@@ -49,8 +50,9 @@ namespace PlayerStates
 
 			if ( m_leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, true );
+
 			if ( m_leftStick.x == 0 )
-				GetFSM().GoToPreviousState( true );
+				GetFSM().GoToPreviousState( true, 1 );
 		}
 	}
 }

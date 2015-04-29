@@ -16,7 +16,7 @@ public class AbstractStage : MonoBehaviour
 
 	}
 
-	public virtual Transform GetSpawnLocation(bool _main)
+	public virtual Transform GetRandomSpawnLocation(bool _main)
 	{
 		if ( _main )
 		{
@@ -25,6 +25,15 @@ public class AbstractStage : MonoBehaviour
 		else
 			return spawnLocations[Random.Range( 0, spawnLocations.Length )];
 	}
+
+    //Takes two players.
+    public virtual void InitialSpawn( Actor[] _actors )
+    {
+        _actors[0].transform.position = spawnLocations[0].position;
+        _actors[1].transform.position = spawnLocations[1].position;
+
+    }
+
 	public virtual BoxCollider2D[] GetPlatforms()
 	{
 		return platformObjects;

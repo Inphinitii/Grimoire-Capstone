@@ -42,13 +42,7 @@ namespace PlayerStates
 			if ( m_dashComponent.DashComplete() || m_playerFSM.GetInput().Triggers().thisFrame > 0.5f && m_playerFSM.GetInput().Triggers().lastFrame < 0.5f )
 			{
 				m_dashComponent.ForceCompletion = true;
-				GetFSM().GoToPreviousState( true );
-				//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
-				//	GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
-				//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x != 0)
-				//	GetFSM().SetCurrentState( PlayerFSM.States.MOVING, true );
-				//if ( GetFSM().GetMovement().IsJumping() )
-				//	GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, true );
+				GetFSM().GoToPreviousState( true , 1);
 			}
 
 		}

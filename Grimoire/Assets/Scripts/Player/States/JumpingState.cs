@@ -18,8 +18,15 @@ namespace PlayerStates
 		public override void OnSwitch()
 		{
 			GetFSM().GetComponent<Animator>().SetBool( "Jumping", true );
+            GetFSM().GetComponent<Animator>().SetBool( "Falling", true );
+
 		}
 
+        public override void OnPop()
+        {
+            //OnExit();
+
+        }
 		public override void OnExit()
 		{
 			GetFSM().GetComponent<Animator>().SetBool( "Jumping", false );
@@ -82,6 +89,7 @@ namespace PlayerStates
 			if ( GetFSM().GetInput().Special().thisFrame && !GetFSM().GetInput().Special().lastFrame )
 			{
 				GetFSM().CurrentAttack = GetFSM().GetActorReference().GetGrimoire().UseCurrentPage( Page.Type.AIR_NEUTRAL );
+                GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 				GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 			}
 
@@ -95,6 +103,7 @@ namespace PlayerStates
 						!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x < 0.0f)
 					{
 						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_FRONT );
+                        GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 						GetFSM().GetComponent<Animator>().SetBool( "HoldingForward", true );
 						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
 					}
@@ -103,6 +112,7 @@ namespace PlayerStates
 								!GetFSM().GetMovement().IsFacingRight() && m_leftStick.x > 0.0f )
 					{
 						GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_BACK );
+                        GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 						GetFSM().GetComponent<Animator>().SetBool( "HoldingBack", true );
 						GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );		
 
@@ -112,12 +122,14 @@ namespace PlayerStates
 				else if ( m_leftStick.y < 0 )
 				{
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_DOWN );
+                    GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
 				}
 
 				else if ( m_leftStick == Vector2.zero )
 				{
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.AIR_NEUTRAL );
+                    GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, true );
 				}
 			}
@@ -135,11 +147,7 @@ namespace PlayerStates
 		public override void ExitConditions()
 		{
 			if ( !GetFSM().GetMovement().IsJumping() )
-				GetFSM().GoToPreviousState( true );
-			//if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetPhysics().Velocity.x == 0 )
-			//	GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
-			//else if ( !GetFSM().GetMovement().IsJumping() )
-			//	GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
+				GetFSM().GoToPreviousState( true, 1 );
 
 			if(GetFSM().GetInput().LeftStick().y < 0.1f)
 				if ( GetFSM().GetInput().Triggers().thisFrame > 0.5f && GetFSM().GetInput().Triggers().lastFrame < 0.5f )

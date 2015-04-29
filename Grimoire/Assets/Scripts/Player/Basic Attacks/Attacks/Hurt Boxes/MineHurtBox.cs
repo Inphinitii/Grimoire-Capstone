@@ -16,10 +16,10 @@ public class MineHurtBox : AbstractHurtBox
 	{
 		this.transform.position = m_reference.transform.position;
 
-		//if ( lifetime > 0.0f )
-		//	lifetime -= Time.deltaTime;
-		//else
-		//	DestroyObject();
+        if ( lifetime > 0.0f )
+            lifetime -= Time.deltaTime;
+        else
+            DestroyObject();
 
 		base.Update();
 	}

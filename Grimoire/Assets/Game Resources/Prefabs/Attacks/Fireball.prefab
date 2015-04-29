@@ -47,7 +47,7 @@ MonoBehaviour:
   startupFrames: 0
   durationFrames: 0
   cooldownFrames: 0
-  cleanupTimer: 0
+  cleanupTimer: 10
   hitDirection: {x: 0, y: 0}
   hitAlongDistanceVector: 1
   hitForce: 40

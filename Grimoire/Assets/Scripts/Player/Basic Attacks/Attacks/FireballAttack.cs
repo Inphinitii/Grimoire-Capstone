@@ -81,7 +81,6 @@ public class FireballAttack : AbstractAttack
 						m_direction = new Vector2( 1.0f, 0.0f );
 					else
 					{
-						Debug.Log( "Left" );
 						m_direction = new Vector2( -1.0f, 0.0f );
 					}
 				}

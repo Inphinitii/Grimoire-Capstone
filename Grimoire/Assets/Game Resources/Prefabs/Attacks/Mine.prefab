@@ -47,7 +47,7 @@ MonoBehaviour:
   startupFrames: 1
   durationFrames: 0
   cooldownFrames: 0
-  cleanupTimer: 0
+  cleanupTimer: 3
   hitDirection: {x: 0, y: 0}
   hitAlongDistanceVector: 1
   hitForce: 40
@@ -57,7 +57,7 @@ MonoBehaviour:
   airKnockBack: 0
   mineObject: {fileID: 106678, guid: 0251aa628f23353429c8d82e89e823c1, type: 2}
   onDestroyParticle: {fileID: 19899996, guid: a6db01b734bc52046b2ba57ddccc89e7, type: 2}
-  mineLifetime: 0
+  mineLifetime: 5
   allowMovement: 0
 --- !u!1001 &100100000
 Prefab:

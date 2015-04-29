@@ -33,16 +33,20 @@ namespace PlayerStates
 
 		}
 
+        public override void OnPop()
+        {
+            OnExit();
+        }
 		public override void OnExit()
 		{
 			GetFSM().GetActorReference().GetAnimator().SetBool( "Hit", false );
 			GetFSM().GetActorReference().GetMovementController().m_capAcceleration = true;
 			GetFSM().GetActorReference().GetMovementController().groundDampeningConstant = m_oldDampening;
+            GetFSM().GetActorReference().GetParticleManager().SetSmokeHitParticle( false );
 		}
 
 		public override void ExecuteState()
 		{
-			Debug.Log( "hit" );
 			m_leftStick = GetFSM().GetInput().LeftStick();
 
 			if ( GetFSM().GetInput().Triggers().thisFrame > 0.0f )
@@ -68,11 +72,12 @@ namespace PlayerStates
 
 			//At the peak of the velocity upwards..
 			if ( GetFSM().GetActorReference().GetPhysicsController().LastVelocity.y > 0.0f && GetFSM().GetActorReference().GetPhysicsController().Velocity.y < 0.0f )
-				GetFSM().GoToPreviousState( true );
+                GetFSM().ReleaseStack();
+
 
 			//Velocity approaches zero..
-			if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.x ) <= MIN_X_VEL_EXIT_VALUE && !GetFSM().GetMovement().IsJumping() )
-				GetFSM().GoToPreviousState( true );
+            if ( Mathf.Abs( GetFSM().GetActorReference().GetPhysicsController().Velocity.x ) <= MIN_X_VEL_EXIT_VALUE && !GetFSM().GetMovement().IsJumping() )
+                GetFSM().ReleaseStack();
 				//GetFSM().SetCurrentState( PlayerFSM.States.STANDING, true );
 
 		}

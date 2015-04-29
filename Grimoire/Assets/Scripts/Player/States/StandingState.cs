@@ -10,6 +10,12 @@ namespace PlayerStates
 		{
 		}
 
+        public override void OnPop()
+        {
+            GetFSM().GetComponent<Animator>().SetBool( "HoldingUp", false );
+            GetFSM().GetComponent<Animator>().SetBool( "Casting", false );
+        }
+
 		public override void ExecuteState()
 		{
 			_leftStick = GetFSM().GetInput().LeftStick();
@@ -30,6 +36,7 @@ namespace PlayerStates
 				{
 					GetFSM().GetComponent<Animator>().SetBool( "HoldingUp", true );
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_AIR );
+                    GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 				//Neutral Attack - Standing
@@ -37,6 +44,7 @@ namespace PlayerStates
 				{
 					GetFSM().GetComponent<Animator>().SetBool( "HoldingUp", false );
 					GetFSM().CurrentAttack = GetFSM().GetAttackList().GetAttack( BasicAttacks.Attacks.STANDING_NEUTRAL );
+                    GetFSM().GetComponent<Animator>().SetBool( "Attacking", true );
 					GetFSM().SetCurrentState( PlayerFSM.States.ATTACKING, false );
 				}
 			}
@@ -44,6 +52,7 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
+            Debug.Log( "Ding" );
 			if ( _leftStick.x != 0 )
 			{
 				if ( GetFSM().GetInput().LeftStick().y < 0.1f )
@@ -55,6 +64,9 @@ namespace PlayerStates
 
 			if ( GetFSM().GetInput().Jump().thisFrame )
 				GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
+            else if ( GetFSM().GetMovement().IsJumping() )
+                GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
+
 			if ( _leftStick.y < 0 )
 				GetFSM().SetCurrentState( PlayerFSM.States.CROUCHING, false );
 		}

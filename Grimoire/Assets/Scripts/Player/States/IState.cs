@@ -35,6 +35,8 @@ namespace PlayerStates
 		/// </summary>
 		public virtual void OnExit() { }
 
+        public virtual void OnPop() { }
+
 		/// <summary>
 		/// Called when the state is changed by force.
 		/// </summary>

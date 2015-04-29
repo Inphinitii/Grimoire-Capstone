@@ -13,7 +13,7 @@ public class CameraScript : MonoBehaviour
 {
 
 	//Public Properties
-	public GameObject[]	cameraFoci;
+	public Actor[]	cameraFoci;
 	public float					cameraFollowDelay;
 	public float					cameraZoomDelay;
 	public bool					cameraFollow;
@@ -28,37 +28,41 @@ public class CameraScript : MonoBehaviour
 	private Vector3	m_origCamOffset;
 	private Vector2	m_focalPoint;
 	private float			m_cameraMagnification;
+    bool start = false;
 
 
 
-
-	void Start()
+	public void StartCamera()
 	{
 		m_cameraReference		= GetComponent<Camera>();
-		m_cameraPosition			= m_cameraReference.transform.position;
+		m_cameraPosition		= m_cameraReference.transform.position;
 		m_origCamOffset			= m_cameraPosition;
 		m_cameraMagnification	= CameraMagnification();
+        start = true;
+
 	}
 
 	void FixedUpdate()
 	{
+        if ( cameraFoci.Length > 0 && start)
+        {
+            if ( cameraFollow )
+                ReturnFocalPoint();
+            if ( dynamicCameraZoom )
+                m_cameraMagnification = CameraMagnification();
 
-		if ( cameraFollow )
-			ReturnFocalPoint();
-		if ( dynamicCameraZoom )
-			m_cameraMagnification = CameraMagnification();
+            if ( m_cameraMagnification > maximumZoom )
+                m_cameraMagnification = maximumZoom;
+            else if ( m_cameraMagnification < minimumZoom )
+                m_cameraMagnification = minimumZoom;
 
-		if ( m_cameraMagnification > maximumZoom )
-			m_cameraMagnification = maximumZoom;
-		else if ( m_cameraMagnification < minimumZoom )
-			m_cameraMagnification = minimumZoom;
+            m_cameraPosition = new Vector3(
+            Mathf.Lerp( m_cameraPosition.x, m_focalPoint.x, Time.deltaTime * cameraFollowDelay ),
+            Mathf.Lerp( m_cameraPosition.y, m_focalPoint.y, Time.deltaTime * cameraFollowDelay ),
+            Mathf.Lerp( m_cameraPosition.z, -m_cameraMagnification, Time.deltaTime * cameraZoomDelay ) );
 
-		m_cameraPosition = new Vector3(
-		Mathf.Lerp( m_cameraPosition.x, m_focalPoint.x, Time.deltaTime * cameraFollowDelay ),
-		Mathf.Lerp( m_cameraPosition.y, m_focalPoint.y, Time.deltaTime * cameraFollowDelay ),
-		Mathf.Lerp( m_cameraPosition.z, -m_cameraMagnification, Time.deltaTime * cameraZoomDelay ) );
-
-		m_cameraReference.transform.position = m_cameraPosition + new Vector3( m_origCamOffset.x, m_origCamOffset.y, 0.0f );
+            m_cameraReference.transform.position = m_cameraPosition + new Vector3( m_origCamOffset.x, m_origCamOffset.y, 0.0f );
+        }
 	}
 
 	/// <summary>
@@ -132,7 +136,7 @@ public class CameraScript : MonoBehaviour
 	float CameraMagnification()
 	{
 		//Since we need at least one focal point for the script to work, let's assume our base values are the first focal point in the array. 
-		Vector2 _maximum = cameraFoci[0].transform.position;
+		Vector2 _maximum    = cameraFoci[0].transform.position;
 		Vector2 _minimum	= cameraFoci[0].transform.position;
 
 		for ( int i = 0; i < cameraFoci.Length; i++ )

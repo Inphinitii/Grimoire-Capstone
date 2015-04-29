@@ -74,10 +74,9 @@ public class PlayerFSM : MonoBehaviour {
 	
 	void Update () 
 	{
-		currentState.ExecuteState();
 		currentState.ExitConditions();
+		currentState.ExecuteState();
 
-		Debug.Log( currentState );
 		if ( m_block )
 			m_blockTimer -= Time.deltaTime;
 		if ( m_blockTimer <= 0.0f )
@@ -122,7 +121,7 @@ public class PlayerFSM : MonoBehaviour {
 	/// Return to the previous stored state.
 	/// </summary>
 	/// <param name="_force">Force the state change regardless of the block.</param>
-	public void GoToPreviousState(bool _force)
+	public void GoToPreviousState(bool _force, int _popCount)
 	{
 		if ( !m_block || _force )
 		{
@@ -133,10 +132,24 @@ public class PlayerFSM : MonoBehaviour {
 				currentState.OnForcedExit();
 
 			currentState.OnExit();
+
+            for ( int i = 1; i < _popCount; i++ )
+                m_stateQueue.Pop().OnPop();
+
 			currentState = m_stateQueue.Pop();
-			currentState.OnSwitch();
+            currentState.OnPop();
 		}
 	}
+
+    public void ReleaseStack()
+    {
+        for ( int i = 0; i < m_stateQueue.Count; i++ )
+        {
+            m_stateQueue.Pop().OnPop();
+        }
+
+        currentState = m_stateList[(int)States.STANDING];
+    }
 
 	/// <summary>
 	/// Function for use in the States that have no access to Unity functions. Call an IEnumerator through this GameObject.
