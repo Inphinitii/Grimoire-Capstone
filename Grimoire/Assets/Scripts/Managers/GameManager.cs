@@ -64,6 +64,23 @@ public class GameManager : MonoBehaviour
                 //Set camera focus
                 Camera.main.GetComponent<CameraScript>().cameraFoci = playerActors;
                 Camera.main.GetComponent<CameraScript>().StartCamera();
+
+				GameObject ui = GameObject.Find( "User Interface" );
+				ui.SetActive( true );
+				if ( playerActors[playerActors.Length - 1].GetComponent<Grimoire>().loaded )
+					foreach ( InGameSpellPanel obj in GameObject.Find( "User Interface" ).transform.GetComponentsInChildren<InGameSpellPanel>() )
+					{
+						if(obj.name == "Player1")
+						{
+							obj.referenceObject = playerActors[0].GetComponent<Grimoire>();
+						}
+						if ( obj.name == "Player2" )
+						{
+							obj.referenceObject = playerActors[1].GetComponent<Grimoire>();
+						}
+						obj.StartUI();
+					}
+
                 break;
             default:
                 break;
@@ -91,9 +108,6 @@ public class GameManager : MonoBehaviour
 		{
 			if ( _state == GameState.InGame )
 			{
-				if ( playerActors[playerActors.Length - 1].GetComponent<Grimoire>().loaded )
-					foreach ( InGameSpellPanel obj in GameObject.Find( "User Interface" ).transform.GetComponentsInChildren<InGameSpellPanel>() )
-						obj.StartUI();
 
 			}
 			start = false;

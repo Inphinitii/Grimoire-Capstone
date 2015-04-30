@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CustomizationMenu.cs" />
      <Compile Include="Assets\Game Resources\Models\Outpost\Scripts\PlayGUI.cs" />
+     <Compile Include="Assets\PageScrollMenu.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraShake.cs" />
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
@@ -113,11 +115,13 @@
      <Compile Include="Assets\Scripts\Player\States\StandingState.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonHover.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonTransition.cs" />
+     <Compile Include="Assets\Scripts\UI\CustomizationPageButton.cs" />
      <Compile Include="Assets\Scripts\UI\InGameSpellPanel.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\UI\Menus\AbstractMenu.cs" />
      <Compile Include="Assets\Scripts\UI\PageUI.cs" />
      <Compile Include="Assets\Scripts\_Downloaded\GamePadInput\GamePad.cs" />
+     <Compile Include="Assets\ScrollMenuObject.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

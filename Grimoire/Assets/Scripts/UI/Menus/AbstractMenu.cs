@@ -22,6 +22,7 @@ public class AbstractMenu : MonoBehaviour
 	public int			controllerNumber;	//Which controller number will effect this menu 
 	public bool		verticalMovement;
 	public bool		isActive;
+	public bool canGoBack = true;
 
 	private Button[]			m_buttonList;
 	private Button				m_currentSelection;
@@ -31,8 +32,10 @@ public class AbstractMenu : MonoBehaviour
 	private int					m_selectionIndex	= 0;
 	private float					m_currentTime		= 0.0f;
 	private const float		SCROLL_DELAY		= 0.15f;
+	private float m_backTimer = 1.0f;
+	private int lockIndex;
 
-	void Start()
+	public virtual void Start()
 	{
 		m_canvasGroup			= GetComponent<CanvasGroup>();
 		m_buttonList				= GetComponentsInChildren<Button>();
@@ -51,12 +54,18 @@ public class AbstractMenu : MonoBehaviour
 			m_canvasGroup.alpha = 0.0f;
 	}
 
-	
-	void Update()
+
+	public virtual void Update()
 	{
-		if ( GamepadInput.GamePad.GetButtonDown( GamepadInput.GamePad.Button.B, GamepadInput.GamePad.Index.Any ) )
+		if ( GamepadInput.GamePad.GetButton( GamepadInput.GamePad.Button.B, (GamepadInput.GamePad.Index)controllerNumber ) )
 		{
-			FindObjectOfType<MenuManager>().GoBack();
+			m_backTimer -= Time.deltaTime;
+			if ( m_backTimer < 0.0f )
+				FindObjectOfType<MenuManager>().GoBack();
+		}
+		else if ( GamepadInput.GamePad.GetButtonUp( GamepadInput.GamePad.Button.B, (GamepadInput.GamePad.Index)controllerNumber ) )
+		{
+			m_backTimer = 1.0f;
 		}
 
 		if ( isActive )
@@ -86,6 +95,11 @@ public class AbstractMenu : MonoBehaviour
 	public virtual void Scroll( Vector3 _stick, bool _vertical )
 	{
 
+		if ( m_currentSelection.GetComponent<ScrollMenuObject>() != null )
+		{
+			m_currentSelection.GetComponent<ScrollMenuObject>().SetActive( false );
+		}
+
 		float direction;
 		direction = !_vertical ? -_stick.x : _stick.y;
 
@@ -99,7 +113,14 @@ public class AbstractMenu : MonoBehaviour
 		else if ( m_selectionIndex < 0 ) 
 			m_selectionIndex = m_buttonList.Length - 1;
 
+
 		m_currentSelection = m_buttonList[m_selectionIndex];
+
+		if ( m_currentSelection.GetComponent<ScrollMenuObject>() != null)
+		{
+			m_currentSelection.GetComponent<ScrollMenuObject>().SetActive( true );
+		}
+
 		m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
 	}
 

@@ -933,6 +933,7 @@ MonoBehaviour:
   grimoirePages:
   - {fileID: 11472558, guid: 7402acde57b989b4a962c1dfcc862ee8, type: 2}
   maxPages: 1
+  loaded: 0
 --- !u!114 &11497330
 MonoBehaviour:
   m_ObjectHideFlags: 1

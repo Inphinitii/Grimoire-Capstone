@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GamepadInput;
 
 public class MenuManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class MenuManager : MonoBehaviour
 	public AbstractMenu[] optionsMenus;
 	public AbstractMenu[] characterSelectionMenus;
 	public AbstractMenu[] pauseMenus;
+	public GameObject start;
 	public bool					isPaused = false;
 
 	private MenuGroup m_characterSelection;
@@ -34,8 +36,10 @@ public class MenuManager : MonoBehaviour
 	private MenuGroup m_previousMenu;
 	private float				m_menuDeltaTime,
 									m_timeThisFrame,
-									m_timeLastFrame;
+									m_timeLastFrame,
+									m_backTimer;
 	private bool				m_transitioning;
+	private bool active = true;
 
 
 
@@ -57,9 +61,34 @@ public class MenuManager : MonoBehaviour
 
 	void Update()
 	{
-		m_timeLastFrame		= m_timeThisFrame;
-		m_timeThisFrame		= Time.realtimeSinceStartup;
-		m_menuDeltaTime		= m_timeThisFrame - m_timeLastFrame;
+		if ( active )
+		{
+			m_timeLastFrame = m_timeThisFrame;
+			m_timeThisFrame = Time.realtimeSinceStartup;
+			m_menuDeltaTime = m_timeThisFrame - m_timeLastFrame;
+
+			if ( m_currentMenu == m_characterSelection )
+			{
+				if ( m_currentMenu.menus[0].gameObject.GetComponent<CustomizationMenu>().lockedIn &&
+					m_currentMenu.menus[1].gameObject.GetComponent<CustomizationMenu>().lockedIn )
+				{
+
+					//Display GameStart message
+					start.SetActive( true );
+
+					if ( GamepadInput.GamePad.GetButtonDown( GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any ) )
+					{
+						m_currentMenu = null;
+						GameObject.Find( "GameManager" ).GetComponent<GameManager>().OnGameScene();
+						active = false;
+					}
+				}
+				else
+				{
+					start.SetActive( false );
+				}
+			}
+		}
 	}
 
 	public void SwitchPlayerCustomization()
@@ -78,11 +107,6 @@ public class MenuManager : MonoBehaviour
 			m_previousMenu = m_currentMenu;
 			StartCoroutine( FadeInOut( m_currentMenu, m_options, 1.0f, 0.0f ) );
 		}
-	}
-
-	public void LoadGameScene()
-	{
-		Application.LoadLevel( 0 );
 	}
 
 	public void PauseMenu(bool _open)
