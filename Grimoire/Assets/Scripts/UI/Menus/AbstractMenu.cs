@@ -28,6 +28,7 @@ public class AbstractMenu : MonoBehaviour
 	private Button				m_currentSelection;
 	private EventSystem	m_panelEventSystem;
 	private CanvasGroup	m_canvasGroup;
+    private Color origColor;
 
 	private int					m_selectionIndex	= 0;
 	private float					m_currentTime		= 0.0f;
@@ -38,12 +39,14 @@ public class AbstractMenu : MonoBehaviour
 	public virtual void Start()
 	{
 		m_canvasGroup			= GetComponent<CanvasGroup>();
-		m_buttonList				= GetComponentsInChildren<Button>();
-		m_panelEventSystem	= GameObject.FindObjectOfType<EventSystem>();
+		m_buttonList			= GetComponentsInChildren<Button>();
+		m_panelEventSystem	    = GameObject.FindObjectOfType<EventSystem>();
 
 		if ( m_buttonList.Length != 0 )
 		{
 			m_currentSelection = m_buttonList[m_selectionIndex];
+            origColor = m_currentSelection.GetComponent<Image>().color;
+  
 
 			//Set the currently selected object to be the first within the menu. 
 			m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
@@ -92,6 +95,19 @@ public class AbstractMenu : MonoBehaviour
 		}
 	}
 
+    public virtual void UpdateSelection()
+    {
+        
+        Color _col = m_currentSelection.GetComponent<Image>().color;
+        origColor = _col;
+        _col.r -= 0.1f;
+        _col.g -= 0.1f;
+        _col.b -= 0.1f;
+        _col.a = 1.0f;
+        m_currentSelection.GetComponent<Image>().color = _col;
+        ExecuteEvents.Execute<ISelectHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.selectHandler );
+    }
+
 	public virtual void Scroll( Vector3 _stick, bool _vertical )
 	{
 
@@ -113,7 +129,8 @@ public class AbstractMenu : MonoBehaviour
 		else if ( m_selectionIndex < 0 ) 
 			m_selectionIndex = m_buttonList.Length - 1;
 
-
+        m_currentSelection.GetComponent<Image>().color = origColor;
+        ExecuteEvents.Execute<IDeselectHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.deselectHandler );
 		m_currentSelection = m_buttonList[m_selectionIndex];
 
 		if ( m_currentSelection.GetComponent<ScrollMenuObject>() != null)
@@ -121,7 +138,8 @@ public class AbstractMenu : MonoBehaviour
 			m_currentSelection.GetComponent<ScrollMenuObject>().SetActive( true );
 		}
 
-		m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
+        UpdateSelection();
+		//m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
 	}
 
 	public virtual void Active(bool _active)

@@ -12,8 +12,8 @@ public class ScrollMenuObject : MonoBehaviour
 
 	protected GameObject m_currentlySelected;
 	protected int m_selectionIndex;
-	private float m_currentTime = 0.0f;
-	private const float SCROLL_DELAY = 0.15f;
+    protected float m_currentTime = 0.0f;
+    protected const float SCROLL_DELAY = 0.15f;
 
 	void Start()
 	{
@@ -51,10 +51,9 @@ public class ScrollMenuObject : MonoBehaviour
 
 	}
 
-	public void Scroll( Vector3 _stick, bool _vertical )
+	public virtual void Scroll( Vector3 _stick, bool _vertical )
 	{
 
-		Debug.Log( "Scrolling" );
 		float direction;
 		direction = !_vertical ? -_stick.x : _stick.y;
 

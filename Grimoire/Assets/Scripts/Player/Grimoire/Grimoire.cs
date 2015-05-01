@@ -10,27 +10,30 @@ using System.Collections;
  * Handles the use of spell charges when a page is used. 
  =========================================================*/
 
-[RequireComponent(typeof(SpellCharges))]
+//[RequireComponent(typeof(SpellCharges))]
 public class Grimoire : MonoBehaviour
 {
 
-	public Page[]	grimoirePages;
-	public int			maxPages;
+    public Page[] grimoirePages;
+    public int maxPages = 3;
 
 
 	private SpellCharges	m_spellCharges;
-	private Page[]				m_internalPages;
-	private Page					m_SelectedPage	= null;
-	private int					m_PageAmount	= 0;
-	private int					m_pageIndex;
+    private Page[]          m_internalPages;
+	private Page		    m_SelectedPage	= null;
+	private int				m_PageAmount	= 0;
+	private int				m_pageIndex;
 	public bool loaded;
 
 
+    //public void Init()
+    //{
+    //    Start();
+    //}
 
-	void Start()
+    public void Init()
 	{
-		m_PageAmount	= 0;
-		m_SelectedPage = null;
+		m_SelectedPage  = null;
 		m_spellCharges	= GetComponent<SpellCharges>();
 
 		if ( grimoirePages.Length > 0 )
@@ -63,19 +66,22 @@ public class Grimoire : MonoBehaviour
 
 	void Update()
 	{
-		if ( GetComponent<InputHandler>().SpellSwap().thisFrame && !GetComponent<InputHandler>().SpellSwap().lastFrame )
-		{
-			if ( m_pageIndex < m_PageAmount )
-			{
-				m_pageIndex++;
-				m_SelectedPage = m_internalPages[m_pageIndex - 1];
-			}
-			else
-			{
-				m_pageIndex = 1;
-				m_SelectedPage = m_internalPages[0];
-			}
-		}
+        if ( loaded )
+        {
+            if ( GetComponent<InputHandler>().SpellSwap().thisFrame && !GetComponent<InputHandler>().SpellSwap().lastFrame )
+            {
+                if ( m_pageIndex < m_PageAmount )
+                {
+                    m_pageIndex++;
+                    m_SelectedPage = m_internalPages[m_pageIndex - 1];
+                }
+                else
+                {
+                    m_pageIndex = 1;
+                    m_SelectedPage = m_internalPages[0];
+                }
+            }
+        }
 	}
 
 	/// <summary>
@@ -109,7 +115,10 @@ public class Grimoire : MonoBehaviour
 	/// <returns>Page object</returns>
 	public Page GetPage( int _index )
 	{
-		return m_internalPages[_index];
+        if ( _index >= 0 && _index < m_internalPages.Length )
+            return m_internalPages[_index];
+        else
+            return null;
 	}
 
 	public int GetPageIndex()
@@ -117,15 +126,28 @@ public class Grimoire : MonoBehaviour
 		return m_pageIndex;
 	}
 
+    public void AllocateSpace( int _count )
+    {
+        maxPages = _count;
+        grimoirePages = new Page[_count];
+        m_internalPages = new Page[_count];
+    }
 	/// <summary>
 	/// Add a page to the Grimoire
 	/// </summary>
 	/// <param name="_page">Page Object</param>
 	public void AddPage( Page _page )
 	{
-		m_internalPages[m_PageAmount] = _page;
+        grimoirePages[m_PageAmount] = _page;
 		m_PageAmount++;
 	}
+
+    public void Reset()
+    {
+        grimoirePages = null;
+        m_internalPages = null;
+        m_PageAmount = 0;
+    }
 
 	/// <summary>
 	/// Remove a page from the Grimoire

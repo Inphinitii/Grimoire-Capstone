@@ -30,6 +30,7 @@ namespace PlayerStates
 
             m_playerFSM.CurrentAttack = null;
             m_time = 0.0f;
+            m_noTimer = false;
             GetFSM().InterruptBlocking();
         }
 

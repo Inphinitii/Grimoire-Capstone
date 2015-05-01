@@ -52,7 +52,6 @@ namespace PlayerStates
 
 		public override void ExitConditions()
 		{
-            Debug.Log( "Ding" );
 			if ( _leftStick.x != 0 )
 			{
 				if ( GetFSM().GetInput().LeftStick().y < 0.1f )

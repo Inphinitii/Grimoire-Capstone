@@ -46,9 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ColorMenu.cs" />
      <Compile Include="Assets\CustomizationMenu.cs" />
      <Compile Include="Assets\Game Resources\Models\Outpost\Scripts\PlayGUI.cs" />
      <Compile Include="Assets\PageScrollMenu.cs" />
+     <Compile Include="Assets\SFXOption.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraShake.cs" />
      <Compile Include="Assets\Scripts\Controllers\AnimationController.cs" />
@@ -109,6 +111,7 @@
      <Compile Include="Assets\Scripts\Player\States\DashingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\HitState.cs" />
      <Compile Include="Assets\Scripts\Player\States\IState.cs" />
+     <Compile Include="Assets\Scripts\Player\States\IncDecMenu.cs" />
      <Compile Include="Assets\Scripts\Player\States\JumpingState.cs" />
      <Compile Include="Assets\Scripts\Player\States\MovementState.cs" />
      <Compile Include="Assets\Scripts\Player\States\PlayerFSM.cs" />

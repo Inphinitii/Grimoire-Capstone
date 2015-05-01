@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
 {
 	public enum GameState { Menu, InGame, Pause }
 
-    public Actor playerPrefab;
+    public Actor                    playerPrefab;
 	public		    AbstractStage   stage;
 	public static   GameManager     instance = null;
 	public static   AbstractStage   stageObject;
 	public static   Actor[]	        playerActors;
+
+    public static float gameTimer;
+    //public static AbstractGameMode gameMode;
 
 	private GameState _state = GameState.Menu;
 
@@ -27,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private bool start, loading;
 
-	void Awake()
+	void Start()
 	{
         loading = false;
         playerActors = new Actor[2];
@@ -38,11 +41,19 @@ public class GameManager : MonoBehaviour
 
 		DontDestroyOnLoad( this );
 
-        Actor _temp;
-        playerActors[0] = _temp = (Actor)Instantiate( playerPrefab, Vector3.zero, Quaternion.identity );
+ 
+        playerActors[0] = (Actor)Instantiate( playerPrefab, Vector3.zero, Quaternion.identity );
+        playerActors[0].forceType = Properties.ForceType.BLUE;
         playerActors[0].gameObject.SetActive( false );
-        playerActors[1] = _temp = (Actor)Instantiate( playerPrefab, Vector3.zero, Quaternion.identity );
+        playerActors[1] = (Actor)Instantiate( playerPrefab, Vector3.zero, Quaternion.identity );
+        playerActors[1].forceType = Properties.ForceType.RED;
         playerActors[1].gameObject.SetActive( false );
+
+        playerActors[0].actorColor = Color.cyan;
+        playerActors[1].actorColor = Color.red;
+
+        DontDestroyOnLoad( playerActors[0] );
+        DontDestroyOnLoad( playerActors[1] );
 
 
         
@@ -61,25 +72,41 @@ public class GameManager : MonoBehaviour
                 //Spawn Characters
                 _stage.InitialSpawn( playerActors );
 
+                foreach ( Actor obj in playerActors )
+                {
+                    obj.gameObject.SetActive( true );
+                    obj.GetComponent<Grimoire>().Init();
+                }
+
                 //Set camera focus
                 Camera.main.GetComponent<CameraScript>().cameraFoci = playerActors;
                 Camera.main.GetComponent<CameraScript>().StartCamera();
 
-				GameObject ui = GameObject.Find( "User Interface" );
-				ui.SetActive( true );
-				if ( playerActors[playerActors.Length - 1].GetComponent<Grimoire>().loaded )
-					foreach ( InGameSpellPanel obj in GameObject.Find( "User Interface" ).transform.GetComponentsInChildren<InGameSpellPanel>() )
+				GameObject ui = GameObject.Find( "UserInterface" );
+
+				for(int i = 0; i < ui.transform.childCount; i++)
+                {
+					if(ui.transform.GetChild(i).gameObject.name == "Player1")
 					{
-						if(obj.name == "Player1")
-						{
-							obj.referenceObject = playerActors[0].GetComponent<Grimoire>();
-						}
-						if ( obj.name == "Player2" )
-						{
-							obj.referenceObject = playerActors[1].GetComponent<Grimoire>();
-						}
-						obj.StartUI();
+                        ui.transform.GetChild( i ).GetComponent<InGameSpellPanel>().referenceObject = playerActors[0].GetComponent<Grimoire>();
+                        ui.transform.GetChild( i ).GetComponent<InGameSpellPanel>().StartUI();
 					}
+                    if ( ui.transform.GetChild( i ).gameObject.name == "Player2" )
+					{
+                        ui.transform.GetChild( i ).GetComponent<InGameSpellPanel>().referenceObject = playerActors[1].GetComponent<Grimoire>();
+                        ui.transform.GetChild( i ).GetComponent<InGameSpellPanel>().StartUI();
+                    }
+                }
+
+                playerActors[0].GetComponent<InputHandler>().m_playerNumber = 1;
+                playerActors[1].GetComponent<InputHandler>().m_playerNumber = 2;
+
+                //playerActors[0].actorColor = Color.cyan;
+                playerActors[0].UpdateColor();
+
+               // playerActors[1].actorColor = Color.red;
+                playerActors[1].UpdateColor();
+
 
                 break;
             default:
@@ -91,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         start = true;
         loading = true;
+
         Application.LoadLevel( 1 );
         _state = GameState.InGame;
     }

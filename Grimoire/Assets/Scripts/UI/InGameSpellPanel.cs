@@ -10,6 +10,7 @@ public class InGameSpellPanel : MonoBehaviour {
 
 	private int selection, previous;
 	private bool m_updatePanel;
+
 	// Use this for initialization
 	public void StartUI () 
 	{

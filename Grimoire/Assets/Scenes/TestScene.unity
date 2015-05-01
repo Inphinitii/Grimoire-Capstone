@@ -1067,7 +1067,7 @@ GameObject:
   - 114: {fileID: 1684103035}
   - 82: {fileID: 1684103039}
   m_Layer: 5
-  m_Name: User Interface
+  m_Name: UserInterface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

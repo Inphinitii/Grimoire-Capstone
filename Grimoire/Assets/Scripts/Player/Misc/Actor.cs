@@ -57,6 +57,13 @@ public class Actor : MonoBehaviour
 
     }
 
+    public void UpdateColor()
+    {
+        Renderer render = (Renderer)GetComponentInChildren( typeof( Renderer ) );
+        render.material.color = actorColor;
+       // m_renderer.material.color = actorColor;
+    }
+
     #region Utility Functions
     public Properties AccessProperties
     {

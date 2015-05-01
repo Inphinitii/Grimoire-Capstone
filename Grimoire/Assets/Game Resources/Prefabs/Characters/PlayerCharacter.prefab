@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d77bb76c281a44286a19856058bfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AssignNumber: 1
+  AssignNumber: 0
   UID: 1
   comboInputWindow: .100000001
   m_playerNumber: 1

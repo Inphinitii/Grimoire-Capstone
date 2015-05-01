@@ -32,8 +32,8 @@ public class MenuManager : MonoBehaviour
 	private MenuGroup m_pauseMenu;
 
 	//REWORK THIS TOMORROW
-	private MenuGroup m_currentMenu;
-	private MenuGroup m_previousMenu;
+	public MenuGroup    m_currentMenu;
+	private MenuGroup   m_previousMenu;
 	private float				m_menuDeltaTime,
 									m_timeThisFrame,
 									m_timeLastFrame,
@@ -52,8 +52,8 @@ public class MenuManager : MonoBehaviour
 	{
 
 		m_mainMenu				= new MenuGroup( mainMenus );
-		m_options					= new MenuGroup( optionsMenus );
-		m_characterSelection = new MenuGroup( characterSelectionMenus );
+		m_options				= new MenuGroup( optionsMenus );
+		m_characterSelection    = new MenuGroup( characterSelectionMenus );
 		m_pauseMenu				= new MenuGroup( pauseMenus );
 		m_currentMenu			= m_mainMenu;
 		m_transitioning			= false;
@@ -69,17 +69,17 @@ public class MenuManager : MonoBehaviour
 
 			if ( m_currentMenu == m_characterSelection )
 			{
-				if ( m_currentMenu.menus[0].gameObject.GetComponent<CustomizationMenu>().lockedIn &&
-					m_currentMenu.menus[1].gameObject.GetComponent<CustomizationMenu>().lockedIn )
+				if (    m_currentMenu.menus[0].gameObject.GetComponent<CustomizationMenu>().lockedIn &&
+					    m_currentMenu.menus[1].gameObject.GetComponent<CustomizationMenu>().lockedIn )
 				{
 
 					//Display GameStart message
 					start.SetActive( true );
 
-					if ( GamepadInput.GamePad.GetButtonDown( GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any ) )
+					if ( GamepadInput.GamePad.GetButtonDown( GamepadInput.GamePad.Button.Back, GamepadInput.GamePad.Index.Any ) )
 					{
-						m_currentMenu = null;
 						GameObject.Find( "GameManager" ).GetComponent<GameManager>().OnGameScene();
+						m_currentMenu = null;
 						active = false;
 					}
 				}
