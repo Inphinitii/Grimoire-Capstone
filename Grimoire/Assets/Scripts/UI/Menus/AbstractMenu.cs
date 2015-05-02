@@ -17,6 +17,7 @@ using System.Collections;
 //MENU STACK FOR THE MENUS AND GOING BACK TO WORK PROPERLY 
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(AudioSource))]
 public class AbstractMenu : MonoBehaviour
 {
 	public int			controllerNumber;	//Which controller number will effect this menu 
@@ -29,6 +30,7 @@ public class AbstractMenu : MonoBehaviour
 	private EventSystem	m_panelEventSystem;
 	private CanvasGroup	m_canvasGroup;
     private Color origColor;
+    private AudioSource m_audioSource;
 
 	private int					m_selectionIndex	= 0;
 	private float					m_currentTime		= 0.0f;
@@ -41,10 +43,13 @@ public class AbstractMenu : MonoBehaviour
 		m_canvasGroup			= GetComponent<CanvasGroup>();
 		m_buttonList			= GetComponentsInChildren<Button>();
 		m_panelEventSystem	    = GameObject.FindObjectOfType<EventSystem>();
+        m_audioSource           = GetComponent<AudioSource>();
 
 		if ( m_buttonList.Length != 0 )
 		{
 			m_currentSelection = m_buttonList[m_selectionIndex];
+
+            if(m_currentSelection.GetComponent<Image>() != null)
             origColor = m_currentSelection.GetComponent<Image>().color;
   
 
@@ -76,6 +81,7 @@ public class AbstractMenu : MonoBehaviour
 			if(GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.A, (GamepadInput.GamePad.Index)controllerNumber))
 			{
 				//GOLDEN PIECE OF UI CODE
+                SFXManager.PlayOneShot( m_audioSource, MenuManager.menuSubmit );
 				ExecuteEvents.Execute<ISubmitHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.submitHandler);
 			}
 			if ( m_buttonList.Length > 0 )
@@ -97,14 +103,18 @@ public class AbstractMenu : MonoBehaviour
 
     public virtual void UpdateSelection()
     {
-        
-        Color _col = m_currentSelection.GetComponent<Image>().color;
-        origColor = _col;
-        _col.r -= 0.1f;
-        _col.g -= 0.1f;
-        _col.b -= 0.1f;
-        _col.a = 1.0f;
-        m_currentSelection.GetComponent<Image>().color = _col;
+
+        if ( m_currentSelection.GetComponent<Image>() != null )
+        {
+            Color _col = m_currentSelection.GetComponent<Image>().color;
+            origColor = _col;
+            _col.r -= 0.1f;
+            _col.g -= 0.1f;
+            _col.b -= 0.1f;
+            _col.a = 1.0f;
+            m_currentSelection.GetComponent<Image>().color = _col;
+        }
+        SFXManager.PlayOneShot( m_audioSource, MenuManager.menuSelect );
         ExecuteEvents.Execute<ISelectHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.selectHandler );
     }
 
@@ -129,7 +139,9 @@ public class AbstractMenu : MonoBehaviour
 		else if ( m_selectionIndex < 0 ) 
 			m_selectionIndex = m_buttonList.Length - 1;
 
+        if ( m_currentSelection.GetComponent<Image>() != null )
         m_currentSelection.GetComponent<Image>().color = origColor;
+
         ExecuteEvents.Execute<IDeselectHandler>( m_currentSelection.gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.deselectHandler );
 		m_currentSelection = m_buttonList[m_selectionIndex];
 
@@ -148,10 +160,17 @@ public class AbstractMenu : MonoBehaviour
 		if ( _active && m_buttonList.Length > 0 )
 		{
 			m_currentSelection = m_buttonList[0];
-			m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
+			//m_panelEventSystem.SetSelectedGameObject( m_currentSelection.gameObject );
 		}
-		else if ( !_active )
-			m_panelEventSystem.SetSelectedGameObject( null );
+        if ( !_active )
+        {
+            for ( int i = 0; i < m_buttonList.Length; i++ )
+            {
+                ExecuteEvents.Execute<IDeselectHandler>( m_buttonList[i].gameObject, new BaseEventData( EventSystem.current ), ExecuteEvents.deselectHandler );                
+            }
+        }
+		//else if ( !_active )
+			//m_panelEventSystem.SetSelectedGameObject( null );
 		
 	}
 

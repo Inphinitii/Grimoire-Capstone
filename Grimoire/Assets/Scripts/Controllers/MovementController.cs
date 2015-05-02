@@ -258,42 +258,48 @@ public class MovementController : MonoBehaviour {
 	/// </summary>
     public void OneWayPlatform()
     {
-		BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
-		if ( m_isJumping || m_physicsController.Velocity.y > 0.0f )
+        if ( GameManager.gameModifiers.Platforms )
         {
-			for(int i = 0; i < objects.Length; i++)
-			{
-				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], true );
-			}
-        }
-        else
-        {
-			for ( int i = 0; i < objects.Length; i++ )
-			{
-				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
-			}
+            BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
+            if ( m_isJumping || m_physicsController.Velocity.y > 0.0f )
+            {
+                for ( int i = 0; i < objects.Length; i++ )
+                {
+                    Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], true );
+                }
+            }
+            else
+            {
+                for ( int i = 0; i < objects.Length; i++ )
+                {
+                    Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
+                }
+            }
         }
     }
 
 	public void FallThrough()
 	{
-		BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
-		if (m_onPlatform )
-		{
-			for ( int i = 0; i < objects.Length; i++ )
-			{
-				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], true );
-				m_onPlatform = false;
-				m_fallThrough = true;
-			}
-		}
-		else if(!m_fallThrough)
-		{
-			for ( int i = 0; i < objects.Length; i++ )
-			{
-				Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
-			}
-		}
+        if ( GameManager.gameModifiers.Platforms )
+        {
+            BoxCollider2D[] objects = GameManager.GetStageObject().GetPlatforms();
+            if ( m_onPlatform )
+            {
+                for ( int i = 0; i < objects.Length; i++ )
+                {
+                    Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], true );
+                    m_onPlatform = false;
+                    m_fallThrough = true;
+                }
+            }
+            else if ( !m_fallThrough )
+            {
+                for ( int i = 0; i < objects.Length; i++ )
+                {
+                    Physics2D.IgnoreCollision( this.GetComponent<BoxCollider2D>(), objects[i], false );
+                }
+            }
+        }
 	}
 
 	/// <summary>

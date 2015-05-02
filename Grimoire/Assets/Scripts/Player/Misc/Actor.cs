@@ -15,7 +15,7 @@ using System.Collections;
 [RequireComponent( typeof( MovementController ) )]
 public class Actor : MonoBehaviour
 {
-    public string   actorName;
+    public string actorName = "Default";
     public Color    actorColor;
     public Properties.ForceType forceType;
 
@@ -38,7 +38,6 @@ public class Actor : MonoBehaviour
 
     void Start()
     {
-        actorName = "Default";
         m_actorProperties       = new Properties();
         m_movementController    = GetComponent( typeof( MovementController ) )          as MovementController;
         m_physicsController     = GetComponent( typeof( PhysicsController ) )           as PhysicsController;

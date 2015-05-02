@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using GamepadInput;
 
 public class MenuManager : MonoBehaviour
@@ -19,32 +20,44 @@ public class MenuManager : MonoBehaviour
 		public MenuGroup( AbstractMenu[] _menus ){menus = _menus;	}
 	}
 
+    public GameObject ComboKingUI;
+    public GameObject TimerUI;
+    public GameObject WinBanner;
+
 	public AbstractMenu[] mainMenus;
 	public AbstractMenu[] optionsMenus;
+    public AbstractMenu[] modifierMenus;
 	public AbstractMenu[] characterSelectionMenus;
 	public AbstractMenu[] pauseMenus;
 	public GameObject start;
 	public bool					isPaused = false;
 
+    public static AudioClip menuSelect;
+    public static AudioClip menuSubmit;
+
 	private MenuGroup m_characterSelection;
+    private MenuGroup m_modifiers;
 	private MenuGroup m_mainMenu;
 	private MenuGroup m_options;
 	private MenuGroup m_pauseMenu;
 
+    private Stack<MenuGroup> menuStack;
+
 	//REWORK THIS TOMORROW
 	public MenuGroup    m_currentMenu;
 	private MenuGroup   m_previousMenu;
-	private float				m_menuDeltaTime,
-									m_timeThisFrame,
-									m_timeLastFrame,
-									m_backTimer;
-	private bool				m_transitioning;
+	private float		m_menuDeltaTime,
+						m_timeThisFrame,
+						m_timeLastFrame,
+					    m_backTimer;
+	private bool	    m_transitioning;
 	private bool active = true;
 
 
 
 	void Awake()
 	{
+        menuStack = new Stack<MenuGroup>( 20 );
 		DontDestroyOnLoad( this );
 	}
 
@@ -55,6 +68,7 @@ public class MenuManager : MonoBehaviour
 		m_options				= new MenuGroup( optionsMenus );
 		m_characterSelection    = new MenuGroup( characterSelectionMenus );
 		m_pauseMenu				= new MenuGroup( pauseMenus );
+        m_modifiers             = new MenuGroup( modifierMenus );
 		m_currentMenu			= m_mainMenu;
 		m_transitioning			= false;
 	}
@@ -87,16 +101,33 @@ public class MenuManager : MonoBehaviour
 				{
 					start.SetActive( false );
 				}
+
+                if ( GamepadInput.GamePad.GetButtonDown( GamepadInput.GamePad.Button.Y, GamepadInput.GamePad.Index.Any ) )
+                {
+                    SwitchModifiers();
+                }
 			}
 		}
 	}
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+    public void SwitchModifiers()
+    {
+        if ( !m_transitioning )
+        {
+            menuStack.Push( m_currentMenu );
+            StartCoroutine( FadeInOut( m_currentMenu, m_modifiers, 1.0f, 0.0f ) );
+        }
+    }
 	public void SwitchPlayerCustomization()
 	{
 		if ( !m_transitioning )
 		{
-			m_previousMenu = m_currentMenu;
-			StartCoroutine( FadeInOut( m_previousMenu, m_characterSelection, 1.0f, 0.0f ) );
+            menuStack.Push( m_currentMenu );
+            StartCoroutine( FadeInOut( m_currentMenu, m_characterSelection, 1.0f, 0.0f ) );
 		}
 	}
 
@@ -104,39 +135,24 @@ public class MenuManager : MonoBehaviour
 	{
 		if ( !m_transitioning )
 		{
-			m_previousMenu = m_currentMenu;
+            menuStack.Push( m_currentMenu );
 			StartCoroutine( FadeInOut( m_currentMenu, m_options, 1.0f, 0.0f ) );
-		}
-	}
-
-	public void PauseMenu(bool _open)
-	{
-		isPaused = _open;
-		if(_open)
-		{
-			for ( int i = 0; i < m_currentMenu.menus.Length; i++ )
-				m_currentMenu.menus[i].Active( false );
-
-			Time.timeScale = 0.0f;
-			m_pauseMenu.menus[0].GetComponent<CanvasGroup>().alpha = 1.0f;
-			m_pauseMenu.menus[0].Active( true );
-		}
-		else
-		{
-			for ( int i = 0; i < m_currentMenu.menus.Length; i++ )
-				m_currentMenu.menus[i].Active( true );
-
-			Time.timeScale = 1.0f;
-			m_pauseMenu.menus[0].GetComponent<CanvasGroup>().alpha = 0.0f;
-			m_pauseMenu.menus[0].Active( false );
 		}
 	}
 
 	public void GoBack()
 	{
-		if ( m_previousMenu != null && !m_transitioning )
-			StartCoroutine( FadeInOut( m_currentMenu, m_previousMenu, 1.0f, 0.0f ) );
+        if ( !m_transitioning )
+        {
+            StartCoroutine( FadeInOut( m_currentMenu, menuStack.Pop(), 1.0f, 0.0f ) );
+        }
 	}
+
+    public void ClearStack()
+    {
+        m_currentMenu = m_mainMenu;
+        menuStack.Clear();
+    }
 
 	#region Transitions
 	IEnumerator FadeIn( AbstractMenu _menuObject, float _speed, float delay)

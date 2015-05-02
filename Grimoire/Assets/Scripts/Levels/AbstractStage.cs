@@ -38,4 +38,13 @@ public class AbstractStage : MonoBehaviour
 	{
 		return platformObjects;
 	}
+
+    public void DisablePlatforms()
+    {
+        foreach ( BoxCollider2D obj in platformObjects )
+        {
+            Debug.Log( obj.transform.parent );
+            obj.transform.parent.gameObject.SetActive( false );
+        }
+    }
 }

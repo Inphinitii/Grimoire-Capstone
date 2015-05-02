@@ -46,15 +46,10 @@ namespace PlayerStates
 		{
             if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x == 0 )
                 GetFSM().GoToPreviousState( true , 2);
-            //GetFSM().SetCurrentState( PlayerFSM.States.STANDING, false );
             else if ( !GetFSM().GetMovement().IsJumping() && GetFSM().GetInput().LeftStick().x != 0 )
                 GetFSM().GoToPreviousState( true , 2 );
-
-                //GetFSM().SetCurrentState( PlayerFSM.States.MOVING, false );
             else if ( GetFSM().GetMovement().IsJumping() )
                 GetFSM().GoToPreviousState( true , 2);
-
-                //GetFSM().SetCurrentState( PlayerFSM.States.JUMPING, false );
 		}
 
 		IEnumerator Invulnerable()

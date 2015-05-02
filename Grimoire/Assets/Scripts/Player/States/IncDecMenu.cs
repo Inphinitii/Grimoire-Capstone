@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using GamepadInput;
 using System.Collections;
 
@@ -7,7 +8,7 @@ public class IncDecMenu : MonoBehaviour
 
     public bool vertical;
     public bool active;
-
+    public Image onHighlight;
     protected float m_currentTime = 0.0f;
     protected const float SCROLL_DELAY = 0.15f;
 
@@ -19,6 +20,12 @@ public class IncDecMenu : MonoBehaviour
     public void SetActive( bool _active )
     {
         active = _active;
+
+        if ( _active )
+            onHighlight.gameObject.SetActive( true );
+        else
+            onHighlight.gameObject.SetActive( false );
+
     }
 
     public virtual void Update()

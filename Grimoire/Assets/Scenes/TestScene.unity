@@ -490,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 11470970, guid: 65f9998efdb670c45b73b2e951be6526, type: 2}
   stage: {fileID: 0}
+  Stages: []
 --- !u!4 &1085079541
 Transform:
   m_ObjectHideFlags: 0
