@@ -1,20 +1,24 @@
 Grimoire
 =================
 
-Grimoire is a game currently in development by Tyler Remazki as 
-the capstone for his final year at Humber College under the Game Programming program. 
+Grimoire is a game developed by Tyler Remazki.
+
+It was created as the final project for Humber College's game programming program.
 
 
-##Description
+##Overview
+- Grimoire is a multiplayer fighting game where each player can outfit their character with different abilities. (Currently two).
+- Each page within your Grimoire grants your character a new ability - a projectile, a landmine, etc. 
+- 
 
-Grimoire is a multiplayer fighting game with a strong focus on giving the player the ability to tailor the character to their liking. 
-Each page within your grimoire character will change your fight style significantly. Whether it be the type, damage and speed
-of your attacks or the way you pursue your opponent, everything can be tailored to suit the needs
-of the individual player.
 
 ##Engine
+- Grimoire was developed using the Unity3D Engine
 
-Grimoire is being developed using the Unity Engine for prototype purposes and may
-migrate to the Paradox3D engine in the future when the source code is available and once we have
-a proper understanding of the engine.
+##Things of Note
+- Easily extensible Finite State Machine (FSM) for all of the players abilities and attacks.
+- Custom physics calculations
+- Extended Unity 5 GUI that supports multiple controllers at the same time over separate GUI objects
+- Player animations through Unity's Animator Controller
+- Time-invoked hitboxes
 
