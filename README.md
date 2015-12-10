@@ -7,7 +7,7 @@ It was created as the final project for Humber College's game programming progra
 
 
 ##Overview
-- Grimoire is a multiplayer fighting game where each player can outfit their character with different abilities. (Currently two).
+- Grimoire is a multiplayer fighting game where each player can outfit their character with different abilities. (Currently two)
 - Each page within your Grimoire grants your character a new ability - a projectile, a landmine, etc. 
 - 
 
